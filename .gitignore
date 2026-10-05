@@ -1,0 +1,7 @@
+node_modules
+packages/react/dist
+coverage
+.eslintcache
+*.tsbuildinfo
+.DS_Store
+*:Zone.Identifier
