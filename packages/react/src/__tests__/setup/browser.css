@@ -1,0 +1,11 @@
+@import '@kazamitte/design-token/index.css';
+@import '@kazamitte/design-token/theme/color/default.css';
+@import '@kazamitte/design-token/theme/style/neutral.css';
+@import '../../styles.css';
+
+@source '../../../node_modules/@kazamitte/design-token';
+
+body {
+  background-color: var(--r-base-bg);
+  color: var(--r-base-fg);
+}
