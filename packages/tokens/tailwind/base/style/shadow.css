@@ -1,0 +1,86 @@
+/**
+ * Shadow primitives.
+ *
+ * Scale
+ * └─ 2xs / xs / sm / md / lg / xl / 2xl
+ *
+ * The `--shadow-*` namespace is redefined here with literal values so
+ * that the scale the style presets build on stays identical across
+ * Tailwind versions. `theme/style/*.css` maps these steps to the
+ * semantic roles (flat / raised / floating / overlay).
+ *
+ * Only `--shadow-*` is pinned; the sibling namespaces
+ * (`--inset-shadow-*`, `--drop-shadow-*`, `--text-shadow-*`) stay on
+ * the Tailwind defaults.
+ *
+ * Light and dark share one scale: every step is built from
+ * `var(--shadow-color-*)` for the cast and `var(--shadow-rim-color)`
+ * for the 1px rim, and only those colors flip by mode. A preset picks
+ * one step per role and is correct in both modes.
+ *
+ * These are raw steps with no semantic meaning; consume them through
+ * the style presets in `theme/style/` instead of referencing them
+ * directly.
+ */
+
+/**
+ * Shadow colors.
+ *
+ * Cast
+ * └─ subtle / (default) / strong — black in both modes, far more
+ *    opaque in dark because the surface it falls on is already dark.
+ *
+ * Rim
+ * └─ the 1px hairline every step carries. Nearly invisible black on a
+ *    light surface, white on a dark one, where it — not the cast — is
+ *    what separates a panel from its background.
+ *
+ * Plain custom properties rather than `@theme` values: they are
+ * building blocks for the scale, not utilities.
+ */
+:root {
+  --shadow-color-subtle: oklch(0% 0 0 / 0.05);
+  --shadow-color: oklch(0% 0 0 / 0.1);
+  --shadow-color-strong: oklch(0% 0 0 / 0.25);
+
+  --shadow-rim-color: oklch(0% 0 0 / 0.07);
+}
+
+[data-mode='dark'] {
+  --shadow-color-subtle: oklch(0% 0 0 / 0.35);
+  --shadow-color: oklch(0% 0 0 / 0.5);
+  --shadow-color-strong: oklch(0% 0 0 / 0.7);
+
+  --shadow-rim-color: oklch(100% 0 0 / 0.12);
+}
+
+/**
+ * The scale.
+ *
+ * Tailwind's default geometry, with two changes:
+ *
+ * - every step opens with the 1px rim, so the edge is drawn at any
+ *   elevation;
+ * - `2xs` is the rim alone — an edge with no elevation, which is what
+ *   the flat presets are made of.
+ */
+@theme {
+  --shadow-2xs: 0 0 0 1px var(--shadow-rim-color);
+  --shadow-xs:
+    0 0 0 1px var(--shadow-rim-color), 0 1px 2px 0 var(--shadow-color-subtle);
+  --shadow-sm:
+    0 0 0 1px var(--shadow-rim-color), 0 1px 3px 0 var(--shadow-color),
+    0 1px 2px -1px var(--shadow-color);
+  --shadow-md:
+    0 0 0 1px var(--shadow-rim-color), 0 4px 6px -1px var(--shadow-color),
+    0 2px 4px -2px var(--shadow-color);
+  --shadow-lg:
+    0 0 0 1px var(--shadow-rim-color), 0 10px 15px -3px var(--shadow-color),
+    0 4px 6px -4px var(--shadow-color);
+  --shadow-xl:
+    0 0 0 1px var(--shadow-rim-color), 0 20px 25px -5px var(--shadow-color),
+    0 8px 10px -6px var(--shadow-color);
+  --shadow-2xl:
+    0 0 0 1px var(--shadow-rim-color),
+    0 25px 50px -12px var(--shadow-color-strong);
+}

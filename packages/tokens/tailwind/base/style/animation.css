@@ -1,0 +1,123 @@
+/**
+ * Animation primitives.
+ *
+ * Enter / exit
+ * ├─ fade-in / fade-out
+ * ├─ scale-in / scale-out
+ * ├─ slide-in-from-top / -right / -bottom / -left
+ * └─ slide-out-to-top / -right / -bottom / -left
+ *
+ * Every step is composed from `var(--duration-*)` and `var(--ease-*)`,
+ * so it follows whichever style preset is loaded and collapses to 1ms
+ * under `prefers-reduced-motion` — no preset carries an animation
+ * override, the same arrangement the shadow scale uses for light and
+ * dark.
+ *
+ * The slide steps travel `--slide-distance`, the full size of the
+ * element unless the element narrows it — 100% is the drawer case,
+ * `[--slide-distance:1rem]` the toast case.
+ *
+ * Height-based collapse / expand is deliberately absent: it needs a
+ * measured height, which no keyframe can supply.
+ */
+@theme {
+  --animate-fade-in: fade-in var(--duration-enter) var(--ease-standard) both;
+  --animate-fade-out: fade-out var(--duration-transition) var(--ease-standard)
+    both;
+
+  --animate-scale-in: scale-in var(--duration-enter) var(--ease-emphasized) both;
+  --animate-scale-out: scale-out var(--duration-transition) var(--ease-standard)
+    both;
+
+  --animate-slide-in-from-top: slide-in-from-top var(--duration-enter)
+    var(--ease-emphasized) both;
+  --animate-slide-in-from-right: slide-in-from-right var(--duration-enter)
+    var(--ease-emphasized) both;
+  --animate-slide-in-from-bottom: slide-in-from-bottom var(--duration-enter)
+    var(--ease-emphasized) both;
+  --animate-slide-in-from-left: slide-in-from-left var(--duration-enter)
+    var(--ease-emphasized) both;
+
+  --animate-slide-out-to-top: slide-out-to-top var(--duration-transition)
+    var(--ease-standard) both;
+  --animate-slide-out-to-right: slide-out-to-right var(--duration-transition)
+    var(--ease-standard) both;
+  --animate-slide-out-to-bottom: slide-out-to-bottom var(--duration-transition)
+    var(--ease-standard) both;
+  --animate-slide-out-to-left: slide-out-to-left var(--duration-transition)
+    var(--ease-standard) both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  @keyframes scale-out {
+    to {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+
+  @keyframes slide-in-from-top {
+    from {
+      opacity: 0;
+      translate: 0 calc(var(--slide-distance, 100%) * -1);
+    }
+  }
+  @keyframes slide-in-from-right {
+    from {
+      opacity: 0;
+      translate: var(--slide-distance, 100%) 0;
+    }
+  }
+  @keyframes slide-in-from-bottom {
+    from {
+      opacity: 0;
+      translate: 0 var(--slide-distance, 100%);
+    }
+  }
+  @keyframes slide-in-from-left {
+    from {
+      opacity: 0;
+      translate: calc(var(--slide-distance, 100%) * -1) 0;
+    }
+  }
+
+  @keyframes slide-out-to-top {
+    to {
+      opacity: 0;
+      translate: 0 calc(var(--slide-distance, 100%) * -1);
+    }
+  }
+  @keyframes slide-out-to-right {
+    to {
+      opacity: 0;
+      translate: var(--slide-distance, 100%) 0;
+    }
+  }
+  @keyframes slide-out-to-bottom {
+    to {
+      opacity: 0;
+      translate: 0 var(--slide-distance, 100%);
+    }
+  }
+  @keyframes slide-out-to-left {
+    to {
+      opacity: 0;
+      translate: calc(var(--slide-distance, 100%) * -1) 0;
+    }
+  }
+}

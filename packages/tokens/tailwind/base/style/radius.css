@@ -1,0 +1,29 @@
+/**
+ * Radius primitives.
+ *
+ * The `--radius-*` namespace is redefined here with literal values
+ * so that the scale the style presets build on stays identical
+ * across Tailwind versions. `theme/style/*.css` maps these steps to
+ * the semantic roles (tight / control / surface / overlay / pill),
+ * so a change to the underlying scale would silently reshape every
+ * preset.
+ *
+ * Scale
+ * ├─ xs / sm / md / lg / xl / 2xl / 3xl / 4xl
+ * └─ full
+ *
+ * These are raw steps with no semantic meaning; consume them through
+ * the style presets in `theme/style/` instead of referencing them
+ * directly.
+ */
+@theme {
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-full: calc(infinity * 1px);
+}

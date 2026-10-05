@@ -1,0 +1,44 @@
+/**
+ * Style preset: soft
+ * Generous rounding and pronounced elevation.
+ *
+ * Preset
+ * ├─ Spacing
+ * │  └─ base step for the whole spacing scale
+ * ├─ Radius
+ * │  └─ tight / control / surface / overlay / pill
+ * ├─ Shadow — one step of the base scale per role, light and dark alike
+ * │  ├─ flat / raised / floating / overlay
+ * │  └─ hover variants for flat / raised / floating
+ * ├─ Easing
+ * │  └─ standard / emphasized
+ * └─ Duration
+ *    └─ instant / transition / enter
+ */
+@theme {
+  /* Airier still, matching the generous rounding. */
+  --spacing: 0.3rem;
+
+  --radius-tight: var(--radius-sm);
+  --radius-control: var(--radius-lg);
+  --radius-surface: var(--radius-2xl);
+  --radius-overlay: var(--radius-3xl);
+  --radius-pill: var(--radius-full);
+
+  --shadow-flat: var(--shadow-sm);
+  --shadow-flat-hover: var(--shadow-md);
+  --shadow-raised: var(--shadow-md);
+  --shadow-raised-hover: var(--shadow-lg);
+  --shadow-floating: var(--shadow-lg);
+  --shadow-floating-hover: var(--shadow-xl);
+  --shadow-overlay: var(--shadow-2xl);
+
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-emphasized: cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@theme static {
+  --duration-instant: 180ms;
+  --duration-transition: 250ms;
+  --duration-enter: 400ms;
+}

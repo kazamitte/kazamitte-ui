@@ -1,0 +1,33 @@
+/**
+ * Z-index primitives.
+ *
+ * Scale
+ * ├─ hide / base / docked
+ * ├─ dropdown / sticky / banner / overlay / modal / popover / skip-nav
+ * └─ toast / tooltip / max
+ *
+ * The steps and their values follow Chakra UI's z-index scale — note
+ * `popover` above `modal`, since a select opened inside a dialog has
+ * to clear it.
+ *
+ * Layering does not vary by preset, so unlike radius and shadow these
+ * steps already carry their meaning and are consumed directly.
+ *
+ * `<dialog>` and the Popover API render in the top layer, where
+ * z-index has no effect.
+ */
+@theme {
+  --z-index-hide: -1;
+  --z-index-base: 0;
+  --z-index-docked: 10;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1100;
+  --z-index-banner: 1200;
+  --z-index-overlay: 1300;
+  --z-index-modal: 1400;
+  --z-index-popover: 1500;
+  --z-index-skip-nav: 1600;
+  --z-index-toast: 1700;
+  --z-index-tooltip: 1800;
+  --z-index-max: 2147483647;
+}

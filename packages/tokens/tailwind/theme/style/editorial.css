@@ -1,0 +1,45 @@
+/**
+ * Style preset: editorial
+ * Sharp corners and the shallowest end of the scale. Hierarchy is
+ * expressed with hairline edges rather than elevation.
+ *
+ * Preset
+ * ├─ Spacing
+ * │  └─ base step for the whole spacing scale
+ * ├─ Radius
+ * │  └─ tight / control / surface / overlay / pill
+ * ├─ Shadow — one step of the base scale per role, light and dark alike
+ * │  ├─ flat / raised / floating / overlay
+ * │  └─ hover variants for flat / raised / floating
+ * ├─ Easing
+ * │  └─ standard / emphasized
+ * └─ Duration
+ *    └─ instant / transition / enter
+ */
+@theme {
+  /* Slightly airier, to give bordered blocks room to breathe. */
+  --spacing: 0.28rem;
+
+  --radius-tight: 0;
+  --radius-control: var(--radius-xs);
+  --radius-surface: 0;
+  --radius-overlay: var(--radius-xs);
+  --radius-pill: var(--radius-xs);
+
+  --shadow-flat: none;
+  --shadow-flat-hover: none;
+  --shadow-raised: none;
+  --shadow-raised-hover: var(--shadow-2xs);
+  --shadow-floating: var(--shadow-xs);
+  --shadow-floating-hover: var(--shadow-sm);
+  --shadow-overlay: var(--shadow-md);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0.1, 1);
+}
+
+@theme static {
+  --duration-instant: 120ms;
+  --duration-transition: 160ms;
+  --duration-enter: 240ms;
+}

@@ -1,0 +1,44 @@
+/**
+ * Style preset: dense
+ * Minimal rounding and shallow elevation for information-dense interfaces.
+ *
+ * Preset
+ * ├─ Spacing
+ * │  └─ base step for the whole spacing scale
+ * ├─ Radius
+ * │  └─ tight / control / surface / overlay / pill
+ * ├─ Shadow — one step of the base scale per role, light and dark alike
+ * │  ├─ flat / raised / floating / overlay
+ * │  └─ hover variants for flat / raised / floating
+ * ├─ Easing
+ * │  └─ standard / emphasized
+ * └─ Duration
+ *    └─ instant / transition / enter
+ */
+@theme {
+  /* Tighter than the default so information-dense screens fit more. */
+  --spacing: 0.2rem;
+
+  --radius-tight: var(--radius-xs);
+  --radius-control: var(--radius-xs);
+  --radius-surface: var(--radius-sm);
+  --radius-overlay: var(--radius-md);
+  --radius-pill: var(--radius-full);
+
+  --shadow-flat: none;
+  --shadow-flat-hover: var(--shadow-xs);
+  --shadow-raised: var(--shadow-xs);
+  --shadow-raised-hover: var(--shadow-sm);
+  --shadow-floating: var(--shadow-sm);
+  --shadow-floating-hover: var(--shadow-md);
+  --shadow-overlay: var(--shadow-lg);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@theme static {
+  --duration-instant: 100ms;
+  --duration-transition: 140ms;
+  --duration-enter: 200ms;
+}

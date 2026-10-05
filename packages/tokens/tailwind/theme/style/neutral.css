@@ -1,0 +1,45 @@
+/**
+ * Style preset: neutral
+ * A balanced default. Moderate rounding with a conventional elevation
+ * scale.
+ *
+ * Preset
+ * ├─ Spacing
+ * │  └─ base step for the whole spacing scale
+ * ├─ Radius
+ * │  └─ tight / control / surface / overlay / pill
+ * ├─ Shadow — one step of the base scale per role, light and dark alike
+ * │  ├─ flat / raised / floating / overlay
+ * │  └─ hover variants for flat / raised / floating
+ * ├─ Easing
+ * │  └─ standard / emphasized
+ * └─ Duration
+ *    └─ instant / transition / enter
+ */
+@theme {
+  /* The Tailwind default. */
+  --spacing: 0.25rem;
+
+  --radius-tight: var(--radius-xs);
+  --radius-control: var(--radius-sm);
+  --radius-surface: var(--radius-lg);
+  --radius-overlay: var(--radius-xl);
+  --radius-pill: var(--radius-full);
+
+  --shadow-flat: var(--shadow-xs);
+  --shadow-flat-hover: var(--shadow-sm);
+  --shadow-raised: var(--shadow-sm);
+  --shadow-raised-hover: var(--shadow-md);
+  --shadow-floating: var(--shadow-md);
+  --shadow-floating-hover: var(--shadow-lg);
+  --shadow-overlay: var(--shadow-xl);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@theme static {
+  --duration-instant: 150ms;
+  --duration-transition: 200ms;
+  --duration-enter: 300ms;
+}

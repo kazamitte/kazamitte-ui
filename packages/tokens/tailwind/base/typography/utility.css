@@ -1,0 +1,171 @@
+/**
+ * Typography utilities based on the Digital Agency Design System.
+ *
+ * Typography
+ * ├─ Display
+ * │  └─ Decorative large text: 64 / 56 / 48 / 44
+ * ├─ Highlight
+ * │  └─ Headings and emphasized text: 36 / 32 / 28 / 26 / 24 / 22
+ * ├─ Body
+ * │  └─ Readable body text: 20 / 18 / 16
+ * ├─ Dense
+ * │  ├─ Compact UI text: 18 / 16 / 14
+ * │  └─ Compact variant: line-height 1.2
+ * ├─ Oneline
+ * │  └─ Single-line UI text: 18 / 16 / 14
+ * └─ Mono
+ *    └─ Monospaced text and code: 18 / 16 / 14
+ *
+ * Font weight is controlled separately with Tailwind utilities such as
+ * `font-normal` and `font-bold`.
+ */
+
+@utility text-display-64 {
+  font-size: 4rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+@utility text-display-56 {
+  font-size: 3.5rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+@utility text-display-48 {
+  font-size: 3rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+@utility text-display-44 {
+  font-size: 2.75rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+@utility text-highlight-36 {
+  font-size: 2.25rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+@utility text-highlight-32 {
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+@utility text-highlight-28 {
+  font-size: 1.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+@utility text-highlight-26 {
+  font-size: 1.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+@utility text-highlight-24 {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+@utility text-highlight-22 {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+@utility text-body-20 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+@utility text-body-18 {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+@utility text-body-16 {
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+@utility text-dense-18 {
+  font-size: 1.125rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+@utility text-dense-16 {
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+@utility text-dense-14 {
+  font-size: 0.875rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+@utility text-dense-18-compact {
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+@utility text-dense-16-compact {
+  font-size: 1rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+@utility text-dense-14-compact {
+  font-size: 0.875rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+@utility text-oneline-18 {
+  font-size: 1.125rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+@utility text-oneline-16 {
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+@utility text-oneline-14 {
+  font-size: 0.875rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+@utility text-mono-18 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+@utility text-mono-16 {
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+@utility text-mono-14 {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+}

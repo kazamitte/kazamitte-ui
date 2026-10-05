@@ -1,0 +1,80 @@
+/**
+* Status role assignments.
+*
+* Error, warning, success, and info map to fixed hues. Unlike brand
+* roles, these are not generated and not configurable: their meaning
+* is carried by convention, and a product that recolors its errors
+* away from red is trading recognition for consistency.
+*
+* Status
+* ├─ Error   → red
+* ├─ Warning → amber
+* ├─ Success → green
+* └─ Info    → blue
+*/
+
+:root {
+  --r-error-bg: var(--c-red-bg);
+  --r-error-bg-subtle: var(--c-red-bg-subtle);
+  --r-error-bg-muted: var(--c-red-bg-muted);
+  --r-error-bg-selected: var(--c-red-bg-selected);
+  --r-error-bg-solid: var(--c-red-bg-solid);
+  --r-error-border-subtle: var(--c-red-border-subtle);
+  --r-error-border-muted: var(--c-red-border-muted);
+  --r-error-border-selected: var(--c-red-border-selected);
+  --r-error-border-solid: var(--c-red-border-solid);
+  --r-error-fg-strong: var(--c-red-fg-strong);
+  --r-error-fg: var(--c-red-fg);
+  --r-error-fg-muted: var(--c-red-fg-muted);
+  --r-error-fg-subtle: var(--c-red-fg-subtle);
+  --r-error-fg-contrast: var(--c-red-fg-contrast);
+  --r-error-focus-ring: var(--c-red-focus-ring);
+
+  --r-warning-bg: var(--c-amber-bg);
+  --r-warning-bg-subtle: var(--c-amber-bg-subtle);
+  --r-warning-bg-muted: var(--c-amber-bg-muted);
+  --r-warning-bg-selected: var(--c-amber-bg-selected);
+  --r-warning-bg-solid: var(--c-amber-bg-solid);
+  --r-warning-border-subtle: var(--c-amber-border-subtle);
+  --r-warning-border-muted: var(--c-amber-border-muted);
+  --r-warning-border-selected: var(--c-amber-border-selected);
+  --r-warning-border-solid: var(--c-amber-border-solid);
+  --r-warning-fg-strong: var(--c-amber-fg-strong);
+  --r-warning-fg: var(--c-amber-fg);
+  --r-warning-fg-muted: var(--c-amber-fg-muted);
+  --r-warning-fg-subtle: var(--c-amber-fg-subtle);
+  --r-warning-fg-contrast: var(--c-amber-fg-contrast);
+  --r-warning-focus-ring: var(--c-amber-focus-ring);
+
+  --r-success-bg: var(--c-green-bg);
+  --r-success-bg-subtle: var(--c-green-bg-subtle);
+  --r-success-bg-muted: var(--c-green-bg-muted);
+  --r-success-bg-selected: var(--c-green-bg-selected);
+  --r-success-bg-solid: var(--c-green-bg-solid);
+  --r-success-border-subtle: var(--c-green-border-subtle);
+  --r-success-border-muted: var(--c-green-border-muted);
+  --r-success-border-selected: var(--c-green-border-selected);
+  --r-success-border-solid: var(--c-green-border-solid);
+  --r-success-fg-strong: var(--c-green-fg-strong);
+  --r-success-fg: var(--c-green-fg);
+  --r-success-fg-muted: var(--c-green-fg-muted);
+  --r-success-fg-subtle: var(--c-green-fg-subtle);
+  --r-success-fg-contrast: var(--c-green-fg-contrast);
+  --r-success-focus-ring: var(--c-green-focus-ring);
+
+  --r-info-bg: var(--c-blue-bg);
+  --r-info-bg-subtle: var(--c-blue-bg-subtle);
+  --r-info-bg-muted: var(--c-blue-bg-muted);
+  --r-info-bg-selected: var(--c-blue-bg-selected);
+  --r-info-bg-solid: var(--c-blue-bg-solid);
+  --r-info-border-subtle: var(--c-blue-border-subtle);
+  --r-info-border-muted: var(--c-blue-border-muted);
+  --r-info-border-selected: var(--c-blue-border-selected);
+  --r-info-border-solid: var(--c-blue-border-solid);
+  --r-info-fg-strong: var(--c-blue-fg-strong);
+  --r-info-fg: var(--c-blue-fg);
+  --r-info-fg-muted: var(--c-blue-fg-muted);
+  --r-info-fg-subtle: var(--c-blue-fg-subtle);
+  --r-info-fg-contrast: var(--c-blue-fg-contrast);
+  --r-info-focus-ring: var(--c-blue-focus-ring);
+}
