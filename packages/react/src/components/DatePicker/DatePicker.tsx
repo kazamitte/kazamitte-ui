@@ -5,13 +5,13 @@ import { DatePicker as ArkDatePicker } from '@ark-ui/react/date-picker';
 import { Portal } from '@ark-ui/react/portal';
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing, menuListStyles } from '../../variants';
+import { fieldSlots, focusRing, menuListStyles } from '../../variants';
 import { inputStyles } from '../Input';
 
 const datePickerStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'flex items-center gap-2',
     input: [
       inputStyles(),
@@ -101,116 +101,83 @@ const ViewControl = () => (
   </ArkDatePicker.ViewControl>
 );
 
-const DayView = () => (
-  <ArkDatePicker.View view="day" className={styles.view()}>
-    <ArkDatePicker.Context>
-      {(picker) => (
-        <>
-          <ViewControl />
-          <ArkDatePicker.Table className={styles.table()}>
-            <ArkDatePicker.TableHead>
-              <ArkDatePicker.TableRow>
-                {picker.weekDays.map((weekDay) => (
-                  <ArkDatePicker.TableHeader
-                    key={weekDay.long}
-                    className={styles.tableHeader()}
-                    aria-label={weekDay.long}
-                  >
-                    {weekDay.narrow}
-                  </ArkDatePicker.TableHeader>
-                ))}
-              </ArkDatePicker.TableRow>
-            </ArkDatePicker.TableHead>
-            <ArkDatePicker.TableBody>
-              {picker.weeks.map((week, weekIndex) => (
-                <ArkDatePicker.TableRow key={weekIndex}>
-                  {week.map((day) => (
-                    <ArkDatePicker.TableCell
-                      key={day.toString()}
-                      value={day}
-                      className={styles.tableCell()}
-                    >
-                      <ArkDatePicker.TableCellTrigger
-                        className={styles.cellTrigger()}
-                      >
-                        {day.day}
-                      </ArkDatePicker.TableCellTrigger>
-                    </ArkDatePicker.TableCell>
-                  ))}
-                </ArkDatePicker.TableRow>
-              ))}
-            </ArkDatePicker.TableBody>
-          </ArkDatePicker.Table>
-        </>
-      )}
-    </ArkDatePicker.Context>
-  </ArkDatePicker.View>
-);
+type Picker = Parameters<ArkDatePicker.ContextProps['children']>[0];
 
-const MonthView = () => (
-  <ArkDatePicker.View view="month" className={styles.view()}>
+type Grid = {
+  head?: Picker['weekDays'];
+  rows: {
+    key?: string;
+    value: ArkDatePicker.TableCellProps['value'];
+    label: ReactNode;
+  }[][];
+};
+
+const grids: Record<keyof typeof VIEW_NAMES, (picker: Picker) => Grid> = {
+  day: (picker) => ({
+    head: picker.weekDays,
+    rows: picker.weeks.map((week) =>
+      week.map((day) => ({
+        key: day.toString(),
+        value: day,
+        label: day.day,
+      })),
+    ),
+  }),
+  month: (picker) => ({
+    rows: picker.getMonthsGrid({ columns: 4, format: 'short' }),
+  }),
+  year: (picker) => ({
+    rows: picker.getYearsGrid({ columns: 4 }),
+  }),
+};
+
+const GridView = ({ view }: { view: keyof typeof VIEW_NAMES }) => (
+  <ArkDatePicker.View view={view} className={styles.view()}>
     <ArkDatePicker.Context>
-      {(picker) => (
-        <>
-          <ViewControl />
-          <ArkDatePicker.Table className={styles.table()}>
-            <ArkDatePicker.TableBody>
-              {picker
-                .getMonthsGrid({ columns: 4, format: 'short' })
-                .map((months, rowIndex) => (
+      {(picker) => {
+        const { head, rows } = grids[view](picker);
+        return (
+          <>
+            <ViewControl />
+            <ArkDatePicker.Table className={styles.table()}>
+              {head && (
+                <ArkDatePicker.TableHead>
+                  <ArkDatePicker.TableRow>
+                    {head.map((weekDay) => (
+                      <ArkDatePicker.TableHeader
+                        key={weekDay.long}
+                        className={styles.tableHeader()}
+                        aria-label={weekDay.long}
+                      >
+                        {weekDay.narrow}
+                      </ArkDatePicker.TableHeader>
+                    ))}
+                  </ArkDatePicker.TableRow>
+                </ArkDatePicker.TableHead>
+              )}
+              <ArkDatePicker.TableBody>
+                {rows.map((row, rowIndex) => (
                   <ArkDatePicker.TableRow key={rowIndex}>
-                    {months.map((month) => (
+                    {row.map((cell) => (
                       <ArkDatePicker.TableCell
-                        key={month.value}
-                        value={month.value}
+                        key={cell.key ?? String(cell.value)}
+                        value={cell.value}
                         className={styles.tableCell()}
                       >
                         <ArkDatePicker.TableCellTrigger
                           className={styles.cellTrigger()}
                         >
-                          {month.label}
+                          {cell.label}
                         </ArkDatePicker.TableCellTrigger>
                       </ArkDatePicker.TableCell>
                     ))}
                   </ArkDatePicker.TableRow>
                 ))}
-            </ArkDatePicker.TableBody>
-          </ArkDatePicker.Table>
-        </>
-      )}
-    </ArkDatePicker.Context>
-  </ArkDatePicker.View>
-);
-
-const YearView = () => (
-  <ArkDatePicker.View view="year" className={styles.view()}>
-    <ArkDatePicker.Context>
-      {(picker) => (
-        <>
-          <ViewControl />
-          <ArkDatePicker.Table className={styles.table()}>
-            <ArkDatePicker.TableBody>
-              {picker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
-                <ArkDatePicker.TableRow key={rowIndex}>
-                  {years.map((year) => (
-                    <ArkDatePicker.TableCell
-                      key={year.value}
-                      value={year.value}
-                      className={styles.tableCell()}
-                    >
-                      <ArkDatePicker.TableCellTrigger
-                        className={styles.cellTrigger()}
-                      >
-                        {year.label}
-                      </ArkDatePicker.TableCellTrigger>
-                    </ArkDatePicker.TableCell>
-                  ))}
-                </ArkDatePicker.TableRow>
-              ))}
-            </ArkDatePicker.TableBody>
-          </ArkDatePicker.Table>
-        </>
-      )}
+              </ArkDatePicker.TableBody>
+            </ArkDatePicker.Table>
+          </>
+        );
+      }}
     </ArkDatePicker.Context>
   </ArkDatePicker.View>
 );
@@ -265,9 +232,9 @@ export const DatePicker = ({
           <ArkDatePicker.Content
             className={list.content({ className: styles.content() })}
           >
-            <DayView />
-            <MonthView />
-            <YearView />
+            <GridView view="day" />
+            <GridView view="month" />
+            <GridView view="year" />
           </ArkDatePicker.Content>
         </ArkDatePicker.Positioner>
       </Portal>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useEffectEvent, useRef, type ReactNode } from 'react';
 import {
   createColumnHelper,
   createPaginatedRowModel,
@@ -150,39 +150,30 @@ export const DataTable = <TData extends RowData>({
   const { pagination } = table.state;
 
   // TanStack copies pageSize into table state; push prop changes in by hand.
-  const latestTable = useRef(table);
-  useEffect(() => {
-    latestTable.current = table;
+  const applyPageSize = useEffectEvent((size: number) => {
+    table.setPageSize(size);
   });
   useEffect(() => {
     if (pageSize !== undefined) {
-      latestTable.current.setPageSize(pageSize);
+      applyPageSize(pageSize);
     }
   }, [pageSize]);
 
-  // Skip the mount run; read the callback through a ref to avoid retriggering.
   const selectedRows = table
     .getSelectedRowModel()
     .rows.map((row) => row.original);
-  const isMount = useRef(true);
   const previousSelectedRows = useRef(selectedRows);
-  const latestOnSelectionChange = useRef(onSelectionChange);
-  useEffect(() => {
-    latestOnSelectionChange.current = onSelectionChange;
+  const notifySelectionChange = useEffectEvent((rows: TData[]) => {
+    onSelectionChange?.(rows);
   });
   useEffect(() => {
-    if (isMount.current) {
-      isMount.current = false;
-      previousSelectedRows.current = selectedRows;
-      return;
-    }
     const previous = previousSelectedRows.current;
     const unchanged =
       previous.length === selectedRows.length &&
       previous.every((row, index) => row === selectedRows[index]);
     if (unchanged) return;
     previousSelectedRows.current = selectedRows;
-    latestOnSelectionChange.current?.(selectedRows);
+    notifySelectionChange(selectedRows);
   });
 
   const rows =

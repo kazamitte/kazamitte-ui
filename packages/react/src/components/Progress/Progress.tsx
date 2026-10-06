@@ -2,12 +2,13 @@
 
 import { Progress as ArkProgress } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
+import { fieldSlots } from '../../variants';
 
 const progressStyles = tv({
   slots: {
     root: 'flex w-full flex-col gap-1.5',
     header: 'flex items-baseline justify-between gap-3',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    label: fieldSlots.label,
     valueText: 'font-mono text-mono-14 base-fg-muted',
     track: 'w-full overflow-hidden rounded-pill base-bg-muted',
     range: [

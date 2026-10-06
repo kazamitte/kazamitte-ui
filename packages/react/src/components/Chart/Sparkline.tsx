@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { Line, LineChart, ResponsiveContainer } from 'recharts';
 import { tv } from '../../tv';
 import { CHART_CHROME, seriesColor, useEnterDuration } from './chartTheme';
@@ -7,6 +8,8 @@ import { CHART_CHROME, seriesColor, useEnterDuration } from './chartTheme';
 const sparklineStyles = tv({
   base: 'inline-block h-8 w-24 align-middle',
 });
+
+const MARGIN = { top: 4, right: 4, bottom: 4, left: 4 };
 
 export type SparklineProps = {
   data: number[];
@@ -22,7 +25,10 @@ export const Sparkline = ({
   className,
 }: SparklineProps) => {
   const duration = useEnterDuration();
-  const points = data.map((value, index) => ({ index, value }));
+  const points = useMemo(
+    () => data.map((value, index) => ({ index, value })),
+    [data],
+  );
   const last = points.length - 1;
   return (
     <span
@@ -31,10 +37,7 @@ export const Sparkline = ({
       className={sparklineStyles({ className })}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={points}
-          margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
-        >
+        <LineChart data={points} margin={MARGIN}>
           <Line
             type="monotone"
             dataKey="value"

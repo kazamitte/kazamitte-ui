@@ -4,12 +4,12 @@ import type { ReactNode } from 'react';
 import { TreeView as ArkTreeView, createTreeCollection } from '@ark-ui/react';
 import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 
 const treeViewStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     tree: 'flex flex-col text-dense-14 base-fg',
     branch: '',
     branchControl: [

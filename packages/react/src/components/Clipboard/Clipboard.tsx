@@ -2,12 +2,12 @@
 
 import { Clipboard as ArkClipboard } from '@ark-ui/react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 
 const clipboardStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'flex items-center gap-2',
     input: [
       'min-w-0 flex-1 rounded-control border base-border-muted base-bg px-3 py-2',

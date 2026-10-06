@@ -55,3 +55,30 @@ export const splitGroupedItems = <T>(
     label: key === '' ? undefined : key,
     items,
   }));
+
+export type ListItem = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+  group?: string;
+};
+
+export const listItemAccessors = {
+  itemToString: (item: ListItem) => item.label,
+  itemToValue: (item: ListItem) => item.value,
+  isItemDisabled: (item: ListItem) => item.disabled === true,
+  groupBy: (item: ListItem) => item.group ?? '',
+};
+
+export const fieldSlots = {
+  root: 'flex flex-col gap-1.5',
+  label: 'text-dense-14 font-medium base-fg-strong',
+};
+
+export const closeButtonStyles = tv({
+  base: [
+    'inline-flex items-center justify-center rounded-control base-fg-muted',
+    'hover:base-bg-subtle hover:base-fg-strong',
+    focusRing(),
+  ],
+});

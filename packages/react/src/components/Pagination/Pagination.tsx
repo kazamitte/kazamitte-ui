@@ -43,16 +43,15 @@ const Anchor = ({
   href,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<'a'>) =>
-  href === undefined ? (
-    <a role="link" aria-disabled="true" {...props}>
-      {children}
-    </a>
-  ) : (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  );
+}: React.ComponentPropsWithoutRef<'a'>) => (
+  <a
+    href={href}
+    {...(href === undefined && { role: 'link', 'aria-disabled': true })}
+    {...props}
+  >
+    {children}
+  </a>
+);
 
 export const Pagination = ({
   className,

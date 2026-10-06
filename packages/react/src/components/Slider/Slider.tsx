@@ -3,13 +3,13 @@
 import type { KeyboardEvent, ReactNode } from 'react';
 import { Slider as ArkSlider, useSliderContext } from '@ark-ui/react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 
 const sliderStyles = tv({
   slots: {
     root: 'flex w-full flex-col gap-1.5 ark-disabled:opacity-50',
     header: 'flex items-baseline justify-between gap-3',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    label: fieldSlots.label,
     valueText: 'font-mono text-mono-14 base-fg-muted',
     body: 'flex',
     control: 'flex items-center',

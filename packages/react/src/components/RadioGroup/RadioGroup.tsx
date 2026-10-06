@@ -3,12 +3,12 @@
 import type { ReactNode } from 'react';
 import { RadioGroup as ArkRadioGroup } from '@ark-ui/react';
 import { tv } from '../../tv';
-import { focusRingWithin } from '../../variants';
+import { fieldSlots, focusRingWithin } from '../../variants';
 
 const radioGroupStyles = tv({
   slots: {
     root: 'flex flex-col gap-2',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    label: fieldSlots.label,
     item: [
       'inline-flex items-center gap-2',
       'ark-disabled:cursor-not-allowed ark-disabled:opacity-50',

@@ -3,7 +3,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { Dialog as ArkDialog, Portal } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
-import { focusRing } from '../../variants';
+import { closeButtonStyles } from '../../variants';
 
 const positionerStyles = tv({
   base: 'fixed inset-0 z-modal flex justify-center p-4',
@@ -51,11 +51,7 @@ export const dialogStyles = tv({
     description: 'text-dense-14 base-fg-muted',
     body: 'min-h-0 flex-1 overflow-y-auto px-6 py-4 text-body-16',
     footer: 'flex items-center justify-end gap-3 px-6 pb-6',
-    closeTrigger: [
-      'absolute top-4 right-4 inline-flex size-8 items-center justify-center rounded-control base-fg-muted',
-      'hover:base-bg-subtle hover:base-fg-strong',
-      focusRing(),
-    ],
+    closeTrigger: ['absolute top-4 right-4 size-8', closeButtonStyles()],
   },
 });
 

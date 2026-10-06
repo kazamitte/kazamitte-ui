@@ -15,7 +15,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
-import { focusRing } from '../../variants';
+import { closeButtonStyles, focusRing } from '../../variants';
 import { Spinner } from '../Spinner';
 
 export { createToaster };
@@ -35,11 +35,7 @@ const toastStyles = tv({
       'mt-1 self-start rounded-control text-dense-14 font-medium link-fg underline underline-offset-2 hover:link-fg-strong',
       focusRing(),
     ],
-    closeTrigger: [
-      'inline-flex size-7 shrink-0 items-center justify-center rounded-control base-fg-muted',
-      'hover:base-bg-subtle hover:base-fg-strong',
-      focusRing(),
-    ],
+    closeTrigger: ['size-7 shrink-0', closeButtonStyles()],
   },
   variants: {
     type: {

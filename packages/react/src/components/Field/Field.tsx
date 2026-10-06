@@ -2,12 +2,13 @@
 
 import { Field as ArkField } from '@ark-ui/react';
 import { tv } from '../../tv';
+import { fieldSlots } from '../../variants';
 import { inputStyles } from '../Input';
 
 const fieldStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: [
       inputStyles(),
       'ark-invalid:error-border-solid',
@@ -39,7 +40,7 @@ export const FieldTextarea = ({
 }: ArkField.TextareaProps) => (
   <ArkField.Textarea
     className={styles.control({
-      className: `min-h-20 resize-y ${className ?? ''}`,
+      className: ['min-h-20 resize-y', className],
     })}
     {...props}
   />

@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react';
 import { tv, type VariantProps } from '../../tv';
+import { VisuallyHidden } from '../VisuallyHidden';
 
 const avatarGroupStyles = tv({
   slots: {
@@ -68,7 +69,7 @@ export const AvatarGroup = ({
       {hidden > 0 && (
         <li className={styles.item({ className: styles.overflow() })}>
           <span aria-hidden="true">+{hidden}</span>
-          <span className="sr-only">{overflowLabel}</span>
+          <VisuallyHidden>{overflowLabel}</VisuallyHidden>
         </li>
       )}
     </ul>

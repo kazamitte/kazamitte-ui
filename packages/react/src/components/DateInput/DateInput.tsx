@@ -3,12 +3,13 @@
 import type { ReactNode } from 'react';
 import { DateInput as ArkDateInput } from '@ark-ui/react/date-input';
 import { tv } from '../../tv';
+import { fieldSlots } from '../../variants';
 import { inputStyles } from '../Input';
 
 const dateInputStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'flex flex-wrap items-center gap-2',
     segmentGroup: [
       inputStyles(),

@@ -4,13 +4,13 @@ import type { ReactNode } from 'react';
 import { NumberInput as ArkNumberInput } from '@ark-ui/react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 import { inputStyles } from '../Input';
 
 const numberInputStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'relative',
     input: [
       'pe-10 tabular-nums',

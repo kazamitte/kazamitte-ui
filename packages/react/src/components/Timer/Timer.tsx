@@ -39,6 +39,13 @@ const defaultTranslations: ArkTimer.RootProps['translations'] = {
 
 const button = buttonStyles({ variant: 'outline', size: 'sm' });
 
+const ACTIONS = [
+  { action: 'start', Icon: Play, label: '開始' },
+  { action: 'pause', Icon: Pause, label: '一時停止' },
+  { action: 'resume', Icon: Play, label: '再開' },
+  { action: 'reset', Icon: RotateCcw, label: 'リセット' },
+] as const;
+
 export const Timer = ({
   showDays = false,
   controls = true,
@@ -68,22 +75,16 @@ export const Timer = ({
     </ArkTimer.Area>
     {controls && (
       <ArkTimer.Control className={styles.control()}>
-        <ArkTimer.ActionTrigger action="start" className={button}>
-          <Play aria-hidden="true" className="size-4" />
-          開始
-        </ArkTimer.ActionTrigger>
-        <ArkTimer.ActionTrigger action="pause" className={button}>
-          <Pause aria-hidden="true" className="size-4" />
-          一時停止
-        </ArkTimer.ActionTrigger>
-        <ArkTimer.ActionTrigger action="resume" className={button}>
-          <Play aria-hidden="true" className="size-4" />
-          再開
-        </ArkTimer.ActionTrigger>
-        <ArkTimer.ActionTrigger action="reset" className={button}>
-          <RotateCcw aria-hidden="true" className="size-4" />
-          リセット
-        </ArkTimer.ActionTrigger>
+        {ACTIONS.map(({ action, Icon, label }) => (
+          <ArkTimer.ActionTrigger
+            key={action}
+            action={action}
+            className={button}
+          >
+            <Icon aria-hidden="true" className="size-4" />
+            {label}
+          </ArkTimer.ActionTrigger>
+        ))}
       </ArkTimer.Control>
     )}
   </ArkTimer.Root>

@@ -1,20 +1,28 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import {
   Select as ArkSelect,
   createListCollection,
   Portal,
 } from '@ark-ui/react';
 import { Check, ChevronDown } from 'lucide-react';
+import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';
-import { focusRing, menuListStyles, splitGroupedItems } from '../../variants';
+import {
+  fieldSlots,
+  focusRing,
+  listItemAccessors,
+  menuListStyles,
+  splitGroupedItems,
+  type ListItem,
+} from '../../variants';
 import { inputStyles } from '../Input';
 
 const selectStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'relative',
     trigger: [
       inputStyles(),
@@ -34,12 +42,7 @@ const selectStyles = tv({
 const styles = selectStyles();
 const list = menuListStyles();
 
-export type SelectItem = {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  group?: string;
-};
+export type SelectItem = ListItem;
 
 const defaultPositioning: ArkSelect.RootProps<SelectItem>['positioning'] = {
   sameWidth: true,
@@ -74,14 +77,18 @@ export const Select = ({
   positioning,
   ...props
 }: SelectProps) => {
-  const collection = createListCollection<SelectItem>({
-    items,
-    itemToString: (item) => item.label,
-    itemToValue: (item) => item.value,
-    isItemDisabled: (item) => item.disabled === true,
-    groupBy: (item) => item.group ?? '',
-  });
-  const grouped = items.some((item) => item.group !== undefined);
+  const collection = useMemo(
+    () =>
+      createListCollection<SelectItem>({
+        items,
+        ...listItemAccessors,
+      }),
+    [items],
+  );
+  const grouped = useMemo(
+    () => items.some((item) => item.group !== undefined),
+    [items],
+  );
 
   return (
     <ArkSelect.Root
@@ -104,27 +111,16 @@ export const Select = ({
       <Portal>
         <ArkSelect.Positioner className={list.positioner()}>
           <ArkSelect.Content className={list.content({ className: 'w-full' })}>
-            {grouped
-              ? splitGroupedItems(collection.group()).map(
-                  ({ key, label, items: groupItems }) =>
-                    label !== undefined ? (
-                      <ArkSelect.ItemGroup key={key}>
-                        <ArkSelect.ItemGroupLabel
-                          className={list.itemGroupLabel()}
-                        >
-                          {label}
-                        </ArkSelect.ItemGroupLabel>
-                        {groupItems.map((item) => (
-                          <Item key={item.value} item={item} />
-                        ))}
-                      </ArkSelect.ItemGroup>
-                    ) : (
-                      groupItems.map((item) => (
-                        <Item key={item.value} item={item} />
-                      ))
-                    ),
-                )
-              : items.map((item) => <Item key={item.value} item={item} />)}
+            {grouped ? (
+              <GroupedItems
+                groups={splitGroupedItems(collection.group())}
+                Group={ArkSelect.ItemGroup}
+                GroupLabel={ArkSelect.ItemGroupLabel}
+                renderItem={(item) => <Item key={item.value} item={item} />}
+              />
+            ) : (
+              items.map((item) => <Item key={item.value} item={item} />)
+            )}
           </ArkSelect.Content>
         </ArkSelect.Positioner>
       </Portal>

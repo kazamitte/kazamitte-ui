@@ -3,7 +3,7 @@
 import { Popover as ArkPopover, Portal } from '@ark-ui/react';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { closeButtonStyles, focusRing } from '../../variants';
 
 const popoverStyles = tv({
   slots: {
@@ -16,11 +16,7 @@ const popoverStyles = tv({
     arrow: '[--arrow-background:var(--r-base-bg)] [--arrow-size:10px]',
     title: 'pe-8 text-body-16 font-bold base-fg-strong',
     description: 'mt-1 text-dense-14 base-fg-muted',
-    closeTrigger: [
-      'absolute top-3 right-3 inline-flex size-7 items-center justify-center rounded-control base-fg-muted',
-      'hover:base-bg-subtle hover:base-fg-strong',
-      focusRing(),
-    ],
+    closeTrigger: ['absolute top-3 right-3 size-7', closeButtonStyles()],
   },
 });
 

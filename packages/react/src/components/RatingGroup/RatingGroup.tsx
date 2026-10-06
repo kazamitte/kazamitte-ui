@@ -4,12 +4,12 @@ import type { ReactNode } from 'react';
 import { RatingGroup as ArkRatingGroup } from '@ark-ui/react/rating-group';
 import { Star } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 
 const ratingGroupStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5 ark-readonly:pointer-events-none',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: [fieldSlots.root, 'ark-readonly:pointer-events-none'],
+    label: fieldSlots.label,
     control: 'inline-flex items-center gap-0.5',
     item: [
       'relative inline-flex cursor-pointer rounded-tight',

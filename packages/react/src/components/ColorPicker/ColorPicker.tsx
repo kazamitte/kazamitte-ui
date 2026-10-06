@@ -8,14 +8,14 @@ import {
 import { Portal } from '@ark-ui/react/portal';
 import { Check, Pipette } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing, menuListStyles } from '../../variants';
+import { fieldSlots, focusRing, menuListStyles } from '../../variants';
 import { inputStyles } from '../Input';
 import { VisuallyHidden } from '../VisuallyHidden';
 
 const colorPickerStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'flex items-center gap-2',
     input: [
       inputStyles(),

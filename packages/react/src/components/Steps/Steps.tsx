@@ -33,7 +33,6 @@ const stepsStyles = tv({
       'h-0.5 ark-vertical:my-1 ark-vertical:ms-3.75 ark-vertical:h-6 ark-vertical:w-0.5 ark-vertical:flex-none',
     ],
     content: ['rounded-control', focusRing()],
-    completedContent: ['rounded-control', focusRing()],
     progress: [
       'relative h-1 w-full overflow-hidden rounded-pill base-bg-muted',
       "before:absolute before:inset-y-0 before:left-0 before:w-(--percent) before:primary-bg-solid before:transition-[width] before:duration-transition before:ease-standard before:content-['']",
@@ -146,18 +145,14 @@ export const StepsCompletedContent = ({
   ...props
 }: ArkSteps.CompletedContentProps) => (
   <ArkSteps.CompletedContent
-    className={styles.completedContent({ className })}
+    className={styles.content({ className })}
     {...props}
   />
 );
 
-export const StepsPrevTrigger = (props: ArkSteps.PrevTriggerProps) => (
-  <ArkSteps.PrevTrigger {...props} />
-);
+export const StepsPrevTrigger = ArkSteps.PrevTrigger;
 
-export const StepsNextTrigger = (props: ArkSteps.NextTriggerProps) => (
-  <ArkSteps.NextTrigger {...props} />
-);
+export const StepsNextTrigger = ArkSteps.NextTrigger;
 
 export const StepsProgress = ({
   className,

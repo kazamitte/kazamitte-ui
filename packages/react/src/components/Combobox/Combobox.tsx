@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import {
   Combobox as ArkCombobox,
@@ -10,16 +10,24 @@ import {
   useListCollection,
 } from '@ark-ui/react';
 import { Check, ChevronDown, Plus } from 'lucide-react';
+import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';
-import { focusRing, menuListStyles, splitGroupedItems } from '../../variants';
+import {
+  fieldSlots,
+  focusRing,
+  listItemAccessors,
+  menuListStyles,
+  splitGroupedItems,
+  type ListItem,
+} from '../../variants';
 import { Chip } from '../Chip';
 import { inputStyles } from '../Input';
 import { Spinner } from '../Spinner';
 
 const comboboxStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     control: 'relative',
     input: [
       inputStyles(),
@@ -41,12 +49,7 @@ const comboboxStyles = tv({
 const styles = comboboxStyles();
 const list = menuListStyles();
 
-export type ComboboxItem = {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  group?: string;
-};
+export type ComboboxItem = ListItem;
 
 const defaultPositioning: ArkCombobox.RootProps<ComboboxItem>['positioning'] = {
   sameWidth: true,
@@ -157,12 +160,12 @@ export const Combobox = ({
     useListCollection<ComboboxItem>({
       initialItems: items,
       filter: (itemText, filterText) => filters.contains(itemText, filterText),
-      itemToString: (item) => item.label,
-      itemToValue: (item) => item.value,
-      isItemDisabled: (item) => item.disabled === true,
-      groupBy: (item) => item.group ?? '',
+      ...listItemAccessors,
     });
-  const grouped = items.some((item) => item.group !== undefined);
+  const grouped = useMemo(
+    () => items.some((item) => item.group !== undefined),
+    [items],
+  );
 
   const previousItems = useRef(items);
   useEffect(() => {
@@ -258,37 +261,20 @@ export const Combobox = ({
                 {emptyText}
               </ArkCombobox.Empty>
             )}
-            {grouped
-              ? splitGroupedItems(collection.group()).map(
-                  ({ key, label: groupLabel, items: groupItems }) =>
-                    groupLabel !== undefined ? (
-                      <ArkCombobox.ItemGroup key={key}>
-                        <ArkCombobox.ItemGroupLabel
-                          className={list.itemGroupLabel()}
-                        >
-                          {groupLabel}
-                        </ArkCombobox.ItemGroupLabel>
-                        {groupItems.map((item) => (
-                          <Item
-                            key={item.value}
-                            item={item}
-                            createText={createText}
-                          />
-                        ))}
-                      </ArkCombobox.ItemGroup>
-                    ) : (
-                      groupItems.map((item) => (
-                        <Item
-                          key={item.value}
-                          item={item}
-                          createText={createText}
-                        />
-                      ))
-                    ),
-                )
-              : collection.items.map((item) => (
+            {grouped ? (
+              <GroupedItems
+                groups={splitGroupedItems(collection.group())}
+                Group={ArkCombobox.ItemGroup}
+                GroupLabel={ArkCombobox.ItemGroupLabel}
+                renderItem={(item) => (
                   <Item key={item.value} item={item} createText={createText} />
-                ))}
+                )}
+              />
+            ) : (
+              collection.items.map((item) => (
+                <Item key={item.value} item={item} createText={createText} />
+              ))
+            )}
           </ArkCombobox.Content>
         </ArkCombobox.Positioner>
       </Portal>

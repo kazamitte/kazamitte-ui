@@ -4,7 +4,7 @@ import { Portal } from '@ark-ui/react/portal';
 import { Tour as ArkTour, useTour } from '@ark-ui/react/tour';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { closeButtonStyles } from '../../variants';
 import { buttonStyles } from '../Button';
 
 const tourStyles = tv({
@@ -32,11 +32,7 @@ const tourStyles = tv({
     title: 'text-body-18 font-semibold base-fg-strong',
     description: 'text-dense-14 base-fg-muted',
     control: 'mt-3 flex items-center gap-2',
-    closeTrigger: [
-      'absolute top-3 right-3 inline-flex size-8 items-center justify-center rounded-control base-fg-muted',
-      'hover:base-bg-subtle hover:base-fg-strong',
-      focusRing(),
-    ],
+    closeTrigger: ['absolute top-3 right-3 size-8', closeButtonStyles()],
   },
 });
 

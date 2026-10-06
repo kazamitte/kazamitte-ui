@@ -1,15 +1,23 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { Listbox as ArkListbox, createListCollection } from '@ark-ui/react';
 import { Check } from 'lucide-react';
+import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';
-import { focusRing, menuListStyles, splitGroupedItems } from '../../variants';
+import {
+  fieldSlots,
+  focusRing,
+  listItemAccessors,
+  menuListStyles,
+  splitGroupedItems,
+  type ListItem,
+} from '../../variants';
 
 const listboxStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5 ark-disabled:opacity-50',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: [fieldSlots.root, 'ark-disabled:opacity-50'],
+    label: fieldSlots.label,
     content: [
       'max-h-72 overflow-y-auto rounded-overlay border base-border-muted base-bg p-1',
       'ark-horizontal:flex ark-horizontal:max-h-none ark-horizontal:overflow-x-auto',
@@ -21,12 +29,7 @@ const listboxStyles = tv({
 const styles = listboxStyles();
 const list = menuListStyles();
 
-export type ListboxItem = {
-  value: string;
-  label: string;
-  disabled?: boolean;
-  group?: string;
-};
+export type ListboxItem = ListItem;
 
 type ListboxProps = Omit<
   ArkListbox.RootProps<ListboxItem>,
@@ -53,14 +56,18 @@ export const Listbox = ({
   className,
   ...props
 }: ListboxProps) => {
-  const collection = createListCollection<ListboxItem>({
-    items,
-    itemToString: (item) => item.label,
-    itemToValue: (item) => item.value,
-    isItemDisabled: (item) => item.disabled === true,
-    groupBy: (item) => item.group ?? '',
-  });
-  const grouped = items.some((item) => item.group !== undefined);
+  const collection = useMemo(
+    () =>
+      createListCollection<ListboxItem>({
+        items,
+        ...listItemAccessors,
+      }),
+    [items],
+  );
+  const grouped = useMemo(
+    () => items.some((item) => item.group !== undefined),
+    [items],
+  );
 
   return (
     <ArkListbox.Root
@@ -72,27 +79,16 @@ export const Listbox = ({
         <ArkListbox.Label className={styles.label()}>{label}</ArkListbox.Label>
       )}
       <ArkListbox.Content className={styles.content()}>
-        {grouped
-          ? splitGroupedItems(collection.group()).map(
-              ({ key, label, items: groupItems }) =>
-                label !== undefined ? (
-                  <ArkListbox.ItemGroup key={key}>
-                    <ArkListbox.ItemGroupLabel
-                      className={list.itemGroupLabel()}
-                    >
-                      {label}
-                    </ArkListbox.ItemGroupLabel>
-                    {groupItems.map((item) => (
-                      <Item key={item.value} item={item} />
-                    ))}
-                  </ArkListbox.ItemGroup>
-                ) : (
-                  groupItems.map((item) => (
-                    <Item key={item.value} item={item} />
-                  ))
-                ),
-            )
-          : items.map((item) => <Item key={item.value} item={item} />)}
+        {grouped ? (
+          <GroupedItems
+            groups={splitGroupedItems(collection.group())}
+            Group={ArkListbox.ItemGroup}
+            GroupLabel={ArkListbox.ItemGroupLabel}
+            renderItem={(item) => <Item key={item.value} item={item} />}
+          />
+        ) : (
+          items.map((item) => <Item key={item.value} item={item} />)
+        )}
       </ArkListbox.Content>
     </ArkListbox.Root>
   );

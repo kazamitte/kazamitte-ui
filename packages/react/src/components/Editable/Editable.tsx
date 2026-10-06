@@ -3,14 +3,14 @@
 import type { ReactNode } from 'react';
 import { Editable as ArkEditable } from '@ark-ui/react';
 import { tv } from '../../tv';
-import { focusRing } from '../../variants';
+import { fieldSlots, focusRing } from '../../variants';
 import { Button } from '../Button';
 import { inputStyles } from '../Input';
 
 const editableStyles = tv({
   slots: {
-    root: 'flex flex-col gap-1.5',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    root: fieldSlots.root,
+    label: fieldSlots.label,
     area: 'grid',
     preview: [
       inputStyles(),

@@ -111,10 +111,8 @@ export const ChartFrame = ({
 }: ChartFrameProps) => {
   const [tableOpen, setTableOpen] = useState(false);
   const tableId = useId();
-  const tableVisible =
-    table !== undefined &&
-    showTable !== 'never' &&
-    (showTable === 'always' || tableOpen);
+  const hasTable = table !== undefined && showTable !== 'never';
+  const tableVisible = hasTable && (showTable === 'always' || tableOpen);
 
   return (
     <figure className={styles.root({ className })}>
@@ -149,7 +147,7 @@ export const ChartFrame = ({
           </Button>
         </div>
       )}
-      {table !== undefined && showTable !== 'never' && (
+      {hasTable && (
         <div id={tableId} hidden={!tableVisible}>
           <Table.ScrollArea>
             <Table.Root size="sm">

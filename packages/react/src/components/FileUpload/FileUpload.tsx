@@ -8,13 +8,14 @@ import {
 } from '@ark-ui/react';
 import { File as FileIcon, Upload, X } from 'lucide-react';
 import { tv } from '../../tv';
+import { fieldSlots } from '../../variants';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
 
 const fileUploadStyles = tv({
   slots: {
     root: 'flex flex-col gap-3',
-    label: 'text-dense-14 font-medium base-fg-strong',
+    label: fieldSlots.label,
     dropzone: [
       'flex flex-col items-center gap-3 rounded-surface border border-dashed base-border-muted px-6 py-8 text-center transition-colors',
       'ark-dragging:primary-border-solid ark-dragging:primary-bg-subtle',

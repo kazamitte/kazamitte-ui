@@ -3,7 +3,12 @@
 import { Drawer as ArkDrawer } from '@ark-ui/react/drawer';
 import { Portal } from '@ark-ui/react/portal';
 import { tv, type VariantProps } from '../../tv';
-import { dialogStyles } from '../Dialog/Dialog';
+import {
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  dialogStyles,
+} from '../Dialog/Dialog';
 
 const positionerStyles = tv({
   base: [
@@ -95,6 +100,12 @@ export const DrawerContent = ({
   />
 );
 
+export const DrawerHeader = DialogHeader;
+
+export const DrawerBody = DialogBody;
+
+export const DrawerFooter = DialogFooter;
+
 export const DrawerGrabber = ({
   className,
   ...props
@@ -119,13 +130,6 @@ export const DrawerSwipeArea = ({
   <ArkDrawer.SwipeArea className={styles.swipeArea({ className })} {...props} />
 );
 
-export const DrawerHeader = ({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'>) => (
-  <div className={shared.header({ className })} {...props} />
-);
-
 export const DrawerTitle = ({ className, ...props }: ArkDrawer.TitleProps) => (
   <ArkDrawer.Title className={shared.title({ className })} {...props} />
 );
@@ -138,20 +142,6 @@ export const DrawerDescription = ({
     className={shared.description({ className })}
     {...props}
   />
-);
-
-export const DrawerBody = ({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'>) => (
-  <div className={shared.body({ className })} {...props} />
-);
-
-export const DrawerFooter = ({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'>) => (
-  <div className={shared.footer({ className })} {...props} />
 );
 
 export const DrawerCloseTrigger = ({
