@@ -1,6 +1,6 @@
 # @kazamitte/kazamitte-ui
 
-A collection of accessible React components built on [Ark UI](https://ark-ui.com/) and styled using Tailwind CSS v4 and [`@kazamitte/design-token`](https://github.com/kazamitte/design-token).
+A collection of accessible React components built on [Ark UI](https://ark-ui.com/) and styled using Tailwind CSS v4 and [`@kazamitte/design-token`](https://www.npmjs.com/package/@kazamitte/design-token).
 
 ## Requirements
 
@@ -16,9 +16,10 @@ pnpm add @kazamitte/kazamitte-ui @kazamitte/design-token tailwindcss react react
 
 ## CSS
 
-Import the design token, theme, and stylesheet for this package. The `styles.css` file adds the `ark-*` variants used by the components and specifies the package itself as a `@source`; This allows Tailwind to generate the class even if the component is located within `node_modules`.
+Import Tailwind, then the design token, theme, and stylesheet for this package. The `styles.css` file adds the `ark-*` variants used by the components and specifies the package itself as a `@source`; This allows Tailwind to generate the class even if the component is located within `node_modules`.
 
 ```css
+@import 'tailwindcss';
 @import '@kazamitte/design-token/index.css';
 @import '@kazamitte/design-token/theme/color/default.css';
 @import '@kazamitte/design-token/theme/style/neutral.css';
@@ -28,7 +29,7 @@ Import the design token, theme, and stylesheet for this package. The `styles.css
 @source '../node_modules/@kazamitte/design-token';
 ```
 
-You don't need to import `tailwindcss` again; `@kazamitte/design-token/index.css` already imports Tailwind. Adjust the `@source` path to match the actual location of your stylesheet.
+`@kazamitte/design-token` doesn't import Tailwind itself, so import it once, first. Adjust the `@source` path to match the actual location of your stylesheet.
 
 ## Usage
 
@@ -62,7 +63,7 @@ export const tv = createTV({ twMerge: true, twMergeConfig: configs });
 
 ## Development
 
-Developed in the [kazamitte-ui](https://github.com/kazamitte/kazamitte-ui) workspace with `@kazamitte/design-token`; see its README.
+Developed in the [kazamitte-ui](https://github.com/kazamitte/kazamitte-ui) repository; see its README.
 
 ## License
 
