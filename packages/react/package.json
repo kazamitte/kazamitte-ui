@@ -71,14 +71,14 @@
     "tailwind-variants": "^3.2.2"
   },
   "peerDependencies": {
-    "@kazamitte/design-token": "workspace:^",
+    "@kazamitte/design-token": "^0.3.0",
     "react": "^19",
     "react-dom": "^19",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@kazamitte/design-token": "workspace:^",
+    "@kazamitte/design-token": "^0.3.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

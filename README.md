@@ -1,13 +1,12 @@
 # kazamitte-ui
 
-An accessibility-first design system: design tokens for Tailwind CSS v4 and the React components built on them.
+Accessible React components on Ark UI and Tailwind CSS v4, styled with [`@kazamitte/design-token`](https://www.npmjs.com/package/@kazamitte/design-token).
 
-| Package                                      | Directory         | What it is                                            |
-| -------------------------------------------- | ----------------- | ----------------------------------------------------- |
-| [`@kazamitte/design-token`](packages/tokens) | `packages/tokens` | Color, typography and style themes as Tailwind v4 CSS |
-| [`@kazamitte/kazamitte-ui`](packages/react)  | `packages/react`  | React components on Ark UI, styled with the tokens    |
+| Package                                     | Directory        | What it is                                         |
+| ------------------------------------------- | ---------------- | -------------------------------------------------- |
+| [`@kazamitte/kazamitte-ui`](packages/react) | `packages/react` | React components on Ark UI, styled with the tokens |
 
-Both live in one repository because they change together: renaming a token means updating the component classes and the tailwind-merge config in the same commit. `packages/react` depends on the tokens through `workspace:^`, which `pnpm publish` rewrites to the published version.
+The design tokens are published from their own repository and installed from npm.
 
 ## Development
 
@@ -26,10 +25,10 @@ pnpm test:browser    # real Chromium: contrast, focus, keyboard
 Bump the versions, then:
 
 ```sh
-pnpm release   # pnpm -r publish: tokens first, then react
+pnpm release   # pnpm -r publish
 ```
 
-Publish with pnpm only: it swaps in `publishConfig.exports` (`dist`) and rewrites `workspace:` ranges, which npm and yarn don't. `packages/react`'s `prepublishOnly` checks this and refuses git dependencies, then builds.
+Publish with pnpm only: it swaps in `publishConfig.exports` (`dist`), which npm and yarn don't. `packages/react`'s `prepublishOnly` checks this and refuses git dependencies, then builds.
 
 ## License
 

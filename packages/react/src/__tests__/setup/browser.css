@@ -1,3 +1,4 @@
+@import 'tailwindcss';
 @import '@kazamitte/design-token/index.css';
 @import '@kazamitte/design-token/theme/color/default.css';
 @import '@kazamitte/design-token/theme/style/neutral.css';
