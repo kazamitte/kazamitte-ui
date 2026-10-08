@@ -47,6 +47,8 @@ export type GroupedItemsBucket<T> = {
   items: T[];
 };
 
+// Ungrouped items stay out of ItemGroup: a group without a label is
+// announced as an unnamed group.
 export const splitGroupedItems = <T>(
   entries: [string, T[]][],
 ): GroupedItemsBucket<T>[] =>

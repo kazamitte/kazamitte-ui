@@ -10,7 +10,7 @@ const chipStyles = tv({
   slots: {
     root: 'inline-flex h-7 items-center gap-1 rounded-pill ps-2.5 text-oneline-14 font-medium base-fg-strong',
     removeTrigger: [
-      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg-muted',
+      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg',
       'hover:base-bg-selected hover:base-fg-strong',
       focusRing(),
       '[&>svg]:size-3.5',

@@ -48,6 +48,45 @@ describe('Pagination', () => {
     ).toHaveAttribute('href', 'https://example.com/blog/page/2');
   });
 
+  it('disables prev on the first page and next on the last page for buttons', () => {
+    const { unmount } = render(<Pagination count={30} pageSize={10} />);
+    expect(screen.getByRole('button', { name: '前のページ' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: '次のページ' })).toBeEnabled();
+    unmount();
+    render(<Pagination count={30} pageSize={10} defaultPage={3} />);
+    expect(screen.getByRole('button', { name: '次のページ' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: '前のページ' })).toBeEnabled();
+  });
+
+  it('marks the boundary next link on the last page as unavailable', () => {
+    render(
+      <Pagination
+        count={30}
+        pageSize={10}
+        defaultPage={3}
+        type="link"
+        getPageUrl={({ page }) => `https://example.com/blog/page/${page}`}
+      />,
+    );
+    const next = screen.getByRole('link', { name: '次のページ' });
+    expect(next).toHaveAttribute('aria-disabled', 'true');
+    expect(next).not.toHaveAttribute('href');
+  });
+
+  it('overrides one translation and keeps the other Japanese defaults', () => {
+    render(
+      <Pagination
+        count={30}
+        pageSize={10}
+        translations={{ nextTriggerLabel: 'Next' }}
+      />,
+    );
+    expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '前のページ' }),
+    ).toBeInTheDocument();
+  });
+
   it('marks the boundary prev link as unavailable instead of dropping its role', () => {
     render(
       <Pagination

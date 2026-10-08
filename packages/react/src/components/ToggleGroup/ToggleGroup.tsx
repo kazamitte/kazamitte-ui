@@ -48,12 +48,19 @@ type ToggleGroupProps = ArkToggleGroup.RootProps &
 export const ToggleGroup = ({
   items,
   variant,
+  deselectable = false,
   className,
   ...props
 }: ToggleGroupProps) => {
   const styles = toggleGroupStyles({ variant });
   return (
-    <ArkToggleGroup.Root className={styles.root({ className })} {...props}>
+    // Single mode is a radiogroup, and a checked radio doesn't uncheck on
+    // click; Ark defaults deselectable to true.
+    <ArkToggleGroup.Root
+      deselectable={deselectable}
+      className={styles.root({ className })}
+      {...props}
+    >
       {items.map((item) => (
         <ArkToggleGroup.Item
           key={item.value}

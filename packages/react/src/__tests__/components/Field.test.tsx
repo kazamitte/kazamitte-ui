@@ -11,12 +11,22 @@ describe('Field', () => {
         <Field.HelperText>連絡先を入力</Field.HelperText>
       </Field.Root>,
     );
-    expect(screen.getByText('メール')).toBeInTheDocument();
-    expect(screen.getByRole('textbox')).toHaveAttribute(
-      'placeholder',
-      'you@example.com',
+    const input = screen.getByRole('textbox', { name: 'メール' });
+    expect(input).toHaveAttribute('placeholder', 'you@example.com');
+    expect(input).toHaveAccessibleDescription('連絡先を入力');
+  });
+
+  it('marks the label with the indicator and the input as required', () => {
+    render(
+      <Field.Root required>
+        <Field.Label>
+          メール<Field.RequiredIndicator>*</Field.RequiredIndicator>
+        </Field.Label>
+        <Field.Input />
+      </Field.Root>,
     );
-    expect(screen.getByText('連絡先を入力')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toBeRequired();
+    expect(screen.getByText('*')).toBeInTheDocument();
   });
 
   it('renders a textarea element via Field.Textarea', () => {

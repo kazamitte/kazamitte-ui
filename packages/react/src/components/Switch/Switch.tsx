@@ -39,6 +39,7 @@ export const Switch = ({ label, className, ...props }: SwitchProps) => (
     {label !== undefined && (
       <ArkSwitch.Label className={styles.label()}>{label}</ArkSwitch.Label>
     )}
+    {/* Ark renders a plain checkbox; without the role it is announced as one. */}
     <ArkSwitch.HiddenInput role="switch" />
   </ArkSwitch.Root>
 );

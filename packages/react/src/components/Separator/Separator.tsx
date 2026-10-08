@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const separatorStyles = tv({
-  base: 'border-0 base-border-muted',
+  base: 'border-0 base-border-selected',
   variants: {
     orientation: {
       horizontal: 'w-full border-t',

@@ -1,6 +1,11 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  createContext,
+  useContext,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes,
+} from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -17,7 +22,10 @@ const cardStyles = tv({
   variants: {
     variant: {
       outline: { root: 'base-border-muted base-bg' },
-      subtle: { root: 'border-transparent base-bg-subtle' },
+      subtle: {
+        root: 'border-transparent base-bg-subtle',
+        description: 'base-fg',
+      },
       elevated: { root: 'border-transparent base-bg shadow-raised' },
     },
     interactive: {
@@ -31,6 +39,12 @@ const cardStyles = tv({
   },
   defaultVariants: { variant: 'outline' },
 });
+
+type CardVariant = VariantProps<typeof cardStyles>['variant'];
+
+// fg-muted only holds contrast on bg, so the description needs to know
+// when the card sits on a tinted surface.
+const CardVariantContext = createContext<CardVariant>(undefined);
 
 type CardRootProps = HTMLAttributes<HTMLElement> &
   VariantProps<typeof cardStyles> & {
@@ -52,10 +66,15 @@ export const CardRoot = ({
   });
   const rootClassName = styles.root({ className });
 
-  if (href !== undefined) {
-    return <ark.a href={href} className={rootClassName} {...props} />;
-  }
-  return <ark.div asChild={asChild} className={rootClassName} {...props} />;
+  return (
+    <CardVariantContext.Provider value={variant}>
+      {href !== undefined ? (
+        <ark.a href={href} className={rootClassName} {...props} />
+      ) : (
+        <ark.div asChild={asChild} className={rootClassName} {...props} />
+      )}
+    </CardVariantContext.Provider>
+  );
 };
 
 const styles = cardStyles();
@@ -77,9 +96,15 @@ export const CardTitle = ({
 export const CardDescription = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'p'>) => (
-  <p className={styles.description({ className })} {...props} />
-);
+}: ComponentPropsWithoutRef<'p'>) => {
+  const variant = useContext(CardVariantContext);
+  return (
+    <p
+      className={cardStyles({ variant }).description({ className })}
+      {...props}
+    />
+  );
+};
 
 export const CardBody = ({
   className,

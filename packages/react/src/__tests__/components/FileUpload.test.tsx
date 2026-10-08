@@ -13,15 +13,26 @@ const textFile = (name: string, size = 4): File =>
   new File(['a'.repeat(size)], name, { type: 'text/plain' });
 
 describe('FileUpload', () => {
-  it('renders a labelled dropzone with a trigger named ファイルを選択 over a hidden file input', () => {
+  it('labels the hidden file input, with a trigger named ファイルを選択 and a dropzone', () => {
     render(<FileUpload label="添付ファイル" />);
     expect(
       screen.getByRole('button', { name: 'ファイルを選択' }),
     ).toBeInTheDocument();
     expect(screen.getByText('ここにファイルをドロップ')).toBeInTheDocument();
-    const input = hiddenInput();
+    const input = screen.getByLabelText('添付ファイル');
+    expect(input).toBe(hiddenInput());
     expect(input).toHaveAttribute('type', 'file');
-    expect(screen.getByText('添付ファイル')).toHaveAttribute('for', input.id);
+    expect(
+      screen.getByLabelText('ファイルをここにドロップするか、選択してください'),
+    ).toBeInTheDocument();
+  });
+
+  it('shows custom dropzone text in place of the default', () => {
+    render(<FileUpload label="添付" dropzoneText="画像をここへ" />);
+    expect(screen.getByText('画像をここへ')).toBeInTheDocument();
+    expect(
+      screen.queryByText('ここにファイルをドロップ'),
+    ).not.toBeInTheDocument();
   });
 
   it('shows only the trigger without the dropzone', () => {
@@ -73,15 +84,13 @@ describe('FileUpload', () => {
       screen.getByText('three.txt: ファイル数が上限を超えています'),
     ).toBeInTheDocument();
     expect(
-      document.querySelector('[data-part="item-group"]'),
+      screen.queryByRole('button', { name: /を削除$/ }),
     ).not.toBeInTheDocument();
-    expect(onFileReject).toHaveBeenCalledWith({
-      files: [
-        expect.objectContaining({ errors: ['TOO_MANY_FILES'] }),
-        expect.objectContaining({ errors: ['TOO_MANY_FILES'] }),
-        expect.objectContaining({ errors: ['TOO_MANY_FILES'] }),
-      ],
-    });
+    const { files } = onFileReject.mock.lastCall?.[0] as {
+      files: { errors: string[] }[];
+    };
+    expect(files).toHaveLength(3);
+    expect(files[0]?.errors).toEqual(['TOO_MANY_FILES']);
   });
 
   it('passes accept through to the hidden input', () => {
@@ -95,5 +104,62 @@ describe('FileUpload', () => {
       screen.getByRole('button', { name: 'ファイルを選択' }),
     ).toBeDisabled();
     expect(hiddenInput()).toBeDisabled();
+  });
+
+  it('offers すべて削除 only for several files and clears them all', async () => {
+    const user = userEvent.setup();
+    render(<FileUpload label="添付ファイル" maxFiles={3} />);
+    await user.upload(hiddenInput(), textFile('one.txt'));
+    await screen.findByText('one.txt');
+    expect(
+      screen.queryByRole('button', { name: 'すべて削除' }),
+    ).not.toBeInTheDocument();
+
+    await user.upload(hiddenInput(), textFile('two.txt'));
+    await user.click(await screen.findByRole('button', { name: 'すべて削除' }));
+    await waitFor(() => {
+      expect(screen.queryByText('one.txt')).not.toBeInTheDocument();
+    });
+    expect(screen.queryByText('two.txt')).not.toBeInTheDocument();
+  });
+
+  it('lets a translations override rename the delete button and keeps the other defaults', async () => {
+    const user = userEvent.setup();
+    render(
+      <FileUpload
+        label="添付ファイル"
+        translations={{ deleteFile: (file) => `Remove ${file.name}` }}
+      />,
+    );
+    await user.upload(hiddenInput(), textFile('report.txt'));
+    expect(
+      await screen.findByRole('button', { name: 'Remove report.txt' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText('ファイルをここにドロップするか、選択してください'),
+    ).toBeInTheDocument();
+  });
+
+  it('previews an image file as an image', async () => {
+    const user = userEvent.setup();
+    const create: unknown = Reflect.get(URL, 'createObjectURL');
+    const revoke: unknown = Reflect.get(URL, 'revokeObjectURL');
+    URL.createObjectURL = vi.fn(() => 'blob:preview');
+    URL.revokeObjectURL = vi.fn();
+    try {
+      render(<FileUpload label="添付ファイル" accept="image/*" />);
+      await user.upload(
+        hiddenInput(),
+        new File(['x'], 'photo.png', { type: 'image/png' }),
+      );
+      expect(await screen.findByText('photo.png')).toBeInTheDocument();
+      expect(await screen.findByRole('img')).toHaveAttribute(
+        'src',
+        'blob:preview',
+      );
+    } finally {
+      Reflect.set(URL, 'createObjectURL', create);
+      Reflect.set(URL, 'revokeObjectURL', revoke);
+    }
   });
 });

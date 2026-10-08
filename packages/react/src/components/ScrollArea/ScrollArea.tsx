@@ -36,8 +36,17 @@ const scrollAreaStyles = tv({
   defaultVariants: { orientation: 'vertical' },
 });
 
-type ScrollAreaProps = ArkScrollArea.RootProps &
-  VariantProps<typeof scrollAreaStyles>;
+// The viewport takes focus while it overflows, so it needs a name.
+type ScrollAreaName =
+  | { 'aria-label': string; 'aria-labelledby'?: never }
+  | { 'aria-label'?: never; 'aria-labelledby': string };
+
+type ScrollAreaProps = Omit<
+  ArkScrollArea.RootProps,
+  'aria-label' | 'aria-labelledby'
+> &
+  VariantProps<typeof scrollAreaStyles> &
+  ScrollAreaName;
 
 const Scrollbar = ({
   orientation,
@@ -55,6 +64,8 @@ const Scrollbar = ({
 
 export const ScrollArea = ({
   orientation = 'vertical',
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   className,
   children,
   ...props
@@ -64,7 +75,12 @@ export const ScrollArea = ({
   const horizontal = orientation !== 'vertical';
   return (
     <ArkScrollArea.Root className={styles.root({ className })} {...props}>
-      <ArkScrollArea.Viewport className={styles.viewport()}>
+      <ArkScrollArea.Viewport
+        role="region"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        className={styles.viewport()}
+      >
         <ArkScrollArea.Content className={styles.content()}>
           {children}
         </ArkScrollArea.Content>

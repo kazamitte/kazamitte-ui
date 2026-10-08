@@ -11,7 +11,7 @@ describe('Editable', () => {
     expect(screen.getByLabelText('表示名')).not.toBeVisible();
   });
 
-  it('enters edit mode on focus, saves on Enter and reports the committed value', async () => {
+  it('enters edit mode on click, saves on Enter and reports the committed value', async () => {
     const user = userEvent.setup();
     const onValueCommit = vi.fn();
     render(
@@ -85,6 +85,43 @@ describe('Editable', () => {
     await user.click(screen.getByRole('button', { name: '保存' }));
     expect(onValueCommit).toHaveBeenCalledWith({ value: 'かざみ2' });
     expect(screen.getByRole('button', { name: '編集' })).toBeInTheDocument();
+  });
+
+  it('reverts the value and skips the commit when Cancel is pressed in controls mode', async () => {
+    const user = userEvent.setup();
+    const onValueCommit = vi.fn();
+    render(
+      <Editable
+        label="表示名"
+        defaultValue="かざみ"
+        controls
+        submitMode="none"
+        onValueCommit={onValueCommit}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: '編集' }));
+    await user.type(screen.getByLabelText('表示名'), '2');
+    await user.click(screen.getByRole('button', { name: 'キャンセル' }));
+    expect(onValueCommit).not.toHaveBeenCalled();
+    await waitFor(() => expect(screen.getByText('かざみ')).toBeVisible());
+    expect(screen.queryByText('かざみ2')).not.toBeInTheDocument();
+  });
+
+  it('lets a translations override rename one button and keeps the other defaults', async () => {
+    const user = userEvent.setup();
+    render(
+      <Editable
+        label="表示名"
+        defaultValue="かざみ"
+        controls
+        translations={{ edit: 'Edit' }}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Edit' }));
+    expect(screen.getByRole('button', { name: '保存' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'キャンセル' }),
+    ).toBeInTheDocument();
   });
 
   it('edits in a textarea when multiline is set', () => {

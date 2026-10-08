@@ -67,7 +67,7 @@ const dataTableStyles = tv({
       'hover:base-bg-muted',
       focusRing(),
     ],
-    sortIcon: 'size-3.5 shrink-0 base-fg-subtle',
+    sortIcon: 'size-3.5 shrink-0 base-fg-muted',
     sortIconActive: 'size-3.5 shrink-0 primary-fg',
     selectCell: 'w-10 align-middle',
     empty: 'py-8 text-center base-fg-muted',

@@ -62,12 +62,11 @@ const useCurrentHeading = (
   }, [current]);
 
   useEffect(() => {
-    const container = getScrollEl();
-    const target: HTMLElement | Window = container ?? window;
     let frame = 0;
 
     const update = () => {
       frame = 0;
+      const container = getScrollEl();
       const headings = items
         .map((item) => document.getElementById(item.value))
         .filter((el) => el !== null);
@@ -95,11 +94,15 @@ const useCurrentHeading = (
     };
 
     update();
-    target.addEventListener('scroll', schedule, { passive: true });
+    // Captured on document: the scroll container may mount or change later.
+    document.addEventListener('scroll', schedule, {
+      capture: true,
+      passive: true,
+    });
     window.addEventListener('resize', schedule);
     return () => {
       cancelAnimationFrame(frame);
-      target.removeEventListener('scroll', schedule);
+      document.removeEventListener('scroll', schedule, { capture: true });
       window.removeEventListener('resize', schedule);
     };
   }, [items]);

@@ -32,23 +32,4 @@ describe('Tooltip', () => {
     expect(rect.width).toBeGreaterThan(0);
     expect(rect.height).toBeGreaterThan(0);
   });
-
-  it('describes the trigger with the visible tooltip while it is open', async () => {
-    renderTooltip();
-    const trigger = screen.getByRole('button', { name: '設定' });
-
-    await userEvent.keyboard('{Tab}');
-    const tooltip = await screen.findByRole('tooltip');
-    expect(trigger).toHaveAttribute('aria-describedby', tooltip.id);
-    expect(document.getElementById(tooltip.id)).toBe(tooltip);
-  });
-
-  it('hides the tooltip on Escape', async () => {
-    renderTooltip();
-    await userEvent.keyboard('{Tab}');
-    await screen.findByRole('tooltip');
-
-    await userEvent.keyboard('{Escape}');
-    await expect.poll(() => screen.queryByRole('tooltip')).toBeNull();
-  });
 });

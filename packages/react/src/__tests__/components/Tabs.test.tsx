@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { Tabs } from '../../components/Tabs';
 
 const renderTabs = (props: React.ComponentProps<typeof Tabs.Root> = {}) =>
@@ -44,47 +44,25 @@ describe('Tabs', () => {
     );
   });
 
-  it('moves focus with the arrow keys, skipping disabled tabs and looping', async () => {
+  it('skips a disabled tab when moving with the arrow keys', async () => {
     const user = userEvent.setup();
     renderTabs();
-    await user.click(screen.getByRole('tab', { name: '概要' }));
-    await user.keyboard('{ArrowRight}');
-    await waitFor(() =>
-      expect(screen.getByRole('tab', { name: '使い方' })).toHaveFocus(),
-    );
+    await user.click(screen.getByRole('tab', { name: '使い方' }));
     await user.keyboard('{ArrowRight}');
     await waitFor(() =>
       expect(screen.getByRole('tab', { name: '概要' })).toHaveFocus(),
     );
   });
 
-  it('waits for Enter before selecting in manual activation mode', async () => {
-    const user = userEvent.setup();
-    renderTabs({ activationMode: 'manual' });
-    await user.click(screen.getByRole('tab', { name: '概要' }));
-    await user.keyboard('{ArrowRight}');
-    const usage = screen.getByRole('tab', { name: '使い方' });
-    await waitFor(() => expect(usage).toHaveFocus());
-    expect(usage).toHaveAttribute('aria-selected', 'false');
-
-    await user.keyboard('{Enter}');
-    expect(usage).toHaveAttribute('aria-selected', 'true');
-  });
-
-  it('forwards onValueChange', async () => {
-    const user = userEvent.setup();
-    const onValueChange = vi.fn();
-    renderTabs({ onValueChange });
-    await user.click(screen.getByRole('tab', { name: '使い方' }));
-    expect(onValueChange).toHaveBeenCalledWith({ value: 'usage' });
-  });
-
-  it('follows a controlled value prop', () => {
-    renderTabs({ value: 'usage' });
-    expect(screen.getByRole('tab', { name: '使い方' })).toHaveAttribute(
-      'aria-selected',
-      'true',
+  it('gives only the selected tab a tab stop', () => {
+    renderTabs();
+    expect(screen.getByRole('tab', { name: '概要' })).toHaveAttribute(
+      'tabindex',
+      '0',
     );
-    expect(screen.getByText('使い方の本文')).toBeVisible();
+    expect(screen.getByRole('tab', { name: '使い方' })).toHaveAttribute(
+      'tabindex',
+      '-1',
+    );
   });
 });

@@ -16,7 +16,7 @@ export const HotkeyText = ({ hotkey, className }: HotkeyTextProps) => {
   return (
     <span className={className}>
       {steps.map((step, stepIndex) => {
-        const keys = format(step).split(/\s*\+\s*|\s+/);
+        const keys = format(step).split(/\s+/);
         return (
           <span key={stepIndex}>
             {stepIndex > 0 && (

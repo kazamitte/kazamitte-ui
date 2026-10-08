@@ -40,26 +40,35 @@ describe('Dialog', () => {
     expect(dialog).toHaveAccessibleDescription('この操作は取り消せません。');
   });
 
-  it('closes on Escape, reporting the change', async () => {
+  it('closes from the close trigger, reporting the change', async () => {
     const user = userEvent.setup();
     const onOpenChange = vi.fn();
-    renderDialog({ onOpenChange });
-    await user.click(screen.getByRole('button', { name: '削除' }));
-    await screen.findByRole('dialog');
-
-    await user.keyboard('{Escape}');
+    renderDialog({ defaultOpen: true, onOpenChange });
+    await user.click(await screen.findByRole('button', { name: '閉じる' }));
     expect(onOpenChange).toHaveBeenLastCalledWith({ open: false });
     await waitFor(() =>
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );
   });
 
-  it('closes from the close trigger', async () => {
-    const user = userEvent.setup();
-    renderDialog({ defaultOpen: true });
-    await user.click(await screen.findByRole('button', { name: '閉じる' }));
-    await waitFor(() =>
-      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+  it('leaves a custom close element unstyled with asChild', async () => {
+    render(
+      <Dialog.Root defaultOpen>
+        <Dialog.Portal>
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.Title>確認</Dialog.Title>
+              <Dialog.CloseTrigger asChild>
+                <button type="button" className="mine">
+                  やめる
+                </button>
+              </Dialog.CloseTrigger>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Dialog.Portal>
+      </Dialog.Root>,
     );
+    const button = await screen.findByRole('button', { name: 'やめる' });
+    expect(button.className).toBe('mine');
   });
 });

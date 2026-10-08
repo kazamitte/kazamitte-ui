@@ -56,7 +56,7 @@ describe('Accordion', () => {
     expect(screen.getAllByRole('region')).toHaveLength(2);
   });
 
-  it('lets the open item close again only when collapsible', async () => {
+  it('keeps the open item open when clicked again without collapsible', async () => {
     const user = userEvent.setup();
     renderAccordion({ defaultValue: ['shipping'] });
     const trigger = screen.getByRole('button', {
@@ -64,5 +64,17 @@ describe('Accordion', () => {
     });
     await user.click(trigger);
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('closes the open item when clicked again with collapsible', async () => {
+    const user = userEvent.setup();
+    renderAccordion({ defaultValue: ['shipping'], collapsible: true });
+    const trigger = screen.getByRole('button', {
+      name: '送料はいくらですか？',
+    });
+    await user.click(trigger);
+    await waitFor(() =>
+      expect(trigger).toHaveAttribute('aria-expanded', 'false'),
+    );
   });
 });

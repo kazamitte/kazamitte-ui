@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { ColorPicker, parseColor } from '../../components/ColorPicker';
@@ -56,5 +56,57 @@ describe('ColorPicker', () => {
       screen.getByRole('slider', { name: '不透明度' }),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '#0069a8' })).toBeInTheDocument();
+  });
+
+  it('omits the opacity slider and preset swatches by default', async () => {
+    const user = userEvent.setup();
+    render(
+      <ColorPicker label="テーマ色" defaultValue={parseColor('#ca3500')} />,
+    );
+    await user.click(screen.getByRole('button', { name: '色を選ぶ' }));
+    expect(
+      await screen.findByRole('slider', { name: '色相' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('slider', { name: '不透明度' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: '#0069a8' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('names the area thumb and the eyedropper in Japanese', async () => {
+    const user = userEvent.setup();
+    render(
+      <ColorPicker label="テーマ色" defaultValue={parseColor('#ca3500')} />,
+    );
+    await user.click(screen.getByRole('button', { name: '色を選ぶ' }));
+    expect(
+      await screen.findByRole('slider', { name: /彩度と明度/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '画面から色を拾う' }),
+    ).toBeInTheDocument();
+  });
+
+  it('applies a clicked preset to the hex field and reports the color', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <ColorPicker
+        label="テーマ色"
+        presets={['#ca3500', '#0069a8']}
+        defaultValue={parseColor('#ca3500')}
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: '色を選ぶ' }));
+    await user.click(await screen.findByRole('button', { name: '#0069a8' }));
+    await waitFor(() =>
+      expect(screen.getByRole('textbox', { name: '16進数の色' })).toHaveValue(
+        '#0069A8',
+      ),
+    );
+    expect(onValueChange).toHaveBeenCalled();
   });
 });

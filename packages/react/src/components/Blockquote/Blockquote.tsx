@@ -1,6 +1,10 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import {
+  createContext,
+  useContext,
+  type ComponentPropsWithoutRef,
+} from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const blockquoteStyles = tv({
@@ -12,11 +16,20 @@ const blockquoteStyles = tv({
   variants: {
     variant: {
       plain: {},
-      subtle: { root: 'rounded-e-surface base-bg-subtle py-3 pe-4' },
+      subtle: {
+        root: 'rounded-e-surface base-bg-subtle py-3 pe-4',
+        caption: 'base-fg',
+      },
     },
   },
   defaultVariants: { variant: 'plain' },
 });
+
+type BlockquoteVariant = VariantProps<typeof blockquoteStyles>['variant'];
+
+// fg-muted only holds contrast on bg, so the caption needs to know when
+// the quote sits on a tinted surface.
+const BlockquoteVariantContext = createContext<BlockquoteVariant>(undefined);
 
 type BlockquoteRootProps = ComponentPropsWithoutRef<'blockquote'> &
   VariantProps<typeof blockquoteStyles>;
@@ -26,10 +39,12 @@ export const BlockquoteRoot = ({
   className,
   ...props
 }: BlockquoteRootProps) => (
-  <blockquote
-    className={blockquoteStyles({ variant }).root({ className })}
-    {...props}
-  />
+  <BlockquoteVariantContext.Provider value={variant}>
+    <blockquote
+      className={blockquoteStyles({ variant }).root({ className })}
+      {...props}
+    />
+  </BlockquoteVariantContext.Provider>
 );
 
 export const BlockquoteContent = ({
@@ -42,6 +57,12 @@ export const BlockquoteContent = ({
 export const BlockquoteCaption = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'footer'>) => (
-  <footer className={blockquoteStyles().caption({ className })} {...props} />
-);
+}: ComponentPropsWithoutRef<'footer'>) => {
+  const variant = useContext(BlockquoteVariantContext);
+  return (
+    <footer
+      className={blockquoteStyles({ variant }).caption({ className })}
+      {...props}
+    />
+  );
+};

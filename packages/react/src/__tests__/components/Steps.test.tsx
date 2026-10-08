@@ -62,30 +62,42 @@ describe('Steps', () => {
   it('swaps the number for a check mark once a step is complete', async () => {
     const user = userEvent.setup();
     renderSteps({ defaultStep: 1 });
-    const indicators = document.querySelectorAll('[data-part="indicator"]');
-    expect(indicators[0]).toHaveAttribute('data-complete');
-    expect(indicators[0]?.querySelector('svg')).toBeInTheDocument();
-    expect(indicators[0]).not.toHaveTextContent('1');
-    expect(indicators[1]).toHaveTextContent('2');
+    const [first, second] = screen.getAllByRole('tab');
+    expect(first?.querySelector('svg')).toBeInTheDocument();
+    expect(first).not.toHaveTextContent('1');
+    expect(second).toHaveTextContent('2');
 
     await user.click(screen.getByRole('button', { name: '戻る' }));
-    expect(indicators[0]).toHaveTextContent('1');
+    expect(first).toHaveTextContent('1');
   });
 
-  it('jumps to a step from its tab unless linear', async () => {
+  it('jumps to a step from its tab', async () => {
     const user = userEvent.setup();
-    const { unmount } = renderSteps();
+    renderSteps();
     await user.click(screen.getByRole('tab', { name: /確認/ }));
     expect(screen.getByText('確認の入力')).toBeVisible();
-    unmount();
+  });
 
+  it('does not jump to a step from its tab when linear', async () => {
+    const user = userEvent.setup();
     renderSteps({ linear: true });
     await user.click(screen.getByRole('tab', { name: /確認/ }));
     expect(screen.getByText('アカウントの入力')).toBeVisible();
-    expect(screen.getByRole('tab', { name: /確認/ })).toHaveAttribute(
-      'tabindex',
-      '-1',
+    expect(screen.getByRole('tab', { name: /アカウント/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
     );
+    expect(screen.getByRole('tab', { name: /確認/ })).toHaveAttribute(
+      'aria-selected',
+      'false',
+    );
+  });
+
+  it('starts the progress bar at 0% before any step is done', () => {
+    renderSteps();
+    const bar = screen.getByRole('progressbar', { name: '進み具合' });
+    expect(bar).toHaveAttribute('aria-valuenow', '0');
+    expect(bar).toHaveAttribute('aria-valuetext', '0%完了');
   });
 
   it('shows the completed content and a full progress bar after the last step', async () => {

@@ -32,14 +32,21 @@ const progressStyles = tv({
   defaultVariants: { size: 'md', tone: 'primary' },
 });
 
-type ProgressProps = ArkProgress.RootProps &
-  VariantProps<typeof progressStyles> & {
-    label?: string;
+// A progressbar must have a name: a visible `label`, or `aria-label` when
+// the surrounding text already says what is loading.
+type ProgressName =
+  | { label: string; 'aria-label'?: never }
+  | { label?: never; 'aria-label': string };
+
+type ProgressProps = Omit<ArkProgress.RootProps, 'aria-label'> &
+  VariantProps<typeof progressStyles> &
+  ProgressName & {
     showValueText?: boolean;
   };
 
 export const Progress = ({
   label,
+  'aria-label': ariaLabel,
   showValueText = false,
   size,
   tone,
@@ -61,7 +68,10 @@ export const Progress = ({
           )}
         </div>
       )}
-      <ArkProgress.Track aria-label={label} className={styles.track()}>
+      <ArkProgress.Track
+        aria-label={label ?? ariaLabel}
+        className={styles.track()}
+      >
         <ArkProgress.Range className={styles.range()} />
       </ArkProgress.Track>
     </ArkProgress.Root>

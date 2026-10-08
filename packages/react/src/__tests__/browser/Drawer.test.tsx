@@ -86,4 +86,16 @@ describe('Drawer', () => {
     await expect.poll(() => screen.queryByRole('dialog')).toBeNull();
     expect(trigger).toHaveFocus();
   });
+
+  it('returns focus to the trigger after closing from the close button', async () => {
+    renderDrawer();
+    const trigger = screen.getByRole('button', { name: '編集' });
+    await userEvent.click(trigger);
+    await userEvent.click(
+      await screen.findByRole('button', { name: '閉じる' }),
+    );
+
+    await expect.poll(() => screen.queryByRole('dialog')).toBeNull();
+    expect(trigger).toHaveFocus();
+  });
 });

@@ -45,4 +45,11 @@ describe('Clipboard', () => {
     expect(screen.getByText('済')).toBeVisible();
     expect(trigger).toHaveAccessibleName('コピーしました');
   });
+
+  it('lets a translations override replace the Japanese trigger label', () => {
+    renderClipboard({
+      translations: { triggerLabel: (copied) => (copied ? 'Copied' : 'Copy') },
+    });
+    expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+  });
 });

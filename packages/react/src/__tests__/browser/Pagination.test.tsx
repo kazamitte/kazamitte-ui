@@ -49,6 +49,25 @@ describe('Pagination', () => {
     expect(onPageChange).toHaveBeenCalledWith({ page: 2, pageSize: 10 });
   });
 
+  it('skips a boundary link in the tab order and ignores Enter on it', async () => {
+    const onPageChange = vi.fn();
+    render(
+      <Pagination
+        count={30}
+        pageSize={10}
+        type="link"
+        getPageUrl={({ page }) => `#page-${page}`}
+        onPageChange={onPageChange}
+      />,
+    );
+    const prev = screen.getByRole('link', { name: '前のページ' });
+    await userEvent.tab();
+    expect(prev).not.toHaveFocus();
+    prev.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(onPageChange).not.toHaveBeenCalled();
+  });
+
   it('does not activate a focused page link with a real Space key press (type="link")', async () => {
     const onPageChange = vi.fn();
     render(

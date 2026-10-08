@@ -16,7 +16,7 @@ describe('Switch', () => {
     await waitFor(() => expect(control).toBeChecked());
   });
 
-  it('toggles back off on a second Space key press', async () => {
+  it('toggles off on a real Space key press when checked', async () => {
     render(<Switch label="メール通知" defaultChecked />);
     const control = screen.getByRole('switch', { name: 'メール通知' });
     control.focus();

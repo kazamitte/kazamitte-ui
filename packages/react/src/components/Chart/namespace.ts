@@ -1,4 +1,5 @@
-export { LineChart as Line, type CartesianChartProps } from './LineChart';
+export { LineChart as Line } from './LineChart';
+export type { CartesianChartProps } from './CartesianFrame';
 export { BarChart as Bar, type BarChartProps } from './BarChart';
 export {
   DonutChart as Donut,

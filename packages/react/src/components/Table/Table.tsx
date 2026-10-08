@@ -205,7 +205,10 @@ export const TableRow = ({ selected, className, ...props }: TableRowProps) => {
       aria-selected={selected}
       data-selected={selected === true ? '' : undefined}
       className={styles.row({
-        className: [selected === true && 'base-bg-selected', className],
+        className: [
+          selected === true && 'base-bg-selected base-fg-strong',
+          className,
+        ],
       })}
       {...props}
     />

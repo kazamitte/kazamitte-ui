@@ -52,4 +52,25 @@ describe('Popover', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );
   });
+
+  it('keeps the 閉じる name on a close trigger with custom children', async () => {
+    const user = userEvent.setup();
+    render(
+      <Popover.Root>
+        <Popover.Trigger>共有</Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Positioner>
+            <Popover.Content>
+              <Popover.Title>リンクを共有</Popover.Title>
+              <Popover.CloseTrigger>OK</Popover.CloseTrigger>
+            </Popover.Content>
+          </Popover.Positioner>
+        </Popover.Portal>
+      </Popover.Root>,
+    );
+    await user.click(screen.getByRole('button', { name: '共有' }));
+    expect(
+      await screen.findByRole('button', { name: '閉じる' }),
+    ).toHaveTextContent('OK');
+  });
 });

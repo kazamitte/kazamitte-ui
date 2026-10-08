@@ -1,18 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Tooltip } from '../../components/Tooltip';
+import { stubObservers } from '../setup/observers';
 
-beforeAll(() => {
-  vi.stubGlobal(
-    'ResizeObserver',
-    class {
-      observe = vi.fn();
-      unobserve = vi.fn();
-      disconnect = vi.fn();
-    },
-  );
-});
+beforeAll(stubObservers);
 
 const renderTooltip = () =>
   render(
@@ -40,6 +32,18 @@ describe('Tooltip', () => {
     const tooltip = await screen.findByRole('tooltip');
     expect(tooltip).toHaveTextContent('通知やテーマを変更します');
     expect(trigger).toHaveAttribute('aria-describedby', tooltip.id);
+  });
+
+  it('hides the tooltip when the pointer leaves the trigger', async () => {
+    const user = userEvent.setup();
+    renderTooltip();
+    await user.hover(screen.getByRole('button', { name: '設定' }));
+    await screen.findByRole('tooltip');
+
+    await user.unhover(screen.getByRole('button', { name: '設定' }));
+    await waitFor(() =>
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument(),
+    );
   });
 
   it('shows on keyboard focus and hides on Escape', async () => {

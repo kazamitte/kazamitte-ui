@@ -16,7 +16,7 @@ const ratingGroupStyles = tv({
       'ark-disabled:cursor-not-allowed ark-disabled:opacity-50',
       focusRing(),
     ],
-    star: 'size-6 shrink-0 base-fg-subtle',
+    star: 'size-6 shrink-0 base-fg-muted',
     fill: [
       'absolute inset-0 size-6 fill-current warning-fg',
       '[clip-path:inset(0_100%_0_0)]',

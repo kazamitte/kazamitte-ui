@@ -23,7 +23,7 @@ const renderAccordion = () =>
   );
 
 describe('Accordion', () => {
-  it('toggles the trigger open and closed with a real Enter key press', async () => {
+  it('toggles the trigger open and closed with Enter, keeping focus on the trigger', async () => {
     renderAccordion();
     const trigger = screen.getByRole('button', {
       name: '送料はいくらですか？',
@@ -34,12 +34,14 @@ describe('Accordion', () => {
 
     await userEvent.keyboard('{Enter}');
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(trigger).toHaveFocus();
 
     await userEvent.keyboard('{Enter}');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(trigger).toHaveFocus();
   });
 
-  it('toggles the trigger open and closed with a real Space key press', async () => {
+  it('toggles the trigger open and closed with Space, keeping focus on the trigger', async () => {
     renderAccordion();
     const trigger = screen.getByRole('button', {
       name: '送料はいくらですか？',
@@ -50,28 +52,10 @@ describe('Accordion', () => {
 
     await userEvent.keyboard('[Space]');
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(trigger).toHaveFocus();
 
     await userEvent.keyboard('[Space]');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  });
-
-  it('keeps focus on the trigger itself after toggling with Enter', async () => {
-    renderAccordion();
-    const trigger = screen.getByRole('button', {
-      name: '送料はいくらですか？',
-    });
-    await userEvent.tab();
-    await userEvent.keyboard('{Enter}');
-    expect(trigger).toHaveFocus();
-  });
-
-  it('keeps focus on the trigger itself after toggling with Space', async () => {
-    renderAccordion();
-    const trigger = screen.getByRole('button', {
-      name: '送料はいくらですか？',
-    });
-    await userEvent.tab();
-    await userEvent.keyboard('[Space]');
     expect(trigger).toHaveFocus();
   });
 });

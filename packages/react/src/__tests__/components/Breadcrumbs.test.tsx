@@ -2,9 +2,9 @@ import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 
-const renderBreadcrumbs = () =>
+const renderBreadcrumbs = (label?: string) =>
   render(
-    <Breadcrumbs.Root>
+    <Breadcrumbs.Root aria-label={label}>
       <Breadcrumbs.List>
         <Breadcrumbs.Item>
           <Breadcrumbs.Link href="https://example.com/">home</Breadcrumbs.Link>
@@ -29,6 +29,13 @@ describe('Breadcrumbs', () => {
     const nav = screen.getByRole('navigation', { name: '現在位置' });
     expect(within(nav).getByRole('list').tagName).toBe('OL');
     expect(within(nav).getAllByRole('listitem')).toHaveLength(3);
+  });
+
+  it('lets aria-label rename the navigation landmark', () => {
+    renderBreadcrumbs('パンくず');
+    expect(
+      screen.getByRole('navigation', { name: 'パンくず' }),
+    ).toBeInTheDocument();
   });
 
   it('marks the last crumb as the current page without a link', () => {

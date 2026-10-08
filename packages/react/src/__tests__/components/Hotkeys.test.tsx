@@ -35,6 +35,12 @@ describe('Hotkeys', () => {
     );
   });
 
+  it('prints the plus key itself as a key, not as an empty one', () => {
+    render(<HotkeyText hotkey="mod++" />);
+    const keys = [...document.querySelectorAll('kbd')];
+    expect(keys.map((key) => key.textContent)).toEqual(['Ctrl', '+']);
+  });
+
   it('prints a sequence as separate keys joined by a readable step separator, not a combo', () => {
     render(<HotkeyText hotkey="g then n" />);
     const keys = document.querySelectorAll('kbd');

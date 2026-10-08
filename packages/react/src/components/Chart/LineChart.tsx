@@ -9,8 +9,6 @@ import {
   useEnterDuration,
 } from './chartTheme';
 
-export type { CartesianChartProps };
-
 export const LineChart = ({ series, ...props }: CartesianChartProps) => {
   const duration = useEnterDuration();
   return (

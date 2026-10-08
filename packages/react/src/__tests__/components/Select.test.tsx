@@ -20,6 +20,26 @@ describe('Select', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
   });
 
+  it('shows a custom placeholder', () => {
+    render(<Select label="都道府県" items={ITEMS} placeholder="未選択" />);
+    expect(
+      screen.getByRole('combobox', { name: '都道府県' }),
+    ).toHaveTextContent('未選択');
+  });
+
+  it('marks the chosen option as selected when reopened', async () => {
+    const user = userEvent.setup();
+    render(<Select label="都道府県" items={ITEMS} defaultValue={['osaka']} />);
+    await user.click(screen.getByRole('combobox', { name: '都道府県' }));
+    expect(
+      await screen.findByRole('option', { name: '大阪府' }),
+    ).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('option', { name: '東京都' })).toHaveAttribute(
+      'aria-selected',
+      'false',
+    );
+  });
+
   it('opens a listbox, selects an option and reports the value', async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
@@ -57,8 +77,12 @@ describe('Select', () => {
       />,
     );
     await user.click(screen.getByRole('combobox', { name: '地域' }));
-    expect(await screen.findByText('関東')).toBeInTheDocument();
-    expect(screen.getByRole('group', { name: '関西' })).toBeInTheDocument();
+    expect(await screen.findByRole('group', { name: '関東' })).toContainElement(
+      screen.getByRole('option', { name: '東京都' }),
+    );
+    expect(screen.getByRole('group', { name: '関西' })).toContainElement(
+      screen.getByRole('option', { name: '大阪府' }),
+    );
   });
 
   it('lists ungrouped items without an empty group heading when mixed with grouped ones', async () => {
@@ -81,8 +105,13 @@ describe('Select', () => {
   });
 
   it('carries the value in a hidden select for forms', () => {
-    render(<Select name="pref" items={ITEMS} defaultValue={['tokyo']} />);
-    const hidden = document.querySelector('select[name="pref"]');
-    expect(hidden).toHaveValue('tokyo');
+    const { container } = render(
+      <form>
+        <Select name="pref" items={ITEMS} defaultValue={['tokyo']} />
+      </form>,
+    );
+    const form = container.querySelector('form');
+    if (form === null) throw new Error('form not rendered');
+    expect(new FormData(form).get('pref')).toBe('tokyo');
   });
 });

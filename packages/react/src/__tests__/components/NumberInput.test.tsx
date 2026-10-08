@@ -62,6 +62,22 @@ describe('NumberInput', () => {
     );
   });
 
+  it('overrides one stepper label and keeps the other Japanese default', () => {
+    render(
+      <NumberInput label="数量" translations={{ incrementLabel: 'plus' }} />,
+    );
+    expect(screen.getByRole('button', { name: 'plus' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '減らす' })).toBeInTheDocument();
+  });
+
+  it('shows the placeholder while empty', () => {
+    render(<NumberInput label="数量" placeholder="0 から 10" />);
+    expect(screen.getByRole('spinbutton', { name: '数量' })).toHaveAttribute(
+      'placeholder',
+      '0 から 10',
+    );
+  });
+
   it('marks the input invalid and disables the whole control', () => {
     render(<NumberInput label="数量" invalid disabled />);
     const input = screen.getByRole('spinbutton', { name: '数量' });

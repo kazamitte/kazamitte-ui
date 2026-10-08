@@ -33,11 +33,12 @@ const comboboxStyles = tv({
       inputStyles(),
       'pe-10',
       'ark-invalid:error-border-solid',
-      'ark-disabled:pointer-events-none ark-disabled:opacity-50',
+      'disabled:pointer-events-none disabled:opacity-50',
     ],
     trigger: [
       'absolute inset-y-0 end-0 inline-flex w-10 items-center justify-center rounded-control base-fg-muted [&>svg]:size-4',
       'ark-open:[&>svg]:rotate-180',
+      'disabled:pointer-events-none disabled:opacity-50',
       focusRing(),
     ],
     selected: 'flex flex-wrap gap-1.5',
@@ -167,11 +168,19 @@ export const Combobox = ({
     [items],
   );
 
+  // Created options aren't in `items`; keep them when `items` changes.
+  const createdItems = useRef<ComboboxItem[]>([]);
+
   const previousItems = useRef(items);
   useEffect(() => {
     if (previousItems.current !== items) {
       previousItems.current = items;
-      set(items);
+      set([
+        ...items,
+        ...createdItems.current.filter(
+          (created) => !items.some((item) => item.value === created.value),
+        ),
+      ]);
     }
   }, [items, set]);
 
@@ -181,9 +190,15 @@ export const Combobox = ({
   const value = valueProp ?? internalValue;
   const [inputValue, setInputValue] = useState('');
 
-  const isNewLabel = (text: string): boolean =>
-    text.trim() !== '' &&
-    !items.some((item) => item.label.toLowerCase() === text.toLowerCase());
+  const isNewLabel = (text: string): boolean => {
+    const label = text.trim().toLowerCase();
+    return (
+      label !== '' &&
+      ![...items, ...createdItems.current].some(
+        (item) => item.label.toLowerCase() === label,
+      )
+    );
+  };
 
   return (
     <ArkCombobox.Root
@@ -206,6 +221,7 @@ export const Combobox = ({
             item.value === NEW_OPTION ? createdItem : item,
           );
           update(NEW_OPTION, createdItem);
+          createdItems.current.push(createdItem);
           onCreate?.(created);
         }
         setInternalValue(next);

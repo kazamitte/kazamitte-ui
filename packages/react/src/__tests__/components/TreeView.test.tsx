@@ -32,6 +32,11 @@ describe('TreeView', () => {
     expect(screen.queryByText('app.tsx')).not.toBeVisible();
   });
 
+  it('names the tree ツリー when no label is given', () => {
+    render(<TreeView nodes={NODES} />);
+    expect(screen.getByRole('tree', { name: 'ツリー' })).toBeInTheDocument();
+  });
+
   it('opens a branch on click and reports the expanded ids', async () => {
     const user = userEvent.setup();
     const onExpandedChange = vi.fn();

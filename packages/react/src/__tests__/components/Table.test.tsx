@@ -56,6 +56,23 @@ describe('Table', () => {
     );
   });
 
+  it('makes a ColumnHeader in Footer a row header', () => {
+    render(
+      <Table.Root>
+        <Table.Footer>
+          <Table.Row>
+            <Table.ColumnHeader>合計</Table.ColumnHeader>
+            <Table.Cell>4</Table.Cell>
+          </Table.Row>
+        </Table.Footer>
+      </Table.Root>,
+    );
+    expect(screen.getByRole('rowheader', { name: '合計' })).toHaveAttribute(
+      'scope',
+      'row',
+    );
+  });
+
   it('passes a ref through to the cell element', () => {
     const ref = createRef<HTMLTableCellElement>();
     render(
@@ -70,11 +87,52 @@ describe('Table', () => {
     expect(ref.current).toBe(screen.getByRole('cell', { name: 'Aa' }));
   });
 
-  it('announces a selected row and exposes data-selected', () => {
+  it('announces a selected row with aria-selected', () => {
     renderTable({ interactive: true }, { selected: true });
     const row = screen.getByRole('row', { name: 'Button 4' });
     expect(row).toHaveAttribute('aria-selected', 'true');
-    expect(row).toHaveAttribute('data-selected');
+  });
+
+  it('leaves aria-selected off a row that is not selected', () => {
+    renderTable({ interactive: true });
+    const row = screen.getByRole('row', { name: 'Button 4' });
+    expect(row).not.toHaveAttribute('aria-selected');
+  });
+
+  it('labels the scroll area with a caption that has its own id', () => {
+    render(
+      <Table.ScrollArea>
+        <Table.Root>
+          <Table.Caption id="custom">独自の見出し</Table.Caption>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>値</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Root>
+      </Table.ScrollArea>,
+    );
+    const region = screen.getByRole('region', { name: '独自の見出し' });
+    expect(region).toHaveAttribute('aria-labelledby', 'custom');
+  });
+
+  it('drops the region role when the caption is removed', () => {
+    const table = (withCaption: boolean) => (
+      <Table.ScrollArea>
+        <Table.Root>
+          {withCaption && <Table.Caption>見出し</Table.Caption>}
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>値</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Root>
+      </Table.ScrollArea>
+    );
+    const { rerender } = render(table(true));
+    expect(screen.getByRole('region', { name: '見出し' })).toBeInTheDocument();
+    rerender(table(false));
+    expect(screen.queryByRole('region')).not.toBeInTheDocument();
   });
 
   it('makes the scroll area keyboard-reachable and names it after the caption', () => {

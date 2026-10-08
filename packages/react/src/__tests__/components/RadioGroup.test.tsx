@@ -28,6 +28,35 @@ describe('RadioGroup', () => {
     expect(onValueChange).toHaveBeenCalledWith({ value: 'sms' });
   });
 
+  it('checks the radio matching defaultValue', () => {
+    render(<RadioGroup options={OPTIONS} defaultValue="sms" />);
+    expect(screen.getByRole('radio', { name: 'SMS' })).toBeChecked();
+    expect(screen.getByRole('radio', { name: 'メール' })).not.toBeChecked();
+  });
+
+  it('checks the radio matching a controlled value and reports a click', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <RadioGroup
+        options={OPTIONS}
+        value="email"
+        onValueChange={onValueChange}
+      />,
+    );
+    expect(screen.getByRole('radio', { name: 'メール' })).toBeChecked();
+    await user.click(screen.getByRole('radio', { name: 'SMS' }));
+    expect(onValueChange).toHaveBeenCalledWith({ value: 'sms' });
+  });
+
+  it('puts name on the radios so a form submits the choice', () => {
+    render(<RadioGroup options={OPTIONS} name="contact" defaultValue="sms" />);
+    expect(screen.getByRole('radio', { name: 'SMS' })).toHaveAttribute(
+      'name',
+      'contact',
+    );
+  });
+
   it('forwards a per-option disabled flag', () => {
     render(
       <RadioGroup options={[{ value: 'fax', label: 'FAX', disabled: true }]} />,

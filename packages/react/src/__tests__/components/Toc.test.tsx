@@ -1,17 +1,9 @@
 import { render, screen, within } from '@testing-library/react';
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Toc } from '../../components/Toc';
+import { stubObservers } from '../setup/observers';
 
-beforeAll(() => {
-  vi.stubGlobal(
-    'IntersectionObserver',
-    class {
-      observe = vi.fn();
-      unobserve = vi.fn();
-      disconnect = vi.fn();
-    },
-  );
-});
+beforeAll(stubObservers);
 
 const ITEMS = [
   { value: 'overview', depth: 2, label: '概要' },
@@ -31,11 +23,10 @@ describe('Toc', () => {
     expect(within(nav).getAllByRole('listitem')).toHaveLength(3);
   });
 
-  it('exposes the depth for indentation', () => {
-    render(<Toc items={ITEMS} />);
-    expect(
-      screen.getByRole('link', { name: 'size' }).closest('li'),
-    ).toHaveAttribute('data-depth', '3');
+  it('names the navigation after the custom title', () => {
+    render(<Toc items={ITEMS} title="Contents" />);
+    const nav = screen.getByRole('navigation', { name: 'Contents' });
+    expect(within(nav).queryByText('目次')).not.toBeInTheDocument();
   });
 
   it('marks the active heading as the current location', () => {
@@ -47,5 +38,18 @@ describe('Toc', () => {
     expect(screen.getByRole('link', { name: '概要' })).not.toHaveAttribute(
       'aria-current',
     );
+  });
+
+  it('lets a controlled activeIds take precedence over the default', () => {
+    render(
+      <Toc items={ITEMS} defaultActiveIds={['variant']} activeIds={['size']} />,
+    );
+    expect(screen.getByRole('link', { name: 'size' })).toHaveAttribute(
+      'aria-current',
+      'location',
+    );
+    expect(
+      screen.getByRole('link', { name: 'バリアント' }),
+    ).not.toHaveAttribute('aria-current');
   });
 });

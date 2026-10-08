@@ -14,7 +14,7 @@ const segmentGroupStyles = tv({
       '[--transition-duration:var(--duration-transition)] [--transition-timing-function:var(--ease-standard)]',
     ],
     item: [
-      'relative z-docked inline-flex cursor-pointer items-center justify-center px-3 py-1.5 text-oneline-14 font-medium base-fg-muted transition-colors',
+      'relative z-docked inline-flex cursor-pointer items-center justify-center px-3 py-1.5 text-oneline-14 font-medium base-fg transition-colors',
       'ark-checked:base-fg-strong',
       'ark-disabled:cursor-not-allowed ark-disabled:opacity-50',
       focusRingWithin(),

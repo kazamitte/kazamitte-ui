@@ -8,7 +8,6 @@ describe('PasswordInput', () => {
     render(<PasswordInput label="パスワード" />);
     const input = screen.getByLabelText('パスワード');
     expect(input).toHaveAttribute('type', 'password');
-    expect(input).toHaveAttribute('autocomplete', 'current-password');
     expect(
       screen.getByRole('button', { name: 'パスワードを表示' }),
     ).toBeInTheDocument();
@@ -33,6 +32,36 @@ describe('PasswordInput', () => {
     expect(onVisibilityChange).toHaveBeenCalledWith({ visible: true });
     expect(
       screen.getByRole('button', { name: 'パスワードを隠す' }),
+    ).toBeInTheDocument();
+  });
+
+  it('masks the text again on a second toggle and renames the button back', async () => {
+    const user = userEvent.setup();
+    render(<PasswordInput label="パスワード" />);
+    await user.click(screen.getByRole('button', { name: 'パスワードを表示' }));
+    await user.click(screen.getByRole('button', { name: 'パスワードを隠す' }));
+    await waitFor(() =>
+      expect(screen.getByLabelText('パスワード')).toHaveAttribute(
+        'type',
+        'password',
+      ),
+    );
+    expect(
+      screen.getByRole('button', { name: 'パスワードを表示' }),
+    ).toBeInTheDocument();
+  });
+
+  it('overrides the visibility label for both states', async () => {
+    const user = userEvent.setup();
+    render(
+      <PasswordInput
+        label="パスワード"
+        translations={{ visibilityTrigger: (v) => (v ? 'Hide' : 'Show') }}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Show' }));
+    expect(
+      await screen.findByRole('button', { name: 'Hide' }),
     ).toBeInTheDocument();
   });
 

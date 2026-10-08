@@ -10,22 +10,7 @@ const ITEMS = [
 ];
 
 describe('ToggleGroup', () => {
-  it('gives only the focused item a tabIndex of 0, the rest -1', async () => {
-    render(<ToggleGroup items={ITEMS} defaultValue={['bold']} />);
-    const bold = screen.getByRole('radio', { name: '太字' });
-    bold.focus();
-    await expect.poll(() => bold.getAttribute('tabindex')).toBe('0');
-    expect(screen.getByRole('radio', { name: '斜体' })).toHaveAttribute(
-      'tabindex',
-      '-1',
-    );
-    expect(screen.getByRole('radio', { name: '下線' })).toHaveAttribute(
-      'tabindex',
-      '-1',
-    );
-  });
-
-  it('moves the focus and the tab stop with ArrowRight without changing the selection', async () => {
+  it('keeps a single tab stop that follows ArrowRight focus without changing the selection', async () => {
     render(<ToggleGroup items={ITEMS} defaultValue={['bold']} />);
     screen.getByRole('radio', { name: '太字' }).focus();
     await userEvent.keyboard('{ArrowRight}');
@@ -38,6 +23,10 @@ describe('ToggleGroup', () => {
         screen.getByRole('radio', { name: '太字' }).getAttribute('tabindex'),
       )
       .toBe('-1');
+    expect(screen.getByRole('radio', { name: '下線' })).toHaveAttribute(
+      'tabindex',
+      '-1',
+    );
     expect(italic).toHaveAttribute('aria-checked', 'false');
     expect(screen.getByRole('radio', { name: '太字' })).toHaveAttribute(
       'aria-checked',

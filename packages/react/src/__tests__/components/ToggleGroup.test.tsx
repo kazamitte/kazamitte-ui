@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import { SegmentGroup } from '../../components/SegmentGroup';
 import { ToggleGroup } from '../../components/ToggleGroup';
 import { stubObservers } from '../setup/observers';
 
@@ -45,32 +44,20 @@ describe('ToggleGroup', () => {
       'false',
     );
   });
-});
 
-describe('SegmentGroup', () => {
-  const OPTIONS = [
-    { value: 'list', label: 'リスト' },
-    { value: 'grid', label: 'グリッド' },
-  ];
-
-  it('is a radio group named by the label whose radios select on click', async () => {
+  it('keeps the checked radio checked when it is clicked again', async () => {
     const user = userEvent.setup();
-    const onValueChange = vi.fn();
-    render(
-      <SegmentGroup
-        label="表示形式"
-        options={OPTIONS}
-        defaultValue="list"
-        onValueChange={onValueChange}
-      />,
-    );
-    expect(
-      screen.getByRole('radiogroup', { name: '表示形式' }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('radio', { name: 'リスト' })).toBeChecked();
+    render(<ToggleGroup items={ITEMS} defaultValue={['bold']} />);
+    const bold = screen.getByRole('radio', { name: '太字' });
+    await user.click(bold);
+    expect(bold).toHaveAttribute('aria-checked', 'true');
+  });
 
-    await user.click(screen.getByRole('radio', { name: 'グリッド' }));
-    expect(onValueChange).toHaveBeenCalledWith({ value: 'grid' });
-    expect(screen.getByRole('radio', { name: 'グリッド' })).toBeChecked();
+  it('lets the checked item be cleared when deselectable', async () => {
+    const user = userEvent.setup();
+    render(<ToggleGroup items={ITEMS} defaultValue={['bold']} deselectable />);
+    const bold = screen.getByRole('radio', { name: '太字' });
+    await user.click(bold);
+    expect(bold).toHaveAttribute('aria-checked', 'false');
   });
 });

@@ -3,7 +3,7 @@
 import {
   Toast as ArkToast,
   Toaster as ArkToaster,
-  createToaster,
+  createToaster as createArkToaster,
   type CreateToasterReturn,
 } from '@ark-ui/react';
 import {
@@ -17,8 +17,6 @@ import {
 import { tv, type VariantProps } from '../../tv';
 import { closeButtonStyles, focusRing } from '../../variants';
 import { Spinner } from '../Spinner';
-
-export { createToaster };
 
 const toastStyles = tv({
   slots: {
@@ -59,6 +57,34 @@ const icons: Record<Exclude<ToastType, 'loading'>, LucideIcon> = {
 
 const isToastType = (value: unknown): value is ToastType =>
   typeof value === 'string' && value in toastStyles.variants.type;
+
+type ToastOptions = Parameters<CreateToasterReturn['create']>[0];
+
+// Zag looks up the priority by type and throws on a type it doesn't know,
+// although its types accept any string. Rank a custom type like info.
+const INFO_PRIORITY = { actionable: 6, passive: 8 };
+const withPriority = <T extends Partial<ToastOptions>>(options: T): T =>
+  options.type === undefined ||
+  isToastType(options.type) ||
+  options.priority !== undefined
+    ? options
+    : {
+        ...options,
+        priority: options.action
+          ? INFO_PRIORITY.actionable
+          : INFO_PRIORITY.passive,
+      };
+
+export const createToaster = (
+  ...args: Parameters<typeof createArkToaster>
+): CreateToasterReturn => {
+  const toaster = createArkToaster(...args);
+  return {
+    ...toaster,
+    create: (options) => toaster.create(withPriority(options)),
+    update: (id, options) => toaster.update(id, withPriority(options)),
+  };
+};
 
 const Indicator = ({ type }: { type: ToastType }) => {
   if (type === 'loading') return <Spinner size="sm" decorative />;

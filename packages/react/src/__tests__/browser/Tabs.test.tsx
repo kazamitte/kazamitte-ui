@@ -18,22 +18,6 @@ const renderTabs = () =>
   );
 
 describe('Tabs', () => {
-  it('gives only the selected tab a tabIndex of 0, the rest -1', () => {
-    renderTabs();
-    expect(screen.getByRole('tab', { name: '概要' })).toHaveAttribute(
-      'tabindex',
-      '0',
-    );
-    expect(screen.getByRole('tab', { name: '使い方' })).toHaveAttribute(
-      'tabindex',
-      '-1',
-    );
-    expect(screen.getByRole('tab', { name: 'API' })).toHaveAttribute(
-      'tabindex',
-      '-1',
-    );
-  });
-
   it('moves focus, selection and the tab stop together on ArrowRight, and switches the shown panel', async () => {
     renderTabs();
     screen.getByRole('tab', { name: '概要' }).focus();

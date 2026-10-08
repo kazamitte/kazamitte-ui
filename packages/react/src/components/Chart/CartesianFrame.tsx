@@ -1,12 +1,13 @@
 'use client';
 
-import type { ComponentType, ReactNode } from 'react';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
 import {
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
+  type BarChart as RechartsBarChart,
 } from 'recharts';
 import {
   ChartFrame,
@@ -36,16 +37,12 @@ const axisProps = {
   tickLine: false,
 } as const;
 
-type ChartElementProps = {
-  data: ChartDatum[];
-  margin: { top: number; right: number; bottom: number; left: number };
-  children: ReactNode;
-};
+type RechartsChartProps = ComponentProps<typeof RechartsBarChart>;
 
 type CartesianFrameProps = CartesianChartProps & {
-  chart: ComponentType<ChartElementProps>;
-  chartProps?: object;
-  cursor: object;
+  chart: ComponentType<RechartsChartProps>;
+  chartProps?: Omit<RechartsChartProps, 'data' | 'margin' | 'children'>;
+  cursor: ComponentProps<typeof Tooltip>['cursor'];
   dashedLegend?: boolean;
   children: ReactNode;
 };

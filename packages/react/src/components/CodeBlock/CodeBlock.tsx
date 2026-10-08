@@ -11,9 +11,9 @@ const codeBlockStyles = tv({
     root: 'overflow-hidden rounded-surface border base-border-muted',
     header:
       'flex min-h-9 items-center justify-between gap-2 border-b base-border-muted base-bg-subtle py-1 pr-1 pl-3',
-    language: 'font-mono text-mono-14 base-fg-muted',
+    language: 'font-mono text-mono-14 base-fg',
     trigger: [
-      'inline-flex size-7 items-center justify-center rounded-control base-fg-muted transition-colors',
+      'inline-flex size-7 items-center justify-center rounded-control base-fg transition-colors',
       'hover:base-bg-muted hover:base-fg-strong',
       'ark-copied:success-fg',
       focusRing(),

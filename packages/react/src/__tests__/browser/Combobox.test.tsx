@@ -32,7 +32,7 @@ describe('Combobox', () => {
     await userEvent.keyboard('{ArrowDown}');
     await screen.findByRole('listbox');
     await userEvent.keyboard('{ArrowDown}{Enter}');
-    expect(input).toHaveValue('Vue');
+    await expect.poll(() => input).toHaveValue('Vue');
   });
 
   it('closes the listbox on Escape', async () => {

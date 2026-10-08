@@ -23,7 +23,7 @@ const fileUploadStyles = tv({
     ],
     dropzoneIndicator:
       'inline-flex size-12 items-center justify-center rounded-pill base-bg-muted base-fg-muted [&>svg]:size-6',
-    dropzoneText: 'text-dense-14 base-fg-muted',
+    dropzoneText: 'text-dense-14 base-fg',
     itemGroup: 'flex flex-col gap-2',
     item: 'flex items-center gap-3 rounded-surface border base-border-muted p-3',
     itemPreview:
@@ -118,6 +118,8 @@ export const FileUpload = ({
         </ArkFileUpload.Label>
       )}
       {dropzone ? (
+        // The nested trigger takes the click: otherwise the picker opens twice
+        // and the dropzone becomes a button in a button.
         <ArkFileUpload.Dropzone disableClick className={styles.dropzone()}>
           <span aria-hidden="true" className={styles.dropzoneIndicator()}>
             <Upload />

@@ -35,6 +35,12 @@ describe('tv merges design token classes', () => {
     expect(merge('leading-tight', 'text-body-16')).toBe('text-body-16');
   });
 
+  it('keeps a later leading-* next to a typography utility', () => {
+    expect(merge('text-body-16', 'leading-tight')).toBe(
+      'text-body-16 leading-tight',
+    );
+  });
+
   it.each([
     ['text-red-500', 'text-body-16'],
     ['shadow-red-500', 'shadow-raised'],

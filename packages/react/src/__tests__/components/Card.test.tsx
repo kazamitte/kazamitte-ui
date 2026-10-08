@@ -15,11 +15,26 @@ const parts = (
 
 describe('Card', () => {
   it('renders a static surface with an h3 title by default', () => {
-    render(<Card.Root>{parts}</Card.Root>);
-    const title = screen.getByRole('heading', { level: 3, name: 'Button' });
-    const root = title.closest('[class]')?.parentElement?.parentElement;
-    expect(root?.tagName).toBe('DIV');
+    render(<Card.Root data-testid="card">{parts}</Card.Root>);
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Button' }),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId('card').tagName).toBe('DIV');
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('stays a non-link when interactive is set without href', () => {
+    render(<Card.Root interactive>{parts}</Card.Root>);
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('renders the child element as the card with asChild', () => {
+    render(
+      <Card.Root asChild>
+        <section aria-label="商品">{parts}</section>
+      </Card.Root>,
+    );
+    expect(screen.getByRole('region', { name: '商品' })).toBeInTheDocument();
   });
 
   it('becomes one link when href is given', () => {

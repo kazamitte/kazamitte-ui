@@ -9,6 +9,20 @@ const renderJa = (ui: ReactElement) =>
   render(<LocaleProvider locale="ja-JP">{ui}</LocaleProvider>);
 
 describe('DatePicker', { timeout: 20000 }, () => {
+  it('dims the input and trigger when disabled', () => {
+    renderJa(
+      <DatePicker
+        label="予約日"
+        disabled
+        defaultValue={[parseDate('2026-09-15')]}
+      />,
+    );
+    const input = screen.getByRole('textbox', { name: '予約日' });
+    const trigger = screen.getByRole('button', { name: 'カレンダーを開く' });
+    expect(getComputedStyle(input).opacity).toBe('0.5');
+    expect(getComputedStyle(trigger).opacity).toBe('0.5');
+  });
+
   it('opens the calendar grid with Enter on the focused trigger', async () => {
     renderJa(
       <DatePicker label="予約日" defaultValue={[parseDate('2026-09-15')]} />,

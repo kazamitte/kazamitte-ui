@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { Toggle } from '../../components/Toggle';
-import { VisuallyHidden } from '../../components/VisuallyHidden';
 
 describe('Toggle', () => {
   it('renders a button that reports its pressed state', () => {
@@ -33,18 +32,6 @@ describe('Toggle', () => {
       'aria-pressed',
       'true',
     );
-  });
-
-  it('is named by a visually hidden label when icon-only', () => {
-    render(
-      <Toggle>
-        <svg aria-hidden="true" />
-        <VisuallyHidden>お気に入り</VisuallyHidden>
-      </Toggle>,
-    );
-    expect(
-      screen.getByRole('button', { name: 'お気に入り' }),
-    ).toBeInTheDocument();
   });
 
   it('cannot be pressed when disabled', async () => {

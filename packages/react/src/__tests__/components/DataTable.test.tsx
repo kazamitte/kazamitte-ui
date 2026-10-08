@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { createDataTableColumns, DataTable } from '../../components/DataTable';
@@ -28,6 +28,7 @@ describe('DataTable', () => {
     render(<DataTable columns={COLUMNS} data={ROWS} caption="メンバー" />);
     expect(screen.getByRole('table', { name: 'メンバー' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '名前' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '年齢' })).toBeInTheDocument();
     expect(firstColumnCells()).toEqual(['Ada', 'Grace', 'Linus']);
   });
 
@@ -105,9 +106,8 @@ describe('DataTable', () => {
         onSelectionChange={onSelectionChange}
       />,
     );
-    await waitFor(() => {
-      expect(onSelectionChange).not.toHaveBeenCalled();
-    });
+    await act(() => Promise.resolve());
+    expect(onSelectionChange).not.toHaveBeenCalled();
   });
 
   it('reports the selected row again when its data changes for the same id', async () => {
@@ -141,6 +141,105 @@ describe('DataTable', () => {
       />,
     );
     expect(onSelectionChange).toHaveBeenLastCalledWith([updatedGrace]);
+  });
+
+  it('shows the default empty message when there are no rows', () => {
+    render(<DataTable columns={COLUMNS} data={[]} />);
+    expect(
+      screen.getByRole('cell', { name: 'データがありません' }),
+    ).toBeInTheDocument();
+  });
+
+  it('names row checkboxes by position when no rowLabel is given', () => {
+    render(<DataTable columns={COLUMNS} data={ROWS} selectable />);
+    expect(
+      screen.getByRole('checkbox', { name: '1行目を選択' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: '3行目を選択' }),
+    ).toBeInTheDocument();
+  });
+
+  it('selects and deselects every row from the header checkbox', async () => {
+    const user = userEvent.setup();
+    const onSelectionChange = vi.fn();
+    render(
+      <DataTable
+        columns={COLUMNS}
+        data={ROWS}
+        getRowId={(row) => row.id}
+        selectable
+        onSelectionChange={onSelectionChange}
+      />,
+    );
+    const all = screen.getByRole('checkbox', {
+      name: 'このページの行をすべて選択',
+    });
+    await user.click(screen.getByRole('checkbox', { name: '1行目を選択' }));
+    await waitFor(() => expect(all).toBePartiallyChecked());
+
+    await user.click(all);
+    expect(onSelectionChange).toHaveBeenLastCalledWith(ROWS);
+    await waitFor(() => expect(all).toBeChecked());
+
+    await user.click(all);
+    expect(onSelectionChange).toHaveBeenLastCalledWith([]);
+    expect(screen.queryByRole('row', { selected: true })).toBeNull();
+  });
+
+  it('renders no sort button for a column with sorting disabled', () => {
+    const plain = helper.columns([
+      helper.accessor('name', { header: '名前', enableSorting: false }),
+      helper.accessor('age', { header: '年齢' }),
+    ]);
+    render(<DataTable columns={plain} data={ROWS} />);
+    expect(screen.queryByRole('button', { name: '名前' })).toBeNull();
+    expect(screen.getByRole('columnheader', { name: '名前' })).toBeVisible();
+    expect(screen.getByRole('button', { name: '年齢' })).toBeInTheDocument();
+  });
+
+  it('starts sorted by defaultSorting', () => {
+    render(
+      <DataTable
+        columns={COLUMNS}
+        data={ROWS}
+        defaultSorting={[{ id: 'age', desc: true }]}
+      />,
+    );
+    expect(screen.getByRole('columnheader', { name: '年齢' })).toHaveAttribute(
+      'aria-sort',
+      'descending',
+    );
+    expect(firstColumnCells()).toEqual(['Grace', 'Ada', 'Linus']);
+  });
+
+  it('shows the range status but no pagination when every row fits one page', () => {
+    render(<DataTable columns={COLUMNS} data={ROWS} pageSize={3} />);
+    expect(screen.getByText('全3件中 1–3件')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '次のページ' })).toBeNull();
+  });
+
+  it('applies meta.width to the columns when a pageSize implies a fixed layout', () => {
+    const sized = helper.columns([
+      helper.accessor('name', { header: '名前', meta: { width: 120 } }),
+      helper.accessor('age', { header: '年齢' }),
+    ]);
+    const { container } = render(
+      <DataTable columns={sized} data={ROWS} pageSize={2} />,
+    );
+    const cols = container.querySelectorAll('col');
+    expect(cols).toHaveLength(2);
+    expect(cols[0]).toHaveStyle({ width: '120px' });
+  });
+
+  it('leaves column widths alone when the layout is auto', () => {
+    const sized = helper.columns([
+      helper.accessor('name', { header: '名前', meta: { width: 120 } }),
+    ]);
+    const { container } = render(
+      <DataTable columns={sized} data={ROWS} layout="auto" />,
+    );
+    expect(container.querySelectorAll('col')).toHaveLength(0);
   });
 
   it('shows the empty message across the columns when there are no rows', () => {

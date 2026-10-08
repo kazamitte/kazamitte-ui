@@ -23,6 +23,40 @@ const STEPS: TourStep[] = [
   },
 ];
 
+const TOOLTIP_STEPS: TourStep[] = [
+  {
+    id: 'save',
+    type: 'tooltip',
+    title: '保存',
+    description: 'ここで保存します。',
+    target: () => document.querySelector<HTMLElement>('#save'),
+    actions: [{ label: '完了', action: 'dismiss' }],
+  },
+];
+
+const TooltipSample = () => {
+  const tour = useTour({ steps: TOOLTIP_STEPS });
+  return (
+    <>
+      <button type="button" onClick={() => tour.start()}>
+        ツアーを始める
+      </button>
+      <button type="button" id="save">
+        保存
+      </button>
+      <Tour tour={tour} />
+    </>
+  );
+};
+
+const part = (name: string): HTMLElement => {
+  const el = document.querySelector<HTMLElement>(
+    `[data-scope="tour"][data-part="${name}"]`,
+  );
+  if (el === null) throw new Error(`tour ${name} not rendered`);
+  return el;
+};
+
 const Sample = () => {
   const tour = useTour({ steps: STEPS });
   return (
@@ -79,5 +113,29 @@ describe('Tour', { timeout: 15000 }, () => {
 
     await userEvent.keyboard('{Escape}');
     await expect.poll(() => screen.queryByRole('alertdialog')).toBeNull();
+  });
+
+  it('stops the backdrop from catching pointer events once the tour is closed', async () => {
+    render(<Sample />);
+    await userEvent.click(
+      screen.getByRole('button', { name: 'ツアーを始める' }),
+    );
+    await screen.findByRole('alertdialog');
+    await userEvent.keyboard('{Escape}');
+    await expect.poll(() => screen.queryByRole('alertdialog')).toBeNull();
+
+    expect(getComputedStyle(part('backdrop')).pointerEvents).toBe('none');
+  });
+
+  it('stacks the tooltip-step positioner above the backdrop so its actions stay clickable', async () => {
+    render(<TooltipSample />);
+    await userEvent.click(
+      screen.getByRole('button', { name: 'ツアーを始める' }),
+    );
+    await screen.findByRole('alertdialog');
+
+    const positionerZ = Number(getComputedStyle(part('positioner')).zIndex);
+    const backdropZ = Number(getComputedStyle(part('backdrop')).zIndex);
+    expect(positionerZ).toBeGreaterThan(backdropZ);
   });
 });

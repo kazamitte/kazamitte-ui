@@ -65,6 +65,25 @@ describe('Slider', () => {
     expect(screen.getByText('40%')).toBeInTheDocument();
   });
 
+  it('joins a range as "min – max" in the value text by default', () => {
+    render(<Slider label="価格" defaultValue={[20, 60]} showValueText />);
+    expect(screen.getByText('20 – 60')).toBeInTheDocument();
+  });
+
+  it('starts with one thumb at min when no value is given', () => {
+    render(<Slider label="音量" min={10} max={50} />);
+    const thumbs = screen.getAllByRole('slider', { name: '音量' });
+    expect(thumbs).toHaveLength(1);
+    expect(thumbs[0]).toHaveAttribute('aria-valuenow', '10');
+  });
+
+  it('renders the marker labels', () => {
+    render(<Slider label="音量" markers={[0, 50, 100]} />);
+    expect(screen.getByText('0')).toBeInTheDocument();
+    expect(screen.getByText('50')).toBeInTheDocument();
+    expect(screen.getByText('100')).toBeInTheDocument();
+  });
+
   it('tells assistive tech when it is vertical', () => {
     render(<Slider label="音量" orientation="vertical" defaultValue={[40]} />);
     expect(screen.getByRole('slider', { name: '音量' })).toHaveAttribute(
@@ -83,9 +102,13 @@ describe('Slider', () => {
   });
 
   it('carries the values in hidden inputs for forms', () => {
-    render(<Slider name="price" defaultValue={[20, 60]} />);
-    const inputs = document.querySelectorAll('input[name="price[]"]');
-    expect(inputs).toHaveLength(2);
-    expect(inputs[0]).toHaveValue('20');
+    const { container } = render(
+      <form>
+        <Slider name="price" defaultValue={[20, 60]} />
+      </form>,
+    );
+    const form = container.querySelector('form');
+    if (form === null) throw new Error('form not rendered');
+    expect(new FormData(form).getAll('price[]')).toEqual(['20', '60']);
   });
 });

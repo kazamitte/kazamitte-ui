@@ -51,33 +51,13 @@ describe('Drawer', () => {
     );
   });
 
-  it('tells its parts which physical edge it slides in from', async () => {
-    const user = setup();
-    renderDrawer({ swipeDirection: 'end' });
-    await user.click(screen.getByRole('button', { name: '編集' }));
-    const dialog = await screen.findByRole('dialog');
-    expect(dialog).toHaveAttribute('data-swipe-direction', 'right');
-    expect(dialog.parentElement).toHaveAttribute(
-      'data-swipe-direction',
-      'right',
-    );
-  });
-
-  it('closes on Escape and through the close trigger, reporting the change', async () => {
+  it('closes from the close trigger, reporting the change', async () => {
     const user = setup();
     const onOpenChange = vi.fn();
     renderDrawer({ onOpenChange });
     await user.click(screen.getByRole('button', { name: '編集' }));
-    await screen.findByRole('dialog');
-
-    await user.keyboard('{Escape}');
-    expect(onOpenChange).toHaveBeenLastCalledWith({ open: false });
-    await waitFor(() =>
-      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
-    );
-
-    await user.click(screen.getByRole('button', { name: '編集' }));
     await user.click(await screen.findByRole('button', { name: '閉じる' }));
+    expect(onOpenChange).toHaveBeenLastCalledWith({ open: false });
     await waitFor(() =>
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );

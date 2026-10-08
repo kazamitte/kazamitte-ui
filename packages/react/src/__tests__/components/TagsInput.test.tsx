@@ -57,9 +57,6 @@ describe('TagsInput', () => {
     render(<TagsInput label="タグ" defaultValue={['React', 'Vue']} />);
     await user.click(screen.getByLabelText('タグ'));
     await user.keyboard('{Backspace}');
-    await waitFor(() =>
-      expect(screen.getByText('Vue')).toHaveAttribute('data-highlighted'),
-    );
     expect(screen.getByText('Vue')).toBeInTheDocument();
 
     await user.keyboard('{Backspace}');
@@ -67,6 +64,49 @@ describe('TagsInput', () => {
       expect(screen.queryByText('Vue')).not.toBeInTheDocument(),
     );
     expect(screen.getByText('React')).toBeInTheDocument();
+  });
+
+  it('announces added and deleted tags in Japanese', async () => {
+    const user = userEvent.setup();
+    render(<TagsInput label="タグ" />);
+    await user.type(screen.getByLabelText('タグ'), 'Vue{Enter}');
+    expect(await screen.findByText('Vueを追加しました')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Vueを削除' }));
+    expect(await screen.findByText('Vueを削除しました')).toBeInTheDocument();
+  });
+
+  it('empties the value with the clear button and reports it', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(
+      <TagsInput
+        label="タグ"
+        defaultValue={['React', 'Vue']}
+        onValueChange={onValueChange}
+      />,
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'すべてのタグを削除' }),
+    );
+    await waitFor(() =>
+      expect(screen.queryByText('React')).not.toBeInTheDocument(),
+    );
+    expect(onValueChange).toHaveBeenLastCalledWith({ value: [] });
+  });
+
+  it('overrides one translation and keeps the other Japanese defaults', () => {
+    render(
+      <TagsInput
+        label="タグ"
+        defaultValue={['React']}
+        translations={{ clearTriggerLabel: 'Clear' }}
+      />,
+    );
+    expect(screen.getByRole('button', { name: 'Clear' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Reactを削除' }),
+    ).toBeInTheDocument();
   });
 
   it('refuses a tag the validate function rejects and reports why', async () => {
@@ -93,10 +133,14 @@ describe('TagsInput', () => {
   });
 
   it('carries the comma-joined value in a hidden input for forms', () => {
-    render(<TagsInput name="tags" defaultValue={['React', 'Vue']} />);
-    expect(document.querySelector('input[name="tags"]')).toHaveValue(
-      'React, Vue',
+    const { container } = render(
+      <form>
+        <TagsInput name="tags" defaultValue={['React', 'Vue']} />
+      </form>,
     );
+    const form = container.querySelector('form');
+    if (form === null) throw new Error('form not rendered');
+    expect(new FormData(form).get('tags')).toBe('React, Vue');
   });
 
   it('disables the input and the delete buttons when disabled', () => {

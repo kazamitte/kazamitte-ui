@@ -1,6 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { createToaster, Toaster } from '../../components/Toast';
 import { stubObservers } from '../setup/observers';
 
@@ -31,6 +31,59 @@ describe('Toaster', { timeout: 15000 }, () => {
     const toast = await screen.findByRole('status');
     expect(toast).toHaveAccessibleName('送信しています');
     expect(screen.getAllByRole('status')).toHaveLength(1);
+  });
+
+  it.each(['error', 'warning'] as const)(
+    'shows a %s toast as a single status',
+    async (type) => {
+      const toaster = createToaster({ placement: 'bottom-end' });
+      render(<Toaster toaster={toaster} />);
+      act(() => {
+        toaster.create({ title: '失敗しました', type });
+      });
+      const toast = await screen.findByRole('status');
+      expect(toast).toHaveAccessibleName('失敗しました');
+      expect(screen.getAllByRole('status')).toHaveLength(1);
+    },
+  );
+
+  it('shows a toast of a custom type without an indicator', async () => {
+    const toaster = createToaster({ placement: 'bottom-end' });
+    render(<Toaster toaster={toaster} />);
+    act(() => {
+      toaster.create({ title: 'メモを残しました', type: 'note' });
+    });
+    const toast = await screen.findByRole('status');
+    expect(toast).toHaveAccessibleName('メモを残しました');
+    const close = screen.getByRole('button', { name: '閉じる' });
+    const icons = [...toast.querySelectorAll('svg')];
+    expect(icons.filter((icon) => !close.contains(icon))).toEqual([]);
+  });
+
+  it('has no description when none is given', async () => {
+    const toaster = createToaster({ placement: 'bottom-end' });
+    render(<Toaster toaster={toaster} />);
+    act(() => {
+      toaster.create({ title: '保存しました' });
+    });
+    const toast = await screen.findByRole('status');
+    expect(toast).toHaveAccessibleDescription('');
+  });
+
+  it('runs the action handler when its button is clicked', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const toaster = createToaster({ placement: 'bottom-end' });
+    render(<Toaster toaster={toaster} />);
+    act(() => {
+      toaster.create({
+        title: '削除しました',
+        duration: Infinity,
+        action: { label: '元に戻す', onClick },
+      });
+    });
+    await user.click(await screen.findByRole('button', { name: '元に戻す' }));
+    expect(onClick).toHaveBeenCalledOnce();
   });
 
   it('dismisses a toast from its close button', async () => {
