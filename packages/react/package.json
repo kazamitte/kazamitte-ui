@@ -49,6 +49,7 @@
         "types": "./dist/twmerge-config.d.ts",
         "default": "./dist/twmerge-config.js"
       },
+      "./styles.css": "./dist/styles.css",
       "./package.json": "./package.json"
     }
   },
