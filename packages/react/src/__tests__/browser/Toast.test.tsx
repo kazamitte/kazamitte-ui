@@ -20,6 +20,25 @@ describe('Toaster', { timeout: 15000 }, () => {
     expect(screen.getAllByRole('status')).toHaveLength(1);
   });
 
+  it('offsets each toast so a newer one never covers an older one', async () => {
+    const toaster = createToaster({ placement: 'bottom-end' });
+    render(<Toaster toaster={toaster} />);
+    act(() => {
+      toaster.create({ title: '1件目', duration: Infinity });
+      toaster.create({ title: '2件目', duration: Infinity });
+    });
+    await expect.poll(() => screen.queryAllByRole('status')).toHaveLength(2);
+
+    const overlaps = (): boolean => {
+      const [a, b] = screen
+        .getAllByRole('status')
+        .map((toast) => toast.getBoundingClientRect());
+      if (a === undefined || b === undefined) return true;
+      return a.top < b.bottom && b.top < a.bottom;
+    };
+    await expect.poll(overlaps).toBe(false);
+  });
+
   it('reaches and activates the close button with the keyboard', async () => {
     const toaster = createToaster({
       placement: 'bottom-end',
