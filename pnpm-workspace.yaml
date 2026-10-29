@@ -1,4 +1,8 @@
 packages:
   - packages/*
+# Security floors for transitive deps that `pnpm up` would not move
+overrides:
+  vite@<8.3.3: ^8.3.3
+  zod@<4.6.6: ^4.6.6
 minimumReleaseAgeExclude:
   - '@kazamitte/design-token@0.3.0'
