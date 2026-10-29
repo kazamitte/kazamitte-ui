@@ -1,6 +1,6 @@
 {
   "name": "@kazamitte/kazamitte-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Accessible React components built on Ark UI, Tailwind CSS v4 and @kazamitte/design-token.",
   "license": "MIT",
   "author": "kazamitte",
