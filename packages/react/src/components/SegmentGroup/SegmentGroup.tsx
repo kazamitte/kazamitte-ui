@@ -7,7 +7,7 @@ import { focusRingWithin } from '../../variants';
 
 const segmentGroupStyles = tv({
   slots: {
-    root: 'relative inline-flex rounded-control base-bg-muted p-1',
+    root: 'relative inline-flex rounded-control base-bg-muted p-1 ark-vertical:flex-col',
     label: 'sr-only',
     indicator: [
       'top-(--top) left-(--left) h-(--height) w-(--width) rounded-control base-bg shadow-flat',
@@ -39,10 +39,15 @@ type SegmentGroupProps = ArkSegmentGroup.RootProps & {
 export const SegmentGroup = ({
   options,
   label,
+  orientation = 'horizontal',
   className,
   ...props
 }: SegmentGroupProps) => (
-  <ArkSegmentGroup.Root className={styles.root({ className })} {...props}>
+  <ArkSegmentGroup.Root
+    orientation={orientation}
+    className={styles.root({ className })}
+    {...props}
+  >
     <ArkSegmentGroup.Label className={styles.label()}>
       {label}
     </ArkSegmentGroup.Label>

@@ -32,6 +32,28 @@ describe('SegmentGroup', () => {
     expect(screen.getByRole('radio', { name: 'グリッド' })).toBeChecked();
   });
 
+  it('announces a horizontal orientation by default, matching its side-by-side layout', () => {
+    render(<SegmentGroup label="表示形式" options={OPTIONS} />);
+    expect(screen.getByRole('radiogroup')).toHaveAttribute(
+      'aria-orientation',
+      'horizontal',
+    );
+  });
+
+  it('announces a vertical orientation when orientation is vertical', () => {
+    render(
+      <SegmentGroup
+        label="表示形式"
+        options={OPTIONS}
+        orientation="vertical"
+      />,
+    );
+    expect(screen.getByRole('radiogroup')).toHaveAttribute(
+      'aria-orientation',
+      'vertical',
+    );
+  });
+
   it('disables an option flagged disabled and does not select it on click', async () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
