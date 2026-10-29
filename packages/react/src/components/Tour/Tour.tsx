@@ -4,7 +4,7 @@ import { Portal } from '@ark-ui/react/portal';
 import { Tour as ArkTour, useTour } from '@ark-ui/react/tour';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
-import { closeButtonStyles } from '../../variants';
+import { closeButtonStyles, scrim } from '../../variants';
 import { buttonStyles } from '../Button';
 
 const tourStyles = tv({
@@ -12,7 +12,8 @@ const tourStyles = tv({
     // Ark's TourBackdrop hardcodes `hidden`, overriding the presence-driven one;
     // drop pointer-events on data-state=closed or it freezes the page.
     backdrop: [
-      'fixed inset-0 z-overlay bg-(--r-base-fg-strong)/50',
+      'fixed inset-0 z-overlay',
+      scrim,
       'ark-open:animate-fade-in ark-closed:pointer-events-none ark-closed:animate-fade-out',
     ],
     spotlight: 'rounded-control',

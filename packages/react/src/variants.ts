@@ -77,6 +77,10 @@ export const fieldSlots = {
   label: 'text-dense-14 font-medium base-fg-strong',
 };
 
+// Black in both modes: a foreground role would flip to near-white in dark mode
+// and light up the page behind a modal instead of dimming it.
+export const scrim = 'bg-[rgb(0_0_0/0.55)]';
+
 export const closeButtonStyles = tv({
   base: [
     'inline-flex items-center justify-center rounded-control base-fg-muted',

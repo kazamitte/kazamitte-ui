@@ -76,6 +76,24 @@ describe('Dialog', () => {
     expect(after).not.toHaveFocus();
   });
 
+  it('dims the page with a black backdrop in dark mode too', async () => {
+    document.documentElement.dataset.mode = 'dark';
+    try {
+      renderDialog();
+      await userEvent.click(screen.getByRole('button', { name: '削除' }));
+      await screen.findByRole('dialog');
+      const backdrop = document.querySelector<HTMLElement>(
+        '[data-scope="dialog"][data-part="backdrop"]',
+      );
+      if (backdrop === null) throw new Error('dialog backdrop not rendered');
+      expect(getComputedStyle(backdrop).backgroundColor).toBe(
+        'rgba(0, 0, 0, 0.55)',
+      );
+    } finally {
+      delete document.documentElement.dataset.mode;
+    }
+  });
+
   it('returns focus to the trigger after closing with Escape', async () => {
     renderDialog();
     const trigger = screen.getByRole('button', { name: '削除' });

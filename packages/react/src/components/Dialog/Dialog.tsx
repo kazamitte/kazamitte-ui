@@ -3,7 +3,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { Dialog as ArkDialog, Portal } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
-import { closeButtonStyles } from '../../variants';
+import { closeButtonStyles, scrim } from '../../variants';
 
 const positionerStyles = tv({
   base: 'fixed inset-0 z-modal flex justify-center p-4',
@@ -43,7 +43,8 @@ const contentStyles = tv({
 export const dialogStyles = tv({
   slots: {
     backdrop: [
-      'fixed inset-0 z-overlay bg-(--r-base-fg-strong)/50',
+      'fixed inset-0 z-overlay',
+      scrim,
       'ark-open:animate-fade-in ark-closed:animate-fade-out',
     ],
     header: 'flex flex-col gap-1 px-6 pt-6',
