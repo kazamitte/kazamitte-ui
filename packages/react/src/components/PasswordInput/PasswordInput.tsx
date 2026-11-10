@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { PasswordInput as ArkPasswordInput } from '@ark-ui/react';
 import { Eye, EyeOff } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
@@ -35,12 +35,17 @@ const passwordInputStyles = tv({
   defaultVariants: { size: 'md' },
 });
 
-const defaultTranslations: ArkPasswordInput.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkPasswordInput.Root
+>['translations'] = {
   visibilityTrigger: (visible) =>
     visible ? 'パスワードを隠す' : 'パスワードを表示',
 };
 
-type PasswordInputProps = Omit<ArkPasswordInput.RootProps, 'children'> &
+type PasswordInputProps = Omit<
+  ComponentProps<typeof ArkPasswordInput.Root>,
+  'children'
+> &
   VariantProps<typeof passwordInputStyles> & {
     label?: ReactNode;
     placeholder?: string;

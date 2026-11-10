@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv } from '../../tv';
 
 const kbdStyles = tv({
@@ -10,9 +10,6 @@ const kbdStyles = tv({
   ],
 });
 
-export const Kbd = ({
-  className,
-  ...props
-}: ComponentPropsWithoutRef<'kbd'>) => (
+export const Kbd = ({ className, ...props }: ComponentPropsWithRef<'kbd'>) => (
   <kbd className={kbdStyles({ className })} {...props} />
 );

@@ -3,7 +3,7 @@
 import {
   Children,
   isValidElement,
-  type ComponentPropsWithoutRef,
+  type ComponentPropsWithRef,
   type ReactNode,
 } from 'react';
 import { tv, type VariantProps } from '../../tv';
@@ -33,7 +33,7 @@ const nameOf = (item: ReactNode): string | undefined => {
   return typeof item.props.name === 'string' ? item.props.name : undefined;
 };
 
-type AvatarGroupProps = ComponentPropsWithoutRef<'ul'> &
+type AvatarGroupProps = ComponentPropsWithRef<'ul'> &
   VariantProps<typeof avatarGroupStyles> & {
     max?: number;
     children: ReactNode;

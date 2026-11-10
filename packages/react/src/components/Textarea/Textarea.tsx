@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 import { inputStyles } from '../Input';
 
@@ -13,7 +13,7 @@ const textareaStyles = tv({
   ],
 });
 
-type TextareaProps = ComponentPropsWithoutRef<'textarea'> &
+type TextareaProps = ComponentPropsWithRef<'textarea'> &
   VariantProps<typeof inputStyles>;
 
 export const Textarea = ({ size, className, ...props }: TextareaProps) => (

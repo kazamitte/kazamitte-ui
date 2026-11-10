@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { SegmentGroup as ArkSegmentGroup } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRingWithin } from '../../variants';
@@ -31,7 +31,7 @@ export type SegmentGroupOption = {
   disabled?: boolean;
 };
 
-type SegmentGroupProps = ArkSegmentGroup.RootProps & {
+type SegmentGroupProps = ComponentProps<typeof ArkSegmentGroup.Root> & {
   options: SegmentGroupOption[];
   label: ReactNode;
 };

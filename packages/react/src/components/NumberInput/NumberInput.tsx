@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { NumberInput as ArkNumberInput } from '@ark-ui/react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
@@ -36,12 +36,17 @@ const numberInputStyles = tv({
   defaultVariants: { size: 'md' },
 });
 
-const defaultTranslations: ArkNumberInput.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkNumberInput.Root
+>['translations'] = {
   incrementLabel: '増やす',
   decrementLabel: '減らす',
 };
 
-type NumberInputProps = Omit<ArkNumberInput.RootProps, 'children'> &
+type NumberInputProps = Omit<
+  ComponentProps<typeof ArkNumberInput.Root>,
+  'children'
+> &
   VariantProps<typeof numberInputStyles> & {
     label?: ReactNode;
     placeholder?: string;

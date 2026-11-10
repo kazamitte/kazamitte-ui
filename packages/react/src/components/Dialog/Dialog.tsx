@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentProps, ComponentPropsWithRef } from 'react';
 import { Dialog as ArkDialog, Portal } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { closeButtonStyles, scrim } from '../../variants';
@@ -67,11 +67,11 @@ export const DialogPortal = Portal;
 export const DialogBackdrop = ({
   className,
   ...props
-}: ArkDialog.BackdropProps) => (
+}: ComponentProps<typeof ArkDialog.Backdrop>) => (
   <ArkDialog.Backdrop className={styles.backdrop({ className })} {...props} />
 );
 
-type DialogPositionerProps = ArkDialog.PositionerProps &
+type DialogPositionerProps = ComponentProps<typeof ArkDialog.Positioner> &
   VariantProps<typeof positionerStyles>;
 
 export const DialogPositioner = ({
@@ -86,7 +86,7 @@ export const DialogPositioner = ({
   />
 );
 
-type DialogContentProps = ArkDialog.ContentProps &
+type DialogContentProps = ComponentProps<typeof ArkDialog.Content> &
   VariantProps<typeof contentStyles>;
 
 export const DialogContent = ({
@@ -104,18 +104,21 @@ export const DialogContent = ({
 export const DialogHeader = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.header({ className })} {...props} />
 );
 
-export const DialogTitle = ({ className, ...props }: ArkDialog.TitleProps) => (
+export const DialogTitle = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkDialog.Title>) => (
   <ArkDialog.Title className={styles.title({ className })} {...props} />
 );
 
 export const DialogDescription = ({
   className,
   ...props
-}: ArkDialog.DescriptionProps) => (
+}: ComponentProps<typeof ArkDialog.Description>) => (
   <ArkDialog.Description
     className={styles.description({ className })}
     {...props}
@@ -125,14 +128,14 @@ export const DialogDescription = ({
 export const DialogBody = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.body({ className })} {...props} />
 );
 
 export const DialogFooter = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.footer({ className })} {...props} />
 );
 
@@ -140,7 +143,7 @@ export const DialogCloseTrigger = ({
   asChild,
   className,
   ...props
-}: ArkDialog.CloseTriggerProps) => (
+}: ComponentProps<typeof ArkDialog.CloseTrigger>) => (
   <ArkDialog.CloseTrigger
     asChild={asChild}
     className={

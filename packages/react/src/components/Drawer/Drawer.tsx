@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Drawer as ArkDrawer } from '@ark-ui/react/drawer';
 import { Portal } from '@ark-ui/react/portal';
 import { tv, type VariantProps } from '../../tv';
@@ -72,21 +73,21 @@ export const DrawerPortal = Portal;
 export const DrawerBackdrop = ({
   className,
   ...props
-}: ArkDrawer.BackdropProps) => (
+}: ComponentProps<typeof ArkDrawer.Backdrop>) => (
   <ArkDrawer.Backdrop className={shared.backdrop({ className })} {...props} />
 );
 
 export const DrawerPositioner = ({
   className,
   ...props
-}: ArkDrawer.PositionerProps) => (
+}: ComponentProps<typeof ArkDrawer.Positioner>) => (
   <ArkDrawer.Positioner
     className={positionerStyles({ className })}
     {...props}
   />
 );
 
-type DrawerContentProps = ArkDrawer.ContentProps &
+type DrawerContentProps = ComponentProps<typeof ArkDrawer.Content> &
   VariantProps<typeof contentStyles>;
 
 export const DrawerContent = ({
@@ -109,14 +110,14 @@ export const DrawerFooter = DialogFooter;
 export const DrawerGrabber = ({
   className,
   ...props
-}: ArkDrawer.GrabberProps) => (
+}: ComponentProps<typeof ArkDrawer.Grabber>) => (
   <ArkDrawer.Grabber className={styles.grabber({ className })} {...props} />
 );
 
 export const DrawerGrabberIndicator = ({
   className,
   ...props
-}: ArkDrawer.GrabberIndicatorProps) => (
+}: ComponentProps<typeof ArkDrawer.GrabberIndicator>) => (
   <ArkDrawer.GrabberIndicator
     className={styles.grabberIndicator({ className })}
     {...props}
@@ -126,18 +127,21 @@ export const DrawerGrabberIndicator = ({
 export const DrawerSwipeArea = ({
   className,
   ...props
-}: ArkDrawer.SwipeAreaProps) => (
+}: ComponentProps<typeof ArkDrawer.SwipeArea>) => (
   <ArkDrawer.SwipeArea className={styles.swipeArea({ className })} {...props} />
 );
 
-export const DrawerTitle = ({ className, ...props }: ArkDrawer.TitleProps) => (
+export const DrawerTitle = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkDrawer.Title>) => (
   <ArkDrawer.Title className={shared.title({ className })} {...props} />
 );
 
 export const DrawerDescription = ({
   className,
   ...props
-}: ArkDrawer.DescriptionProps) => (
+}: ComponentProps<typeof ArkDrawer.Description>) => (
   <ArkDrawer.Description
     className={shared.description({ className })}
     {...props}
@@ -148,7 +152,7 @@ export const DrawerCloseTrigger = ({
   asChild,
   className,
   ...props
-}: ArkDrawer.CloseTriggerProps) => (
+}: ComponentProps<typeof ArkDrawer.CloseTrigger>) => (
   <ArkDrawer.CloseTrigger
     asChild={asChild}
     className={

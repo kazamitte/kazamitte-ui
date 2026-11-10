@@ -3,8 +3,10 @@
 import {
   createContext,
   useContext,
-  type ComponentPropsWithoutRef,
+  type ComponentPropsWithRef,
   type HTMLAttributes,
+  type Ref,
+  type RefAttributes,
 } from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
@@ -47,6 +49,7 @@ type CardVariant = VariantProps<typeof cardStyles>['variant'];
 const CardVariantContext = createContext<CardVariant>(undefined);
 
 type CardRootProps = HTMLAttributes<HTMLElement> &
+  RefAttributes<HTMLDivElement> &
   VariantProps<typeof cardStyles> & {
     href?: string;
     asChild?: boolean;
@@ -58,6 +61,7 @@ export const CardRoot = ({
   href,
   asChild,
   className,
+  ref,
   ...props
 }: CardRootProps) => {
   const styles = cardStyles({
@@ -69,9 +73,19 @@ export const CardRoot = ({
   return (
     <CardVariantContext.Provider value={variant}>
       {href !== undefined ? (
-        <ark.a href={href} className={rootClassName} {...props} />
+        <ark.a
+          ref={ref as Ref<HTMLAnchorElement>}
+          href={href}
+          className={rootClassName}
+          {...props}
+        />
       ) : (
-        <ark.div asChild={asChild} className={rootClassName} {...props} />
+        <ark.div
+          ref={ref}
+          asChild={asChild}
+          className={rootClassName}
+          {...props}
+        />
       )}
     </CardVariantContext.Provider>
   );
@@ -82,21 +96,21 @@ const styles = cardStyles();
 export const CardHeader = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.header({ className })} {...props} />
 );
 
 export const CardTitle = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<typeof ark.h3>) => (
+}: ComponentPropsWithRef<typeof ark.h3>) => (
   <ark.h3 className={styles.title({ className })} {...props} />
 );
 
 export const CardDescription = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'p'>) => {
+}: ComponentPropsWithRef<'p'>) => {
   const variant = useContext(CardVariantContext);
   return (
     <p
@@ -109,13 +123,13 @@ export const CardDescription = ({
 export const CardBody = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.body({ className })} {...props} />
 );
 
 export const CardFooter = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.footer({ className })} {...props} />
 );

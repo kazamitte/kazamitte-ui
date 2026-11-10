@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { gapVariants } from '../../variants';
@@ -26,7 +26,7 @@ export const gridStyles = tv({
   defaultVariants: { columns: 'auto', gap: 4 },
 });
 
-type GridProps = ComponentPropsWithoutRef<typeof ark.div> &
+type GridProps = ComponentPropsWithRef<typeof ark.div> &
   VariantProps<typeof gridStyles>;
 
 export const Grid = ({

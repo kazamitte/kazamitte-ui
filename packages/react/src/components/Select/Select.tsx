@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type ReactNode } from 'react';
+import { useMemo, type ReactNode, type RefAttributes } from 'react';
 import {
   Select as ArkSelect,
   createListCollection,
@@ -52,11 +52,12 @@ const defaultPositioning: ArkSelect.RootProps<SelectItem>['positioning'] = {
 type SelectProps = Omit<
   ArkSelect.RootProps<SelectItem>,
   'collection' | 'children'
-> & {
-  items: SelectItem[];
-  label?: ReactNode;
-  placeholder?: string;
-};
+> &
+  RefAttributes<HTMLDivElement> & {
+    items: SelectItem[];
+    label?: ReactNode;
+    placeholder?: string;
+  };
 
 const Item = ({ item }: { item: SelectItem }) => (
   <ArkSelect.Item item={item} className={list.item()}>

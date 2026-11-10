@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { ScrollArea as ArkScrollArea } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -42,7 +43,7 @@ type ScrollAreaName =
   | { 'aria-label'?: never; 'aria-labelledby': string };
 
 type ScrollAreaProps = Omit<
-  ArkScrollArea.RootProps,
+  ComponentProps<typeof ArkScrollArea.Root>,
   'aria-label' | 'aria-labelledby'
 > &
   VariantProps<typeof scrollAreaStyles> &

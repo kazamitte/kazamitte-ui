@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Accordion as ArkAccordion } from '@ark-ui/react';
 import { ChevronDown } from 'lucide-react';
 import { tv } from '../../tv';
@@ -28,21 +29,21 @@ const styles = accordionStyles();
 export const AccordionRoot = ({
   className,
   ...props
-}: ArkAccordion.RootProps) => (
+}: ComponentProps<typeof ArkAccordion.Root>) => (
   <ArkAccordion.Root className={styles.root({ className })} {...props} />
 );
 
 export const AccordionItem = ({
   className,
   ...props
-}: ArkAccordion.ItemProps) => (
+}: ComponentProps<typeof ArkAccordion.Item>) => (
   <ArkAccordion.Item className={styles.item({ className })} {...props} />
 );
 
 export const AccordionItemTrigger = ({
   className,
   ...props
-}: ArkAccordion.ItemTriggerProps) => (
+}: ComponentProps<typeof ArkAccordion.ItemTrigger>) => (
   <ArkAccordion.ItemTrigger
     className={styles.itemTrigger({ className })}
     {...props}
@@ -53,7 +54,7 @@ export const AccordionItemIndicator = ({
   className,
   children,
   ...props
-}: ArkAccordion.ItemIndicatorProps) => (
+}: ComponentProps<typeof ArkAccordion.ItemIndicator>) => (
   <ArkAccordion.ItemIndicator
     className={styles.itemIndicator({ className })}
     {...props}
@@ -65,7 +66,7 @@ export const AccordionItemIndicator = ({
 export const AccordionItemContent = ({
   className,
   ...props
-}: ArkAccordion.ItemContentProps) => (
+}: ComponentProps<typeof ArkAccordion.ItemContent>) => (
   <ArkAccordion.ItemContent
     className={styles.itemContent({ className })}
     {...props}

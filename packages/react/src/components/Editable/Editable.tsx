@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Editable as ArkEditable } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
@@ -39,7 +39,9 @@ const editableStyles = tv({
   defaultVariants: { multiline: false },
 });
 
-const defaultTranslations: ArkEditable.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkEditable.Root
+>['translations'] = {
   // Empty on purpose: Ark's English aria-label would beat the visible <label>.
   input: '',
   edit: '編集',
@@ -47,7 +49,10 @@ const defaultTranslations: ArkEditable.RootProps['translations'] = {
   cancel: 'キャンセル',
 };
 
-type EditableProps = Omit<ArkEditable.RootProps, 'children'> & {
+type EditableProps = Omit<
+  ComponentProps<typeof ArkEditable.Root>,
+  'children'
+> & {
   label?: ReactNode;
   controls?: boolean;
   multiline?: boolean;

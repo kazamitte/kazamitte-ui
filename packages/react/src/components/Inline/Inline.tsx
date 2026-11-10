@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { gapVariants } from '../../variants';
@@ -25,7 +25,7 @@ export const inlineStyles = tv({
   defaultVariants: { gap: 2, align: 'center' },
 });
 
-type InlineProps = ComponentPropsWithoutRef<typeof ark.div> &
+type InlineProps = ComponentPropsWithRef<typeof ark.div> &
   VariantProps<typeof inlineStyles>;
 
 export const Inline = ({

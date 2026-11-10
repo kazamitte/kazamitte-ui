@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import {
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  type ComponentProps,
+} from 'react';
 import { Toc as ArkToc } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
@@ -30,7 +36,7 @@ export type TocEntry = {
 };
 
 type TocProps = Omit<
-  ArkToc.RootProps,
+  ComponentProps<typeof ArkToc.Root>,
   'items' | 'children' | 'rootMargin' | 'threshold'
 > & {
   items: TocEntry[];

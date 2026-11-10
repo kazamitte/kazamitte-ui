@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Switch as ArkSwitch } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRingWithin } from '../../variants';
@@ -27,7 +27,7 @@ const switchStyles = tv({
 
 const styles = switchStyles();
 
-type SwitchProps = ArkSwitch.RootProps & {
+type SwitchProps = ComponentProps<typeof ArkSwitch.Root> & {
   label?: ReactNode;
 };
 

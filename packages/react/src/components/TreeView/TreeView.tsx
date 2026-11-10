@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ReactNode, RefAttributes } from 'react';
 import { TreeView as ArkTreeView, createTreeCollection } from '@ark-ui/react';
 import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react';
 import { tv } from '../../tv';
@@ -53,11 +53,12 @@ export type TreeNode = {
 type TreeViewProps = Omit<
   ArkTreeView.RootProps<TreeNode>,
   'collection' | 'children'
-> & {
-  nodes: TreeNode[];
-  label?: ReactNode;
-  indentGuide?: boolean;
-};
+> &
+  RefAttributes<HTMLDivElement> & {
+    nodes: TreeNode[];
+    label?: ReactNode;
+    indentGuide?: boolean;
+  };
 
 const Node = ({
   node,

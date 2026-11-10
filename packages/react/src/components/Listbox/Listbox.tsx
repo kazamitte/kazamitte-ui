@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type ReactNode } from 'react';
+import { useMemo, type ReactNode, type RefAttributes } from 'react';
 import { Listbox as ArkListbox, createListCollection } from '@ark-ui/react';
 import { Check } from 'lucide-react';
 import { GroupedItems } from '../../GroupedItems';
@@ -34,10 +34,11 @@ export type ListboxItem = ListItem;
 type ListboxProps = Omit<
   ArkListbox.RootProps<ListboxItem>,
   'collection' | 'children'
-> & {
-  items: ListboxItem[];
-  label?: ReactNode;
-};
+> &
+  RefAttributes<HTMLDivElement> & {
+    items: ListboxItem[];
+    label?: ReactNode;
+  };
 
 const Item = ({ item }: { item: ListboxItem }) => (
   <ArkListbox.Item item={item} className={list.item()}>

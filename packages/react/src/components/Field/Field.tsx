@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Field as ArkField } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';
@@ -22,22 +23,31 @@ const fieldStyles = tv({
 
 const styles = fieldStyles();
 
-export const FieldRoot = ({ className, ...props }: ArkField.RootProps) => (
+export const FieldRoot = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkField.Root>) => (
   <ArkField.Root className={styles.root({ className })} {...props} />
 );
 
-export const FieldLabel = ({ className, ...props }: ArkField.LabelProps) => (
+export const FieldLabel = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkField.Label>) => (
   <ArkField.Label className={styles.label({ className })} {...props} />
 );
 
-export const FieldInput = ({ className, ...props }: ArkField.InputProps) => (
+export const FieldInput = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkField.Input>) => (
   <ArkField.Input className={styles.control({ className })} {...props} />
 );
 
 export const FieldTextarea = ({
   className,
   ...props
-}: ArkField.TextareaProps) => (
+}: ComponentProps<typeof ArkField.Textarea>) => (
   <ArkField.Textarea
     className={styles.control({
       className: ['min-h-20 resize-y', className],
@@ -46,7 +56,10 @@ export const FieldTextarea = ({
   />
 );
 
-export const FieldSelect = ({ className, ...props }: ArkField.SelectProps) => (
+export const FieldSelect = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkField.Select>) => (
   <ArkField.Select
     className={styles.control({ className: ['cursor-default', className] })}
     {...props}
@@ -56,14 +69,14 @@ export const FieldSelect = ({ className, ...props }: ArkField.SelectProps) => (
 export const FieldErrorText = ({
   className,
   ...props
-}: ArkField.ErrorTextProps) => (
+}: ComponentProps<typeof ArkField.ErrorText>) => (
   <ArkField.ErrorText className={styles.errorText({ className })} {...props} />
 );
 
 export const FieldHelperText = ({
   className,
   ...props
-}: ArkField.HelperTextProps) => (
+}: ComponentProps<typeof ArkField.HelperText>) => (
   <ArkField.HelperText
     className={styles.helperText({ className })}
     {...props}
@@ -73,7 +86,7 @@ export const FieldHelperText = ({
 export const FieldRequiredIndicator = ({
   className,
   ...props
-}: ArkField.RequiredIndicatorProps) => (
+}: ComponentProps<typeof ArkField.RequiredIndicator>) => (
   <ArkField.RequiredIndicator
     className={styles.requiredIndicator({ className })}
     {...props}

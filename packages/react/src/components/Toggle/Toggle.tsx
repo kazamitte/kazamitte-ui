@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Toggle as ArkToggle } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -26,7 +27,8 @@ export const toggleStyles = tv({
   defaultVariants: { variant: 'outline', size: 'md' },
 });
 
-type ToggleProps = ArkToggle.RootProps & VariantProps<typeof toggleStyles>;
+type ToggleProps = ComponentProps<typeof ArkToggle.Root> &
+  VariantProps<typeof toggleStyles>;
 
 export const Toggle = ({ variant, size, className, ...props }: ToggleProps) => (
   <ArkToggle.Root

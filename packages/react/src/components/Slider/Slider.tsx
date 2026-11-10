@@ -1,6 +1,6 @@
 'use client';
 
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { ComponentProps, KeyboardEvent, ReactNode } from 'react';
 import { Slider as ArkSlider, useSliderContext } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
@@ -53,7 +53,7 @@ const sliderStyles = tv({
 
 const THUMB_SIZE = { width: 20, height: 20 };
 
-type SliderProps = Omit<ArkSlider.RootProps, 'children'> & {
+type SliderProps = Omit<ComponentProps<typeof ArkSlider.Root>, 'children'> & {
   label?: ReactNode;
   showValueText?: boolean;
   formatValue?: (value: number[]) => string;

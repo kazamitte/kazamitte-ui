@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
 
@@ -28,7 +28,7 @@ const nativeInputStyles = tv({
   ],
 });
 
-type InputProps = Omit<ComponentPropsWithoutRef<'input'>, 'size'> &
+type InputProps = Omit<ComponentPropsWithRef<'input'>, 'size'> &
   VariantProps<typeof inputStyles>;
 
 export const Input = ({ size, className, ...props }: InputProps) => (

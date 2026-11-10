@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { RadioGroup as ArkRadioGroup } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRingWithin } from '../../variants';
@@ -30,7 +30,7 @@ type RadioOption = {
   disabled?: boolean;
 };
 
-type RadioGroupProps = ArkRadioGroup.RootProps & {
+type RadioGroupProps = ComponentProps<typeof ArkRadioGroup.Root> & {
   options: RadioOption[];
   label?: ReactNode;
 };

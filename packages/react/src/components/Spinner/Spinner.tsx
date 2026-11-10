@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 import { VisuallyHidden } from '../VisuallyHidden';
 
@@ -22,12 +22,12 @@ const spinnerStyles = tv({
 type SpinnerVariants = VariantProps<typeof spinnerStyles>;
 
 type SpinnerProps =
-  | (ComponentPropsWithoutRef<'output'> &
+  | (ComponentPropsWithRef<'output'> &
       SpinnerVariants & {
         decorative?: false;
         label?: string;
       })
-  | (ComponentPropsWithoutRef<'span'> &
+  | (ComponentPropsWithRef<'span'> &
       SpinnerVariants & {
         decorative: true;
         label?: never;

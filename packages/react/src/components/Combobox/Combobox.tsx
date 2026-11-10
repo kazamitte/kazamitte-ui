@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefAttributes,
+} from 'react';
 import { flushSync } from 'react-dom';
 import {
   Combobox as ArkCombobox,
@@ -62,17 +69,18 @@ const NEW_OPTION = '[[new]]';
 type ComboboxProps = Omit<
   ArkCombobox.RootProps<ComboboxItem>,
   'collection' | 'children'
-> & {
-  items: ComboboxItem[];
-  label?: ReactNode;
-  placeholder?: string;
-  emptyText?: string;
-  creatable?: boolean;
-  onCreate?: (label: string) => void;
-  createText?: (label: string) => string;
-  loading?: boolean;
-  loadingText?: string;
-};
+> &
+  RefAttributes<HTMLDivElement> & {
+    items: ComboboxItem[];
+    label?: ReactNode;
+    placeholder?: string;
+    emptyText?: string;
+    creatable?: boolean;
+    onCreate?: (label: string) => void;
+    createText?: (label: string) => string;
+    loading?: boolean;
+    loadingText?: string;
+  };
 
 const Item = ({
   item,

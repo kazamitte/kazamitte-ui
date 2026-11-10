@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Clipboard as ArkClipboard } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
@@ -28,7 +29,9 @@ const clipboardStyles = tv({
 
 const styles = clipboardStyles();
 
-const defaultTranslations: ArkClipboard.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkClipboard.Root
+>['translations'] = {
   triggerLabel: (copied) => (copied ? 'コピーしました' : 'コピー'),
 };
 
@@ -36,7 +39,7 @@ export const ClipboardRoot = ({
   className,
   translations,
   ...props
-}: ArkClipboard.RootProps) => (
+}: ComponentProps<typeof ArkClipboard.Root>) => (
   <ArkClipboard.Root
     className={styles.root({ className })}
     translations={{ ...defaultTranslations, ...translations }}
@@ -47,35 +50,35 @@ export const ClipboardRoot = ({
 export const ClipboardLabel = ({
   className,
   ...props
-}: ArkClipboard.LabelProps) => (
+}: ComponentProps<typeof ArkClipboard.Label>) => (
   <ArkClipboard.Label className={styles.label({ className })} {...props} />
 );
 
 export const ClipboardControl = ({
   className,
   ...props
-}: ArkClipboard.ControlProps) => (
+}: ComponentProps<typeof ArkClipboard.Control>) => (
   <ArkClipboard.Control className={styles.control({ className })} {...props} />
 );
 
 export const ClipboardInput = ({
   className,
   ...props
-}: ArkClipboard.InputProps) => (
+}: ComponentProps<typeof ArkClipboard.Input>) => (
   <ArkClipboard.Input className={styles.input({ className })} {...props} />
 );
 
 export const ClipboardTrigger = ({
   className,
   ...props
-}: ArkClipboard.TriggerProps) => (
+}: ComponentProps<typeof ArkClipboard.Trigger>) => (
   <ArkClipboard.Trigger className={styles.trigger({ className })} {...props} />
 );
 
 export const ClipboardIndicator = ({
   className,
   ...props
-}: ArkClipboard.IndicatorProps) => (
+}: ComponentProps<typeof ArkClipboard.Indicator>) => (
   <ArkClipboard.Indicator
     className={styles.indicator({ className })}
     {...props}
@@ -85,7 +88,7 @@ export const ClipboardIndicator = ({
 export const ClipboardValueText = ({
   className,
   ...props
-}: ArkClipboard.ValueTextProps) => (
+}: ComponentProps<typeof ArkClipboard.ValueText>) => (
   <ArkClipboard.ValueText
     className={styles.valueText({ className })}
     {...props}

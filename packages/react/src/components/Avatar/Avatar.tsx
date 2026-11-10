@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Avatar as ArkAvatar } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 
@@ -34,7 +35,7 @@ export const initialsOf = (name: string): string =>
     .map((word) => Array.from(word)[0] ?? '')
     .join('');
 
-type AvatarProps = ArkAvatar.RootProps &
+type AvatarProps = ComponentProps<typeof ArkAvatar.Root> &
   VariantProps<typeof avatarStyles> & {
     name: string;
     src?: string;

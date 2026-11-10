@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -18,7 +18,7 @@ export const linkStyles = tv({
   defaultVariants: { variant: 'underline' },
 });
 
-type LinkProps = ComponentPropsWithoutRef<typeof ark.a> &
+type LinkProps = ComponentPropsWithRef<typeof ark.a> &
   VariantProps<typeof linkStyles> &
   (
     | {

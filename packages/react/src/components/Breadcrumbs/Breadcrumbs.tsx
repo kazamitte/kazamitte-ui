@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ark } from '@ark-ui/react';
 import { ChevronRight } from 'lucide-react';
 import { tv } from '../../tv';
@@ -26,7 +26,7 @@ export const BreadcrumbsRoot = ({
   'aria-label': ariaLabel = '現在位置',
   className,
   ...props
-}: ComponentPropsWithoutRef<'nav'>) => (
+}: ComponentPropsWithRef<'nav'>) => (
   <nav
     aria-label={ariaLabel}
     className={styles.root({ className })}
@@ -37,28 +37,28 @@ export const BreadcrumbsRoot = ({
 export const BreadcrumbsList = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'ol'>) => (
+}: ComponentPropsWithRef<'ol'>) => (
   <ol className={styles.list({ className })} {...props} />
 );
 
 export const BreadcrumbsItem = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'li'>) => (
+}: ComponentPropsWithRef<'li'>) => (
   <li className={styles.item({ className })} {...props} />
 );
 
 export const BreadcrumbsLink = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<typeof ark.a>) => (
+}: ComponentPropsWithRef<typeof ark.a>) => (
   <ark.a className={styles.link({ className })} {...props} />
 );
 
 export const BreadcrumbsCurrentLink = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'span'>) => (
+}: ComponentPropsWithRef<'span'>) => (
   <span
     aria-current="page"
     className={styles.currentLink({ className })}
@@ -70,7 +70,7 @@ export const BreadcrumbsSeparator = ({
   className,
   children,
   ...props
-}: ComponentPropsWithoutRef<'span'>) => (
+}: ComponentPropsWithRef<'span'>) => (
   <span
     aria-hidden="true"
     className={styles.separator({ className })}

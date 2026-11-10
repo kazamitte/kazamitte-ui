@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode, RefAttributes } from 'react';
 import { DatePicker as ArkDatePicker } from '@ark-ui/react/date-picker';
 import { Portal } from '@ark-ui/react/portal';
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -81,11 +81,12 @@ const defaultTranslations: ArkDatePicker.RootProps['translations'] = {
   placeholder: () => ({ year: 'yyyy', month: 'mm', day: 'dd' }),
 };
 
-type DatePickerProps = Omit<ArkDatePicker.RootProps, 'children'> & {
-  label?: ReactNode;
-  placeholder?: string;
-  clearable?: boolean;
-};
+type DatePickerProps = Omit<ArkDatePicker.RootProps, 'children'> &
+  RefAttributes<HTMLDivElement> & {
+    label?: ReactNode;
+    placeholder?: string;
+    clearable?: boolean;
+  };
 
 const ViewControl = () => (
   <ArkDatePicker.ViewControl className={styles.viewControl()}>
@@ -107,7 +108,7 @@ type Grid = {
   head?: Picker['weekDays'];
   rows: {
     key?: string;
-    value: ArkDatePicker.TableCellProps['value'];
+    value: ComponentProps<typeof ArkDatePicker.TableCell>['value'];
     label: ReactNode;
   }[][];
 };

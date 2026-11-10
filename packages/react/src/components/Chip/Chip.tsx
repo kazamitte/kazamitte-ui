@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { X } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -29,7 +29,7 @@ const chipStyles = tv({
   defaultVariants: { variant: 'subtle', removable: false },
 });
 
-type ChipProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
+type ChipProps = Omit<ComponentPropsWithRef<'span'>, 'children'> &
   VariantProps<typeof chipStyles> & {
     children: ReactNode;
     onRemove?: () => void;

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Tabs as ArkTabs } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
@@ -29,26 +30,38 @@ const tabsStyles = tv({
 
 const styles = tabsStyles();
 
-export const TabsRoot = ({ className, ...props }: ArkTabs.RootProps) => (
+export const TabsRoot = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkTabs.Root>) => (
   <ArkTabs.Root className={styles.root({ className })} {...props} />
 );
 
-export const TabsList = ({ className, ...props }: ArkTabs.ListProps) => (
+export const TabsList = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkTabs.List>) => (
   <ArkTabs.List className={styles.list({ className })} {...props} />
 );
 
-export const TabsTrigger = ({ className, ...props }: ArkTabs.TriggerProps) => (
+export const TabsTrigger = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkTabs.Trigger>) => (
   <ArkTabs.Trigger className={styles.trigger({ className })} {...props} />
 );
 
-export const TabsContent = ({ className, ...props }: ArkTabs.ContentProps) => (
+export const TabsContent = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkTabs.Content>) => (
   <ArkTabs.Content className={styles.content({ className })} {...props} />
 );
 
 export const TabsIndicator = ({
   className,
   ...props
-}: ArkTabs.IndicatorProps) => (
+}: ComponentProps<typeof ArkTabs.Indicator>) => (
   <ArkTabs.Indicator className={styles.indicator({ className })} {...props} />
 );
 

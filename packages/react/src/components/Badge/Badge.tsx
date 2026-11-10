@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const badgeStyles = tv({
@@ -103,7 +103,7 @@ const badgeStyles = tv({
   defaultVariants: { tone: 'base', variant: 'subtle', size: 'md' },
 });
 
-type BadgeProps = ComponentPropsWithoutRef<'span'> &
+type BadgeProps = ComponentPropsWithRef<'span'> &
   VariantProps<typeof badgeStyles>;
 
 export const Badge = ({

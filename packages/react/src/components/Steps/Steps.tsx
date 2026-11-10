@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentPropsWithRef, ReactNode } from 'react';
 import { Steps as ArkSteps, useStepsContext } from '@ark-ui/react';
 import { Check } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
@@ -55,7 +55,7 @@ export type Step = {
   description?: ReactNode;
 };
 
-type StepsRootProps = Omit<ArkSteps.RootProps, 'count'> &
+type StepsRootProps = Omit<ComponentProps<typeof ArkSteps.Root>, 'count'> &
   VariantProps<typeof stepsStyles> & {
     steps: Step[];
   };
@@ -65,7 +65,7 @@ type StepsRootProps = Omit<ArkSteps.RootProps, 'count'> &
 const PresentationalItem = ({
   'aria-current': _ariaCurrent,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => <div {...props} role="none" />;
+}: ComponentPropsWithRef<'div'>) => <div {...props} role="none" />;
 
 type ItemProps = VariantProps<typeof stepsStyles> & {
   step: Step;
@@ -136,14 +136,14 @@ export const StepsRoot = ({
 export const StepsContent = ({
   className,
   ...props
-}: ArkSteps.ContentProps) => (
+}: ComponentProps<typeof ArkSteps.Content>) => (
   <ArkSteps.Content className={styles.content({ className })} {...props} />
 );
 
 export const StepsCompletedContent = ({
   className,
   ...props
-}: ArkSteps.CompletedContentProps) => (
+}: ComponentProps<typeof ArkSteps.CompletedContent>) => (
   <ArkSteps.CompletedContent
     className={styles.content({ className })}
     {...props}
@@ -157,7 +157,7 @@ export const StepsNextTrigger = ArkSteps.NextTrigger;
 export const StepsProgress = ({
   className,
   ...props
-}: ArkSteps.ProgressProps) => {
+}: ComponentProps<typeof ArkSteps.Progress>) => {
   const { percent } = useStepsContext();
   return (
     <ArkSteps.Progress

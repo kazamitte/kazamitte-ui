@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Tooltip as ArkTooltip, Portal } from '@ark-ui/react';
 import { tv } from '../../tv';
 
@@ -39,7 +40,7 @@ export const TooltipPortal = Portal;
 export const TooltipPositioner = ({
   className,
   ...props
-}: ArkTooltip.PositionerProps) => (
+}: ComponentProps<typeof ArkTooltip.Positioner>) => (
   <ArkTooltip.Positioner
     className={styles.positioner({ className })}
     {...props}
@@ -49,14 +50,14 @@ export const TooltipPositioner = ({
 export const TooltipContent = ({
   className,
   ...props
-}: ArkTooltip.ContentProps) => (
+}: ComponentProps<typeof ArkTooltip.Content>) => (
   <ArkTooltip.Content className={styles.content({ className })} {...props} />
 );
 
 export const TooltipArrow = ({
   className,
   ...props
-}: ArkTooltip.ArrowProps) => (
+}: ComponentProps<typeof ArkTooltip.Arrow>) => (
   <ArkTooltip.Arrow className={styles.arrow({ className })} {...props}>
     <ArkTooltip.ArrowTip className={styles.arrowTip()} />
   </ArkTooltip.Arrow>

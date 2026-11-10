@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { RatingGroup as ArkRatingGroup } from '@ark-ui/react/rating-group';
 import { Star } from 'lucide-react';
 import { tv } from '../../tv';
@@ -28,11 +28,16 @@ const ratingGroupStyles = tv({
 
 const styles = ratingGroupStyles();
 
-type RatingGroupProps = Omit<ArkRatingGroup.RootProps, 'children'> & {
+type RatingGroupProps = Omit<
+  ComponentProps<typeof ArkRatingGroup.Root>,
+  'children'
+> & {
   label?: ReactNode;
 };
 
-const defaultTranslations: ArkRatingGroup.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkRatingGroup.Root
+>['translations'] = {
   ratingValueText: (index) => `${index}つ星`,
 };
 

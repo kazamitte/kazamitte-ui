@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { ToggleGroup as ArkToggleGroup } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
@@ -40,7 +40,7 @@ export type ToggleGroupItem = {
   disabled?: boolean;
 };
 
-type ToggleGroupProps = ArkToggleGroup.RootProps &
+type ToggleGroupProps = ComponentProps<typeof ArkToggleGroup.Root> &
   VariantProps<typeof toggleGroupStyles> & {
     items: ToggleGroupItem[];
   };

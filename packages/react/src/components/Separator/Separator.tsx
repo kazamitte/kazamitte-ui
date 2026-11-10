@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const separatorStyles = tv({
@@ -14,7 +14,7 @@ const separatorStyles = tv({
   defaultVariants: { orientation: 'horizontal' },
 });
 
-type SeparatorProps = ComponentPropsWithoutRef<'hr'> &
+type SeparatorProps = ComponentPropsWithRef<'hr'> &
   VariantProps<typeof separatorStyles>;
 
 export const Separator = ({

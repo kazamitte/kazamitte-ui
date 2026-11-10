@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { DateInput as ArkDateInput } from '@ark-ui/react/date-input';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';
@@ -31,7 +31,10 @@ const dateInputStyles = tv({
 
 const styles = dateInputStyles();
 
-type DateInputProps = Omit<ArkDateInput.RootProps, 'children'> & {
+type DateInputProps = Omit<
+  ComponentProps<typeof ArkDateInput.Root>,
+  'children'
+> & {
   label?: ReactNode;
   rangeSeparator?: string;
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Checkbox as ArkCheckbox } from '@ark-ui/react';
 import { Check, Minus } from 'lucide-react';
 import { tv } from '../../tv';
@@ -26,7 +26,7 @@ const checkboxStyles = tv({
 
 const styles = checkboxStyles();
 
-type CheckboxProps = ArkCheckbox.RootProps &
+type CheckboxProps = ComponentProps<typeof ArkCheckbox.Root> &
   (
     | { label: ReactNode }
     | { label?: undefined; 'aria-label': string }

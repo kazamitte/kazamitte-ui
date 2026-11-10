@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import {
   CircleAlert,
   CircleCheck,
@@ -100,7 +100,7 @@ export const AlertRoot = ({
   />
 );
 
-type AlertIndicatorProps = ComponentPropsWithoutRef<'span'> & {
+type AlertIndicatorProps = ComponentPropsWithRef<'span'> & {
   status?: AlertStatus;
 };
 
@@ -125,20 +125,20 @@ export const AlertIndicator = ({
 export const AlertContent = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.content({ className })} {...props} />
 );
 
 export const AlertTitle = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'p'>) => (
+}: ComponentPropsWithRef<'p'>) => (
   <p className={styles.title({ className })} {...props} />
 );
 
 export const AlertDescription = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.description({ className })} {...props} />
 );

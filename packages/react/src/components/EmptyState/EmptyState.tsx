@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv } from '../../tv';
 
 const emptyStateStyles = tv({
@@ -20,14 +20,14 @@ const styles = emptyStateStyles();
 export const EmptyStateRoot = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.root({ className })} {...props} />
 );
 
 export const EmptyStateIndicator = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div
     aria-hidden="true"
     className={styles.indicator({ className })}
@@ -38,27 +38,27 @@ export const EmptyStateIndicator = ({
 export const EmptyStateContent = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.content({ className })} {...props} />
 );
 
 export const EmptyStateTitle = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'p'>) => (
+}: ComponentPropsWithRef<'p'>) => (
   <p className={styles.title({ className })} {...props} />
 );
 
 export const EmptyStateDescription = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'p'>) => (
+}: ComponentPropsWithRef<'p'>) => (
   <p className={styles.description({ className })} {...props} />
 );
 
 export const EmptyStateActions = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.actions({ className })} {...props} />
 );

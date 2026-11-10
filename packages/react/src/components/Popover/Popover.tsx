@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Popover as ArkPopover, Portal } from '@ark-ui/react';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
@@ -46,7 +47,7 @@ export const PopoverPortal = Portal;
 export const PopoverPositioner = ({
   className,
   ...props
-}: ArkPopover.PositionerProps) => (
+}: ComponentProps<typeof ArkPopover.Positioner>) => (
   <ArkPopover.Positioner
     className={styles.positioner({ className })}
     {...props}
@@ -56,14 +57,14 @@ export const PopoverPositioner = ({
 export const PopoverContent = ({
   className,
   ...props
-}: ArkPopover.ContentProps) => (
+}: ComponentProps<typeof ArkPopover.Content>) => (
   <ArkPopover.Content className={styles.content({ className })} {...props} />
 );
 
 export const PopoverArrow = ({
   className,
   ...props
-}: ArkPopover.ArrowProps) => (
+}: ComponentProps<typeof ArkPopover.Arrow>) => (
   <ArkPopover.Arrow className={styles.arrow({ className })} {...props}>
     <ArkPopover.ArrowTip />
   </ArkPopover.Arrow>
@@ -72,14 +73,14 @@ export const PopoverArrow = ({
 export const PopoverTitle = ({
   className,
   ...props
-}: ArkPopover.TitleProps) => (
+}: ComponentProps<typeof ArkPopover.Title>) => (
   <ArkPopover.Title className={styles.title({ className })} {...props} />
 );
 
 export const PopoverDescription = ({
   className,
   ...props
-}: ArkPopover.DescriptionProps) => (
+}: ComponentProps<typeof ArkPopover.Description>) => (
   <ArkPopover.Description
     className={styles.description({ className })}
     {...props}
@@ -90,7 +91,7 @@ export const PopoverCloseTrigger = ({
   className,
   children,
   ...props
-}: ArkPopover.CloseTriggerProps) => (
+}: ComponentProps<typeof ArkPopover.CloseTrigger>) => (
   <ArkPopover.CloseTrigger
     aria-label="閉じる"
     className={styles.closeTrigger({ className })}

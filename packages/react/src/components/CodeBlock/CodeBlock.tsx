@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
@@ -25,7 +25,7 @@ const codeBlockStyles = tv({
 
 const styles = codeBlockStyles();
 
-type CodeBlockProps = ComponentPropsWithoutRef<'pre'> & {
+type CodeBlockProps = ComponentPropsWithRef<'pre'> & {
   code: string;
   language?: string;
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Menu as ArkMenu, Portal } from '@ark-ui/react';
 import { Check, ChevronRight } from 'lucide-react';
 import { tv } from '../../tv';
@@ -35,22 +36,28 @@ export const MenuPortal = Portal;
 export const MenuPositioner = ({
   className,
   ...props
-}: ArkMenu.PositionerProps) => (
+}: ComponentProps<typeof ArkMenu.Positioner>) => (
   <ArkMenu.Positioner className={list.positioner({ className })} {...props} />
 );
 
-export const MenuContent = ({ className, ...props }: ArkMenu.ContentProps) => (
+export const MenuContent = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkMenu.Content>) => (
   <ArkMenu.Content className={list.content({ className })} {...props} />
 );
 
-export const MenuItem = ({ className, ...props }: ArkMenu.ItemProps) => (
+export const MenuItem = ({
+  className,
+  ...props
+}: ComponentProps<typeof ArkMenu.Item>) => (
   <ArkMenu.Item className={list.item({ className })} {...props} />
 );
 
 export const MenuItemText = ({
   className,
   ...props
-}: ArkMenu.ItemTextProps) => (
+}: ComponentProps<typeof ArkMenu.ItemText>) => (
   <ArkMenu.ItemText className={list.itemText({ className })} {...props} />
 );
 
@@ -59,7 +66,7 @@ export const MenuItemGroup = ArkMenu.ItemGroup;
 export const MenuItemGroupLabel = ({
   className,
   ...props
-}: ArkMenu.ItemGroupLabelProps) => (
+}: ComponentProps<typeof ArkMenu.ItemGroupLabel>) => (
   <ArkMenu.ItemGroupLabel
     className={list.itemGroupLabel({ className })}
     {...props}
@@ -69,14 +76,14 @@ export const MenuItemGroupLabel = ({
 export const MenuSeparator = ({
   className,
   ...props
-}: ArkMenu.SeparatorProps) => (
+}: ComponentProps<typeof ArkMenu.Separator>) => (
   <ArkMenu.Separator className={list.separator({ className })} {...props} />
 );
 
 export const MenuCheckboxItem = ({
   className,
   ...props
-}: ArkMenu.CheckboxItemProps) => (
+}: ComponentProps<typeof ArkMenu.CheckboxItem>) => (
   <ArkMenu.CheckboxItem className={list.item({ className })} {...props} />
 );
 
@@ -85,7 +92,7 @@ export const MenuRadioItemGroup = ArkMenu.RadioItemGroup;
 export const MenuRadioItem = ({
   className,
   ...props
-}: ArkMenu.RadioItemProps) => (
+}: ComponentProps<typeof ArkMenu.RadioItem>) => (
   <ArkMenu.RadioItem className={list.item({ className })} {...props} />
 );
 
@@ -93,7 +100,7 @@ export const MenuItemIndicator = ({
   className,
   children,
   ...props
-}: ArkMenu.ItemIndicatorProps) => (
+}: ComponentProps<typeof ArkMenu.ItemIndicator>) => (
   <ArkMenu.ItemIndicator
     className={list.itemIndicator({ className })}
     {...props}
@@ -106,7 +113,7 @@ export const MenuTriggerItem = ({
   className,
   children,
   ...props
-}: ArkMenu.TriggerItemProps) => (
+}: ComponentProps<typeof ArkMenu.TriggerItem>) => (
   <ArkMenu.TriggerItem
     className={list.item({ className: [styles.triggerItem(), className] })}
     {...props}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, type ReactNode } from 'react';
+import { useId, type ComponentProps, type ReactNode } from 'react';
 import {
   ColorPicker as ArkColorPicker,
   parseColor,
@@ -58,7 +58,10 @@ const colorPickerStyles = tv({
 const styles = colorPickerStyles();
 const list = menuListStyles();
 
-type ColorPickerProps = Omit<ArkColorPicker.RootProps, 'children'> & {
+type ColorPickerProps = Omit<
+  ComponentProps<typeof ArkColorPicker.Root>,
+  'children'
+> & {
   label?: ReactNode;
   presets?: string[];
   alpha?: boolean;

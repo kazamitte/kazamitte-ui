@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import {
   FileUpload as ArkFileUpload,
   type FileUploadFileError,
@@ -50,13 +50,18 @@ const ERROR_MESSAGES: Record<FileUploadFileError, string> = {
 const describeRejection = ({ file, errors }: FileUploadFileRejection) =>
   `${file.name}: ${errors.map((error) => ERROR_MESSAGES[error] ?? error).join('、')}`;
 
-const defaultTranslations: ArkFileUpload.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkFileUpload.Root
+>['translations'] = {
   dropzone: 'ファイルをここにドロップするか、選択してください',
   itemPreview: (file) => `${file.name}のプレビュー`,
   deleteFile: (file) => `${file.name}を削除`,
 };
 
-type FileUploadProps = Omit<ArkFileUpload.RootProps, 'children'> & {
+type FileUploadProps = Omit<
+  ComponentProps<typeof ArkFileUpload.Root>,
+  'children'
+> & {
   label?: ReactNode;
   dropzone?: boolean;
   dropzoneText?: ReactNode;

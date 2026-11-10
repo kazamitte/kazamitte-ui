@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 import { Pagination as ArkPagination } from '@ark-ui/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { tv } from '../../tv';
@@ -25,7 +25,9 @@ const paginationStyles = tv({
 
 const styles = paginationStyles();
 
-const defaultTranslations: ArkPagination.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkPagination.Root
+>['translations'] = {
   rootLabel: 'ページネーション',
   prevTriggerLabel: '前のページ',
   nextTriggerLabel: '次のページ',
@@ -35,7 +37,10 @@ const defaultTranslations: ArkPagination.RootProps['translations'] = {
     `${page}ページ目（全${totalPages}ページ）`,
 };
 
-type PaginationProps = Omit<ArkPagination.RootProps, 'children'>;
+type PaginationProps = Omit<
+  ComponentProps<typeof ArkPagination.Root>,
+  'children'
+>;
 
 // An <a> without href has no role, so axe rejects its aria-label;
 // role="link" restores a valid host.
@@ -43,7 +48,7 @@ const Anchor = ({
   href,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<'a'>) => (
+}: React.ComponentPropsWithRef<'a'>) => (
   <a
     href={href}
     {...(href === undefined && { role: 'link', 'aria-disabled': true })}

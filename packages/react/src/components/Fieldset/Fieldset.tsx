@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Fieldset as ArkFieldset } from '@ark-ui/react';
 import { tv } from '../../tv';
 
@@ -20,21 +21,21 @@ const styles = fieldsetStyles();
 export const FieldsetRoot = ({
   className,
   ...props
-}: ArkFieldset.RootProps) => (
+}: ComponentProps<typeof ArkFieldset.Root>) => (
   <ArkFieldset.Root className={styles.root({ className })} {...props} />
 );
 
 export const FieldsetLegend = ({
   className,
   ...props
-}: ArkFieldset.LegendProps) => (
+}: ComponentProps<typeof ArkFieldset.Legend>) => (
   <ArkFieldset.Legend className={styles.legend({ className })} {...props} />
 );
 
 export const FieldsetHelperText = ({
   className,
   ...props
-}: ArkFieldset.HelperTextProps) => (
+}: ComponentProps<typeof ArkFieldset.HelperText>) => (
   <ArkFieldset.HelperText
     className={styles.helperText({ className })}
     {...props}
@@ -44,7 +45,7 @@ export const FieldsetHelperText = ({
 export const FieldsetErrorText = ({
   className,
   ...props
-}: ArkFieldset.ErrorTextProps) => (
+}: ComponentProps<typeof ArkFieldset.ErrorText>) => (
   <ArkFieldset.ErrorText
     className={styles.errorText({ className })}
     {...props}

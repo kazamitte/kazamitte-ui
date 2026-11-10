@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -27,32 +27,32 @@ const styles = statStyles();
 export const StatRoot = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dl'>) => (
+}: ComponentPropsWithRef<'dl'>) => (
   <dl className={styles.root({ className })} {...props} />
 );
 
 export const StatLabel = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dt'>) => (
+}: ComponentPropsWithRef<'dt'>) => (
   <dt className={styles.label({ className })} {...props} />
 );
 
 export const StatValueText = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dd'>) => (
+}: ComponentPropsWithRef<'dd'>) => (
   <dd className={styles.valueText({ className })} {...props} />
 );
 
 export const StatHelpText = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dd'>) => (
+}: ComponentPropsWithRef<'dd'>) => (
   <dd className={styles.helpText({ className })} {...props} />
 );
 
-type StatIndicatorProps = ComponentPropsWithoutRef<'span'> &
+type StatIndicatorProps = ComponentPropsWithRef<'span'> &
   Required<VariantProps<typeof statStyles>>;
 
 export const StatIndicator = ({

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const formLayoutStyles = tv({
@@ -30,11 +30,11 @@ const styles = formLayoutStyles();
 export const FormLayoutRoot = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={styles.root({ className })} {...props} />
 );
 
-type FormLayoutRowProps = ComponentPropsWithoutRef<'div'> &
+type FormLayoutRowProps = ComponentPropsWithRef<'div'> &
   Pick<VariantProps<typeof formLayoutStyles>, 'columns'>;
 
 export const FormLayoutRow = ({
@@ -45,7 +45,7 @@ export const FormLayoutRow = ({
   <div className={styles.row({ columns, className })} {...props} />
 );
 
-type FormLayoutActionsProps = ComponentPropsWithoutRef<'div'> &
+type FormLayoutActionsProps = ComponentPropsWithRef<'div'> &
   Pick<VariantProps<typeof formLayoutStyles>, 'align'>;
 
 export const FormLayoutActions = ({

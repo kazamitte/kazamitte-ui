@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const codeStyles = tv({
@@ -14,7 +14,7 @@ const codeStyles = tv({
   defaultVariants: { variant: 'subtle' },
 });
 
-type CodeProps = ComponentPropsWithoutRef<'code'> &
+type CodeProps = ComponentPropsWithRef<'code'> &
   VariantProps<typeof codeStyles>;
 
 export const Code = ({ variant, className, ...props }: CodeProps) => (

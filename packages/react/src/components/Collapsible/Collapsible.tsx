@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Collapsible as ArkCollapsible } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
@@ -21,14 +22,14 @@ const styles = collapsibleStyles();
 export const CollapsibleRoot = ({
   className,
   ...props
-}: ArkCollapsible.RootProps) => (
+}: ComponentProps<typeof ArkCollapsible.Root>) => (
   <ArkCollapsible.Root className={styles.root({ className })} {...props} />
 );
 
 export const CollapsibleTrigger = ({
   className,
   ...props
-}: ArkCollapsible.TriggerProps) => (
+}: ComponentProps<typeof ArkCollapsible.Trigger>) => (
   <ArkCollapsible.Trigger
     className={styles.trigger({ className })}
     {...props}
@@ -38,7 +39,7 @@ export const CollapsibleTrigger = ({
 export const CollapsibleContent = ({
   className,
   ...props
-}: ArkCollapsible.ContentProps) => (
+}: ComponentProps<typeof ArkCollapsible.Content>) => (
   <ArkCollapsible.Content
     className={styles.content({ className })}
     {...props}
@@ -48,7 +49,7 @@ export const CollapsibleContent = ({
 export const CollapsibleIndicator = ({
   className,
   ...props
-}: ArkCollapsible.IndicatorProps) => (
+}: ComponentProps<typeof ArkCollapsible.Indicator>) => (
   <ArkCollapsible.Indicator
     className={styles.indicator({ className })}
     {...props}

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Progress as ArkProgress } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { fieldSlots } from '../../variants';
@@ -38,7 +39,10 @@ type ProgressName =
   | { label: string; 'aria-label'?: never }
   | { label?: never; 'aria-label': string };
 
-type ProgressProps = Omit<ArkProgress.RootProps, 'aria-label'> &
+type ProgressProps = Omit<
+  ComponentProps<typeof ArkProgress.Root>,
+  'aria-label'
+> &
   VariantProps<typeof progressStyles> &
   ProgressName & {
     showValueText?: boolean;

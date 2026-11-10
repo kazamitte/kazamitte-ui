@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  useContext,
-  type ComponentPropsWithoutRef,
-} from 'react';
+import { createContext, useContext, type ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const blockquoteStyles = tv({
@@ -31,7 +27,7 @@ type BlockquoteVariant = VariantProps<typeof blockquoteStyles>['variant'];
 // the quote sits on a tinted surface.
 const BlockquoteVariantContext = createContext<BlockquoteVariant>(undefined);
 
-type BlockquoteRootProps = ComponentPropsWithoutRef<'blockquote'> &
+type BlockquoteRootProps = ComponentPropsWithRef<'blockquote'> &
   VariantProps<typeof blockquoteStyles>;
 
 export const BlockquoteRoot = ({
@@ -50,14 +46,14 @@ export const BlockquoteRoot = ({
 export const BlockquoteContent = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'div'>) => (
+}: ComponentPropsWithRef<'div'>) => (
   <div className={blockquoteStyles().content({ className })} {...props} />
 );
 
 export const BlockquoteCaption = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'footer'>) => {
+}: ComponentPropsWithRef<'footer'>) => {
   const variant = useContext(BlockquoteVariantContext);
   return (
     <footer

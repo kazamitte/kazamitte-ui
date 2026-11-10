@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { TagsInput as ArkTagsInput } from '@ark-ui/react';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
@@ -45,7 +45,9 @@ const tagsInputStyles = tv({
 
 const styles = tagsInputStyles();
 
-const defaultTranslations: ArkTagsInput.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkTagsInput.Root
+>['translations'] = {
   clearTriggerLabel: 'すべてのタグを削除',
   deleteTagTriggerLabel: (value) => `${value}を削除`,
   tagAdded: (value) => `${value}を追加しました`,
@@ -60,7 +62,10 @@ const defaultTranslations: ArkTagsInput.RootProps['translations'] = {
   inputLabel: (count) => `${count}件のタグ`,
 };
 
-type TagsInputProps = Omit<ArkTagsInput.RootProps, 'children'> & {
+type TagsInputProps = Omit<
+  ComponentProps<typeof ArkTagsInput.Root>,
+  'children'
+> & {
   label?: ReactNode;
 };
 

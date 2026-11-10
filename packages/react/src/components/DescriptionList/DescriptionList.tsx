@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const descriptionListStyles = tv({
@@ -20,7 +20,7 @@ const descriptionListStyles = tv({
   defaultVariants: { orientation: 'vertical' },
 });
 
-type DescriptionListRootProps = ComponentPropsWithoutRef<'dl'> &
+type DescriptionListRootProps = ComponentPropsWithRef<'dl'> &
   VariantProps<typeof descriptionListStyles>;
 
 export const DescriptionListRoot = ({
@@ -37,14 +37,14 @@ export const DescriptionListRoot = ({
 export const DescriptionListTerm = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dt'>) => (
+}: ComponentPropsWithRef<'dt'>) => (
   <dt className={descriptionListStyles().term({ className })} {...props} />
 );
 
 export const DescriptionListDescription = ({
   className,
   ...props
-}: ComponentPropsWithoutRef<'dd'>) => (
+}: ComponentPropsWithRef<'dd'>) => (
   <dd
     className={descriptionListStyles().description({ className })}
     {...props}

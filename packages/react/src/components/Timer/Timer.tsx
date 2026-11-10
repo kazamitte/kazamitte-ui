@@ -1,5 +1,6 @@
 'use client';
 
+import type { ComponentProps } from 'react';
 import { Timer as ArkTimer } from '@ark-ui/react/timer';
 import { Pause, Play, RotateCcw } from 'lucide-react';
 import { tv } from '../../tv';
@@ -17,7 +18,7 @@ const timerStyles = tv({
 
 const styles = timerStyles();
 
-type TimerProps = Omit<ArkTimer.RootProps, 'children'> & {
+type TimerProps = Omit<ComponentProps<typeof ArkTimer.Root>, 'children'> & {
   showDays?: boolean;
   controls?: boolean;
 };
@@ -29,7 +30,9 @@ const UNIT_LABELS = {
   seconds: '秒',
 } as const;
 
-const defaultTranslations: ArkTimer.RootProps['translations'] = {
+const defaultTranslations: ComponentProps<
+  typeof ArkTimer.Root
+>['translations'] = {
   areaLabel: (time) =>
     (Object.keys(UNIT_LABELS) as (keyof typeof UNIT_LABELS)[])
       .filter((unit) => unit !== 'days' || time.days > 0)

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 const skeletonStyles = tv({
@@ -15,7 +15,7 @@ const skeletonStyles = tv({
   defaultVariants: { shape: 'rect' },
 });
 
-type SkeletonProps = ComponentPropsWithoutRef<'div'> &
+type SkeletonProps = ComponentPropsWithRef<'div'> &
   VariantProps<typeof skeletonStyles> & {
     loading?: boolean;
   };

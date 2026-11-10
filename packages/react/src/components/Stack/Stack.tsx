@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ark } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { gapVariants } from '../../variants';
@@ -32,7 +32,7 @@ export const stackStyles = tv({
   defaultVariants: { direction: 'column', gap: 4 },
 });
 
-type StackProps = ComponentPropsWithoutRef<typeof ark.div> &
+type StackProps = ComponentPropsWithRef<typeof ark.div> &
   VariantProps<typeof stackStyles>;
 
 export const Stack = ({
