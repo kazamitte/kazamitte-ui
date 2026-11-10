@@ -47,7 +47,7 @@ describe('Tour', { timeout: 15000 }, () => {
     const user = userEvent.setup();
     render(<Sample />);
     await user.click(screen.getByRole('button', { name: 'ツアーを始める' }));
-    const dialog = await screen.findByRole('alertdialog');
+    const dialog = await screen.findByRole('dialog');
     expect(dialog).toHaveAccessibleName('ようこそ');
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
 
@@ -57,7 +57,7 @@ describe('Tour', { timeout: 15000 }, () => {
 
     await user.click(screen.getByRole('button', { name: '完了' }));
     await waitFor(() =>
-      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument(),
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );
   });
 
@@ -65,10 +65,10 @@ describe('Tour', { timeout: 15000 }, () => {
     const user = userEvent.setup();
     render(<Sample />);
     await user.click(screen.getByRole('button', { name: 'ツアーを始める' }));
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
     await user.click(screen.getByRole('button', { name: '閉じる' }));
     await waitFor(() =>
-      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument(),
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );
   });
 
@@ -101,10 +101,10 @@ describe('Tour', { timeout: 15000 }, () => {
     };
     render(<Skippable />);
     await user.click(screen.getByRole('button', { name: 'ツアーを始める' }));
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
     await user.click(screen.getByRole('button', { name: 'あとで' }));
     await waitFor(() =>
-      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument(),
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
     );
     expect(onStatusChange).toHaveBeenCalledWith(
       expect.objectContaining({ status: 'skipped' }),
@@ -126,7 +126,7 @@ describe('Tour', { timeout: 15000 }, () => {
     };
     render(<Custom />);
     await user.click(screen.getByRole('button', { name: 'ツアーを始める' }));
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
     expect(screen.getByRole('button', { name: '×' })).toBeInTheDocument();
     expect(screen.getByText('1 / 2')).toBeInTheDocument();
   });

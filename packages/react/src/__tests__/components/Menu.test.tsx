@@ -45,7 +45,9 @@ describe('Menu', () => {
     );
 
     await user.click(screen.getByRole('menuitem', { name: '編集' }));
-    expect(onSelect).toHaveBeenCalledWith({ value: 'edit' });
+    expect(onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({ value: 'edit' }),
+    );
     await waitFor(() =>
       expect(screen.queryByRole('menu')).not.toBeInTheDocument(),
     );

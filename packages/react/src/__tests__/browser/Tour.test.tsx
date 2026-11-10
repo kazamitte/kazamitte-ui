@@ -76,7 +76,7 @@ describe('Tour', { timeout: 15000 }, () => {
       screen.getByRole('button', { name: 'ツアーを始める' }),
     );
 
-    const dialog = await screen.findByRole('alertdialog');
+    const dialog = await screen.findByRole('dialog');
     await expect.poll(() => dialog.contains(document.activeElement)).toBe(true);
   });
 
@@ -86,21 +86,21 @@ describe('Tour', { timeout: 15000 }, () => {
       screen.getByRole('button', { name: 'ツアーを始める' }),
     );
     expect(
-      await screen.findByRole('alertdialog', { name: 'ようこそ' }),
+      await screen.findByRole('dialog', { name: 'ようこそ' }),
     ).toBeInTheDocument();
 
     const next = screen.getByRole('button', { name: '次へ' });
     next.focus();
     await userEvent.keyboard('{Enter}');
     expect(
-      await screen.findByRole('alertdialog', { name: '保存' }),
+      await screen.findByRole('dialog', { name: '保存' }),
     ).toBeInTheDocument();
 
     const prev = screen.getByRole('button', { name: '戻る' });
     prev.focus();
     await userEvent.keyboard('{Enter}');
     expect(
-      await screen.findByRole('alertdialog', { name: 'ようこそ' }),
+      await screen.findByRole('dialog', { name: 'ようこそ' }),
     ).toBeInTheDocument();
   });
 
@@ -109,10 +109,10 @@ describe('Tour', { timeout: 15000 }, () => {
     await userEvent.click(
       screen.getByRole('button', { name: 'ツアーを始める' }),
     );
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
 
     await userEvent.keyboard('{Escape}');
-    await expect.poll(() => screen.queryByRole('alertdialog')).toBeNull();
+    await expect.poll(() => screen.queryByRole('dialog')).toBeNull();
   });
 
   it('stops the backdrop from catching pointer events once the tour is closed', async () => {
@@ -120,9 +120,9 @@ describe('Tour', { timeout: 15000 }, () => {
     await userEvent.click(
       screen.getByRole('button', { name: 'ツアーを始める' }),
     );
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
     await userEvent.keyboard('{Escape}');
-    await expect.poll(() => screen.queryByRole('alertdialog')).toBeNull();
+    await expect.poll(() => screen.queryByRole('dialog')).toBeNull();
 
     expect(getComputedStyle(part('backdrop')).pointerEvents).toBe('none');
   });
@@ -132,7 +132,7 @@ describe('Tour', { timeout: 15000 }, () => {
     await userEvent.click(
       screen.getByRole('button', { name: 'ツアーを始める' }),
     );
-    await screen.findByRole('alertdialog');
+    await screen.findByRole('dialog');
 
     const positionerZ = Number(getComputedStyle(part('positioner')).zIndex);
     const backdropZ = Number(getComputedStyle(part('backdrop')).zIndex);

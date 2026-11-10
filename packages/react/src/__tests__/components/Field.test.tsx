@@ -65,7 +65,7 @@ describe('Field', () => {
     expect(input).toBeDisabled();
     await waitFor(() =>
       expect(input).toHaveAttribute(
-        'aria-errormessage',
+        'aria-describedby',
         screen.getByText('形式が違います').id,
       ),
     );

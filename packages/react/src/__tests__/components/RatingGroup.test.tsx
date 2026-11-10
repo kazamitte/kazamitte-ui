@@ -21,10 +21,11 @@ describe('RatingGroup', () => {
     expect(screen.getByRole('radio', { name: '4つ星' })).toBeChecked();
   });
 
-  it('checks the rounded-up star for a half value when allowHalf is on', () => {
+  it('checks the rounded-up star and names it with the half value when allowHalf is on', () => {
     render(<RatingGroup label="評価" allowHalf defaultValue={2.5} />);
-    expect(screen.getByRole('radio', { name: '3つ星' })).toBeChecked();
+    expect(screen.getByRole('radio', { name: '2.5つ星' })).toBeChecked();
     expect(screen.getByRole('radio', { name: '2つ星' })).not.toBeChecked();
+    expect(screen.queryByRole('radio', { name: '3つ星' })).toBeNull();
   });
 
   it('renders as many stars as count', () => {

@@ -230,7 +230,12 @@ describe('Combobox', () => {
     render(<Combobox label="都市" items={ITEMS} loading />);
     await user.type(screen.getByRole('combobox', { name: '都市' }), 'to');
     await screen.findAllByText('読み込み中');
-    expect(screen.getByRole('status')).toHaveTextContent('読み込み中');
+    // Zag adds an empty, hidden live announcer of its own; only ours speaks.
+    const announcing = screen
+      .getAllByRole('status')
+      .filter((status) => status.textContent !== '');
+    expect(announcing).toHaveLength(1);
+    expect(announcing[0]).toHaveTextContent('読み込み中');
     expect(
       screen.queryByText('該当する項目がありません'),
     ).not.toBeInTheDocument();
