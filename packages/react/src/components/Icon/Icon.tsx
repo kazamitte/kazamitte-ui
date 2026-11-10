@@ -1,6 +1,6 @@
 'use client';
 
-import type { LucideIcon, LucideProps } from 'lucide-react';
+import type { ComponentType, SVGProps } from 'react';
 import { tv, type VariantProps } from '../../tv';
 
 export const iconStyles = tv({
@@ -17,9 +17,9 @@ export const iconStyles = tv({
   defaultVariants: { size: 'md' },
 });
 
-export type IconProps = Omit<LucideProps, 'size' | 'ref'> &
+export type IconProps = Omit<SVGProps<SVGSVGElement>, 'size' | 'ref'> &
   VariantProps<typeof iconStyles> & {
-    icon: LucideIcon;
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
     label?: string;
   };
 
