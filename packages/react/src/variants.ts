@@ -84,6 +84,7 @@ export const scrim = 'bg-[rgb(0_0_0/0.55)]';
 export const closeButtonStyles = tv({
   base: [
     'inline-flex items-center justify-center rounded-control base-fg-muted',
+    'pointer-coarse:size-11',
     'hover:base-bg-subtle hover:base-fg-strong',
     focusRing(),
   ],

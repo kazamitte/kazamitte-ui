@@ -13,12 +13,12 @@ const passwordInputStyles = tv({
     label: fieldSlots.label,
     control: 'relative',
     input: [
-      'pe-10',
+      'pe-10 pointer-coarse:pe-11',
       'ark-invalid:error-border-solid',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
     ],
     visibilityTrigger: [
-      'absolute inset-y-0 end-0 inline-flex w-10 items-center justify-center rounded-control base-fg-muted [&>svg]:size-4',
+      'absolute inset-y-0 end-0 inline-flex w-10 items-center justify-center rounded-control base-fg-muted pointer-coarse:w-11 [&>svg]:size-4',
       'hover:base-fg-strong',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
       focusRing({ className: 'focus-visible:-outline-offset-2' }),

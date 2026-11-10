@@ -48,4 +48,19 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: '保存中' })).toBeInTheDocument();
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
+
+  it('keeps a 44px minimum height on coarse pointers except as a link', () => {
+    render(
+      <>
+        <Button size="sm">小</Button>
+        <Button variant="link">リンク</Button>
+      </>,
+    );
+    expect(screen.getByRole('button', { name: '小' })).toHaveClass(
+      'pointer-coarse:min-h-11',
+    );
+    expect(screen.getByRole('button', { name: 'リンク' })).not.toHaveClass(
+      'pointer-coarse:min-h-11',
+    );
+  });
 });

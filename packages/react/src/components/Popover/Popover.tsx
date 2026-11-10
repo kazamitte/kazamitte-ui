@@ -17,7 +17,10 @@ const popoverStyles = tv({
     arrow: '[--arrow-background:var(--r-base-bg)] [--arrow-size:10px]',
     title: 'pe-8 text-body-16 font-bold base-fg-strong',
     description: 'mt-1 text-dense-14 base-fg-muted',
-    closeTrigger: ['absolute top-3 right-3 size-7', closeButtonStyles()],
+    closeTrigger: [
+      'absolute top-3 right-3 size-7 pointer-coarse:top-1 pointer-coarse:right-1',
+      closeButtonStyles(),
+    ],
   },
 });
 

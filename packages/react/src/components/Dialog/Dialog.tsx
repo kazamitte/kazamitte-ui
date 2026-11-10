@@ -52,7 +52,10 @@ export const dialogStyles = tv({
     description: 'text-dense-14 base-fg-muted',
     body: 'min-h-0 flex-1 overflow-y-auto px-6 py-4 text-body-16',
     footer: 'flex items-center justify-end gap-3 px-6 pb-6',
-    closeTrigger: ['absolute top-4 right-4 size-8', closeButtonStyles()],
+    closeTrigger: [
+      'absolute top-4 right-4 size-8 pointer-coarse:top-2 pointer-coarse:right-2',
+      closeButtonStyles(),
+    ],
   },
 });
 

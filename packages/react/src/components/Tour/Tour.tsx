@@ -33,7 +33,10 @@ const tourStyles = tv({
     title: 'text-body-18 font-semibold base-fg-strong',
     description: 'text-dense-14 base-fg-muted',
     control: 'mt-3 flex items-center gap-2',
-    closeTrigger: ['absolute top-3 right-3 size-8', closeButtonStyles()],
+    closeTrigger: [
+      'absolute top-3 right-3 size-8 pointer-coarse:top-1 pointer-coarse:right-1',
+      closeButtonStyles(),
+    ],
   },
 });
 

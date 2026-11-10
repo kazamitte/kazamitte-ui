@@ -23,12 +23,14 @@ export const buttonStyles = tv({
       link: ['link-fg underline underline-offset-2', 'hover:link-fg-strong'],
     },
     size: {
-      sm: 'h-8 px-3 text-oneline-14',
-      md: 'h-10 px-4 text-oneline-16',
+      sm: 'h-8 px-3 text-oneline-14 pointer-coarse:min-h-11',
+      md: 'h-10 px-4 text-oneline-16 pointer-coarse:min-h-11',
       lg: 'h-12 px-6 text-oneline-16',
     },
   },
-  compoundVariants: [{ variant: 'link', class: 'h-auto px-0' }],
+  compoundVariants: [
+    { variant: 'link', class: 'h-auto px-0 pointer-coarse:min-h-0' },
+  ],
   defaultVariants: { variant: 'primary', size: 'md' },
 });
 

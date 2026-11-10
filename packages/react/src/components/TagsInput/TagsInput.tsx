@@ -13,19 +13,19 @@ const tagsInputStyles = tv({
     label: fieldSlots.label,
     control: [
       inputStyles(),
-      'flex cursor-text flex-wrap items-center gap-1.5 py-1.5',
+      'flex cursor-text flex-wrap items-center gap-1.5 py-1.5 pointer-coarse:gap-2',
       'ark-focus:outline-2 ark-focus:outline-offset-2 ark-focus:primary-focus-ring',
       'ark-invalid:error-border-solid',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
     ],
     item: 'inline-flex',
     itemPreview: [
-      'inline-flex h-7 items-center gap-1 rounded-pill base-bg-muted ps-2.5 pe-0.5 text-oneline-14 font-medium base-fg-strong',
+      'inline-flex h-7 items-center gap-1 rounded-pill base-bg-muted ps-2.5 pe-0.5 text-oneline-14 font-medium base-fg-strong pointer-coarse:h-auto',
       'ark-highlighted:base-bg-selected',
     ],
     itemText: 'truncate',
     itemDeleteTrigger: [
-      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg-muted [&>svg]:size-3.5',
+      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg-muted pointer-coarse:size-11 [&>svg]:size-3.5',
       'hover:base-bg-selected hover:base-fg-strong',
       focusRing(),
     ],
@@ -36,7 +36,7 @@ const tagsInputStyles = tv({
       'placeholder:base-fg-muted',
     ],
     clearTrigger: [
-      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg-muted [&>svg]:size-4',
+      'inline-flex size-6 shrink-0 items-center justify-center rounded-pill base-fg-muted pointer-coarse:size-11 [&>svg]:size-4',
       'hover:base-fg-strong',
       focusRing(),
     ],

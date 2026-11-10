@@ -38,12 +38,12 @@ const comboboxStyles = tv({
     control: 'relative',
     input: [
       inputStyles(),
-      'pe-10',
+      'pe-10 pointer-coarse:pe-11',
       'ark-invalid:error-border-solid',
       'disabled:pointer-events-none disabled:opacity-50',
     ],
     trigger: [
-      'absolute inset-y-0 end-0 inline-flex w-10 items-center justify-center rounded-control base-fg-muted [&>svg]:size-4',
+      'absolute inset-y-0 end-0 inline-flex w-10 items-center justify-center rounded-control base-fg-muted pointer-coarse:w-11 [&>svg]:size-4',
       'ark-open:[&>svg]:rotate-180',
       'disabled:pointer-events-none disabled:opacity-50',
       focusRing(),
