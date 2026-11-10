@@ -15,7 +15,7 @@ const editableStyles = tv({
     preview: [
       inputStyles(),
       'cursor-text border-transparent',
-      'hover:base-border-muted',
+      'hover:base-border-solid',
       'ark-placeholder-shown:base-fg-muted',
       'ark-invalid:error-border-solid',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',

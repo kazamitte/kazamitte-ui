@@ -7,7 +7,7 @@ import { focusRing } from '../../variants';
 export const inputStyles = tv({
   extend: focusRing,
   base: [
-    'w-full rounded-control border base-border-muted base-bg base-fg',
+    'w-full rounded-control border base-border-solid base-bg base-fg',
     'placeholder:base-fg-muted',
   ],
   variants: {

@@ -20,7 +20,7 @@ const datePickerStyles = tv({
       'disabled:pointer-events-none disabled:opacity-50',
     ],
     iconButton: [
-      'inline-flex size-10 shrink-0 items-center justify-center rounded-control border base-border-muted base-fg-muted transition-colors [&>svg]:size-4',
+      'inline-flex size-10 shrink-0 items-center justify-center rounded-control border base-border-solid base-fg-muted transition-colors [&>svg]:size-4',
       'hover:base-bg-muted hover:base-fg-strong',
       'disabled:pointer-events-none disabled:opacity-50',
       focusRing(),

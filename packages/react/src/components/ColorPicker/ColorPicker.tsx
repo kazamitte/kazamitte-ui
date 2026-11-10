@@ -24,7 +24,7 @@ const colorPickerStyles = tv({
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
     ],
     trigger: [
-      'grid size-10 shrink-0 place-items-center overflow-hidden rounded-control border base-border-muted',
+      'grid size-10 shrink-0 place-items-center overflow-hidden rounded-control border base-border-solid',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
       focusRing(),
     ],
@@ -42,7 +42,7 @@ const colorPickerStyles = tv({
     slider: 'relative h-2.5 rounded-pill',
     sliderTrack: 'h-2.5 w-full rounded-pill',
     eyeDropper: [
-      'inline-flex size-10 shrink-0 items-center justify-center rounded-control border base-border-muted base-fg-muted [&>svg]:size-4',
+      'inline-flex size-10 shrink-0 items-center justify-center rounded-control border base-border-solid base-fg-muted [&>svg]:size-4',
       'hover:base-bg-subtle hover:base-fg-strong',
       focusRing(),
     ],
