@@ -57,6 +57,7 @@ type SelectProps = Omit<
     items: SelectItem[];
     label?: ReactNode;
     placeholder?: string;
+    portalled?: boolean;
   };
 
 const Item = ({ item }: { item: SelectItem }) => (
@@ -74,6 +75,7 @@ export const Select = ({
   items,
   label,
   placeholder = '選択してください',
+  portalled = true,
   className,
   positioning,
   ...props
@@ -109,7 +111,7 @@ export const Select = ({
           </ArkSelect.Indicator>
         </ArkSelect.Trigger>
       </ArkSelect.Control>
-      <Portal>
+      <Portal disabled={!portalled}>
         <ArkSelect.Positioner className={list.positioner()}>
           <ArkSelect.Content className={list.content({ className: 'w-full' })}>
             {grouped ? (

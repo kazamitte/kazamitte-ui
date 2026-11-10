@@ -18,15 +18,15 @@ describe('TagsInput', () => {
     expect(screen.getByLabelText('タグ')).not.toHaveAttribute('placeholder');
   });
 
-  it('renders the tags with Japanese delete buttons and a clear button', () => {
+  it('renders the tags with Japanese delete buttons and no clear button by default', () => {
     render(<TagsInput label="タグ" defaultValue={['React', 'Vue']} />);
     expect(screen.getByText('React')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Reactを削除' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'すべてのタグを削除' }),
-    ).toBeInTheDocument();
+      screen.queryByRole('button', { name: 'すべてのタグを削除' }),
+    ).not.toBeInTheDocument();
   });
 
   it('adds a tag on Enter and removes one with its delete button', async () => {
@@ -82,6 +82,7 @@ describe('TagsInput', () => {
     render(
       <TagsInput
         label="タグ"
+        clearable
         defaultValue={['React', 'Vue']}
         onValueChange={onValueChange}
       />,
@@ -99,6 +100,7 @@ describe('TagsInput', () => {
     render(
       <TagsInput
         label="タグ"
+        clearable
         defaultValue={['React']}
         translations={{ clearTriggerLabel: 'Clear' }}
       />,

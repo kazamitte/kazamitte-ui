@@ -67,10 +67,12 @@ type TagsInputProps = Omit<
   'children'
 > & {
   label?: ReactNode;
+  clearable?: boolean;
 };
 
 export const TagsInput = ({
   label,
+  clearable = false,
   translations,
   className,
   ...props
@@ -111,9 +113,11 @@ export const TagsInput = ({
         }
       </ArkTagsInput.Context>
       <ArkTagsInput.Input className={styles.input()} />
-      <ArkTagsInput.ClearTrigger className={styles.clearTrigger()}>
-        <X aria-hidden="true" />
-      </ArkTagsInput.ClearTrigger>
+      {clearable && (
+        <ArkTagsInput.ClearTrigger className={styles.clearTrigger()}>
+          <X aria-hidden="true" />
+        </ArkTagsInput.ClearTrigger>
+      )}
     </ArkTagsInput.Control>
     <ArkTagsInput.HiddenInput />
   </ArkTagsInput.Root>

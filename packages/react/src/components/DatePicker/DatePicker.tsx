@@ -86,6 +86,7 @@ type DatePickerProps = Omit<ArkDatePicker.RootProps, 'children'> &
     label?: ReactNode;
     placeholder?: string;
     clearable?: boolean;
+    portalled?: boolean;
   };
 
 const ViewControl = () => (
@@ -187,6 +188,7 @@ export const DatePicker = ({
   label,
   placeholder = 'yyyy/mm/dd',
   clearable = false,
+  portalled = true,
   selectionMode,
   translations,
   className,
@@ -228,7 +230,7 @@ export const DatePicker = ({
           </ArkDatePicker.ClearTrigger>
         )}
       </ArkDatePicker.Control>
-      <Portal>
+      <Portal disabled={!portalled}>
         <ArkDatePicker.Positioner className={list.positioner()}>
           <ArkDatePicker.Content
             className={list.content({ className: styles.content() })}

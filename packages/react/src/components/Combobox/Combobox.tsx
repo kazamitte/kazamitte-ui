@@ -80,6 +80,7 @@ type ComboboxProps = Omit<
     createText?: (label: string) => string;
     loading?: boolean;
     loadingText?: string;
+    portalled?: boolean;
   };
 
 const Item = ({
@@ -155,6 +156,7 @@ export const Combobox = ({
   createText = (text) => `「${text}」を追加`,
   loading = false,
   loadingText = '読み込み中',
+  portalled = true,
   multiple,
   value: valueProp,
   defaultValue,
@@ -270,7 +272,7 @@ export const Combobox = ({
           <ChevronDown aria-hidden="true" />
         </ArkCombobox.Trigger>
       </ArkCombobox.Control>
-      <Portal>
+      <Portal disabled={!portalled}>
         <ArkCombobox.Positioner className={list.positioner()}>
           <ArkCombobox.Content
             className={list.content({ className: 'w-full' })}

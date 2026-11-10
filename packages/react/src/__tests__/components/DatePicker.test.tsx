@@ -133,4 +133,13 @@ describe('DatePicker', { timeout: 15000 }, () => {
       screen.getByRole('button', { name: '日付を消去' }),
     ).toBeInTheDocument();
   });
+
+  it('renders the calendar inside the component when portalled is false', async () => {
+    const user = userEvent.setup();
+    const { container } = renderJa(
+      <DatePicker label="予約日" portalled={false} />,
+    );
+    await user.click(screen.getByRole('button', { name: 'カレンダーを開く' }));
+    expect(container).toContainElement(await screen.findByRole('grid'));
+  });
 });

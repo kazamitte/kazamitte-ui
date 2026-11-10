@@ -114,4 +114,14 @@ describe('Select', () => {
     if (form === null) throw new Error('form not rendered');
     expect(new FormData(form).get('pref')).toBe('tokyo');
   });
+
+  it('renders the content inside the component when portalled is false', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <Select label="都道府県" items={ITEMS} portalled={false} />,
+    );
+    await user.click(screen.getByRole('combobox'));
+    const listbox = await screen.findByRole('listbox');
+    expect(container).toContainElement(listbox);
+  });
 });

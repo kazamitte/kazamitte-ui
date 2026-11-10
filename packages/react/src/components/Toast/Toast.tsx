@@ -77,14 +77,72 @@ const withPriority = <T extends Partial<ToastOptions>>(options: T): T =>
           : INFO_PRIORITY.passive,
       };
 
+// WCAG 2.2.1: a toast never disappears on a timer the reader cannot extend,
+// so it stays until closed unless the caller opts in, and an opt-in is never
+// shorter than this.
+export const MIN_TOAST_DURATION = 5000;
+
+const clampDuration = (duration: number | undefined): number =>
+  duration === undefined ? Infinity : Math.max(duration, MIN_TOAST_DURATION);
+
+const withDuration = <T extends { duration?: number | undefined }>(
+  options: T,
+): T => ({ ...options, duration: clampDuration(options.duration) });
+
+// An update that doesn't touch the timer keeps the one the toast already has.
+const withUpdatedDuration = <
+  T extends { duration?: number | undefined; type?: string | undefined },
+>(
+  options: T,
+): T =>
+  options.duration === undefined && options.type === undefined
+    ? options
+    : withDuration(options);
+
+const withDefaults = <T extends Partial<ToastOptions>>(options: T): T =>
+  withPriority(withDuration(options));
+
+const withUpdatedDefaults = <T extends Partial<ToastOptions>>(options: T): T =>
+  withPriority(withUpdatedDuration(options));
+
+const mapOptions = <A, O extends { duration?: number | undefined }>(
+  option: O | ((arg: A) => O) | undefined,
+): O | ((arg: A) => O) | undefined =>
+  typeof option === 'function'
+    ? (arg: A) => withDuration(option(arg))
+    : option === undefined
+      ? undefined
+      : withDuration(option);
+
 export const createToaster = (
   ...args: Parameters<typeof createArkToaster>
 ): CreateToasterReturn => {
   const toaster = createArkToaster(...args);
   return {
     ...toaster,
-    create: (options) => toaster.create(withPriority(options)),
-    update: (id, options) => toaster.update(id, withPriority(options)),
+    create: (options) => toaster.create(withDefaults(options)),
+    update: (id, options) =>
+      toaster.update(
+        id,
+        typeof options === 'function'
+          ? (previous) => withUpdatedDefaults(options(previous))
+          : withUpdatedDefaults(options),
+      ),
+    info: (options) => toaster.info(withDefaults(options)),
+    success: (options) => toaster.success(withDefaults(options)),
+    warning: (options) => toaster.warning(withDefaults(options)),
+    error: (options) => toaster.error(withDefaults(options)),
+    loading: (options) => toaster.loading(withDefaults(options)),
+    promise: (promise, options, shared) =>
+      toaster.promise(
+        promise,
+        {
+          ...options,
+          success: mapOptions(options.success),
+          error: mapOptions(options.error),
+        },
+        shared,
+      ),
   };
 };
 

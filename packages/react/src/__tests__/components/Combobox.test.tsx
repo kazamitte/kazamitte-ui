@@ -292,4 +292,16 @@ describe('Combobox', () => {
       screen.queryByRole('option', { name: 'Svelte' }),
     ).not.toBeInTheDocument();
   });
+
+  it('renders the list inside the component when portalled is false', async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <Combobox label="フレームワーク" items={ITEMS} portalled={false} />,
+    );
+    await user.type(
+      screen.getByRole('combobox', { name: 'フレームワーク' }),
+      'r',
+    );
+    expect(container).toContainElement(await screen.findByRole('listbox'));
+  });
 });
