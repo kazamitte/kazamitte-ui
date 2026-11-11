@@ -23,7 +23,7 @@ const cardStyles = tv({
   },
   variants: {
     variant: {
-      outline: { root: 'base-border-muted base-bg' },
+      outline: { root: 'base-border-solid base-bg' },
       subtle: {
         root: 'border-transparent base-bg-subtle',
         description: 'base-fg',

@@ -34,7 +34,7 @@ const proseStyles = tv({
     '[&_blockquote]:border-s-3 [&_blockquote]:base-border-selected [&_blockquote]:ps-4 [&_blockquote]:text-body-16 [&_blockquote]:base-fg',
     // table (Table)
     '[&_table]:w-full [&_table]:border-collapse [&_table]:text-dense-14 [&_table]:base-fg',
-    '[&_th]:border-b [&_th]:base-border-muted [&_th]:px-3 [&_th]:py-2 [&_th]:text-start [&_th]:font-semibold [&_th]:base-fg-strong',
+    '[&_th]:border-b [&_th]:base-border-solid [&_th]:px-3 [&_th]:py-2 [&_th]:text-start [&_th]:font-semibold [&_th]:base-fg-strong',
     '[&_td]:border-b [&_td]:base-border-muted [&_td]:px-3 [&_td]:py-2 [&_td]:align-top',
     // rule and image
     '[&_hr]:my-8 [&_hr]:border-0 [&_hr]:border-t [&_hr]:base-border-muted',
