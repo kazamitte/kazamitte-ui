@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode, Ref } from 'react';
 import { NumberInput as ArkNumberInput } from '@ark-ui/react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
@@ -50,11 +50,13 @@ type NumberInputProps = Omit<
   VariantProps<typeof numberInputStyles> & {
     label?: ReactNode;
     placeholder?: string;
+    inputRef?: Ref<HTMLInputElement>;
   };
 
 export const NumberInput = ({
   label,
   placeholder,
+  inputRef,
   size,
   translations,
   className,
@@ -74,6 +76,7 @@ export const NumberInput = ({
       )}
       <ArkNumberInput.Control className={styles.control()}>
         <ArkNumberInput.Input
+          ref={inputRef}
           placeholder={placeholder}
           className={styles.input()}
         />

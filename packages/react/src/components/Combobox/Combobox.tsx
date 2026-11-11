@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type ReactNode,
+  type Ref,
   type RefAttributes,
 } from 'react';
 import { flushSync } from 'react-dom';
@@ -81,6 +82,7 @@ type ComboboxProps = Omit<
     loading?: boolean;
     loadingText?: string;
     portalled?: boolean;
+    inputRef?: Ref<HTMLInputElement>;
   };
 
 const Item = ({
@@ -164,6 +166,7 @@ export const Combobox = ({
   className,
   positioning,
   onInputValueChange,
+  inputRef,
   ...props
 }: ComboboxProps) => {
   const filters = useFilter({ sensitivity: 'base' });
@@ -265,6 +268,7 @@ export const Combobox = ({
       {multiple === true && <SelectedChips />}
       <ArkCombobox.Control className={styles.control()}>
         <ArkCombobox.Input
+          ref={inputRef}
           placeholder={placeholder}
           className={styles.input()}
         />

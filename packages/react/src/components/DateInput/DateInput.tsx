@@ -1,7 +1,8 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode, Ref } from 'react';
 import { DateInput as ArkDateInput } from '@ark-ui/react/date-input';
+import { setRef } from '../../setRef';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';
 import { inputStyles } from '../Input';
@@ -37,12 +38,27 @@ type DateInputProps = Omit<
 > & {
   label?: ReactNode;
   rangeSeparator?: string;
+  inputRef?: Ref<HTMLElement>;
 };
 
-const Segments = () => (
+// Segments are spans, not inputs: the first editable one is the focus target.
+const firstSegmentRef =
+  (inputRef: Ref<HTMLElement> | undefined) => (el: HTMLElement | null) => {
+    if (el?.parentElement?.querySelector('[role="spinbutton"]') !== el) return;
+    setRef(inputRef, el);
+    return () => {
+      setRef(inputRef, null);
+    };
+  };
+
+const Segments = ({ inputRef }: { inputRef?: Ref<HTMLElement> }) => (
   <ArkDateInput.SegmentContext>
     {(segment) => (
-      <ArkDateInput.Segment segment={segment} className={styles.segment()} />
+      <ArkDateInput.Segment
+        ref={inputRef ? firstSegmentRef(inputRef) : undefined}
+        segment={segment}
+        className={styles.segment()}
+      />
     )}
   </ArkDateInput.SegmentContext>
 );
@@ -52,6 +68,7 @@ export const DateInput = ({
   rangeSeparator = '〜',
   selectionMode,
   shouldForceLeadingZeros = true,
+  inputRef,
   className,
   ...props
 }: DateInputProps) => {
@@ -70,7 +87,7 @@ export const DateInput = ({
       )}
       <ArkDateInput.Control className={styles.control()}>
         <ArkDateInput.SegmentGroup index={0} className={styles.segmentGroup()}>
-          <Segments />
+          <Segments inputRef={inputRef} />
         </ArkDateInput.SegmentGroup>
         {isRange && (
           <>

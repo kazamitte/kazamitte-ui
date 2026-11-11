@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode, Ref } from 'react';
 import { TagsInput as ArkTagsInput } from '@ark-ui/react';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
@@ -68,11 +68,13 @@ type TagsInputProps = Omit<
 > & {
   label?: ReactNode;
   clearable?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
 };
 
 export const TagsInput = ({
   label,
   clearable = false,
+  inputRef,
   translations,
   className,
   ...props
@@ -112,7 +114,7 @@ export const TagsInput = ({
           ))
         }
       </ArkTagsInput.Context>
-      <ArkTagsInput.Input className={styles.input()} />
+      <ArkTagsInput.Input ref={inputRef} className={styles.input()} />
       {clearable && (
         <ArkTagsInput.ClearTrigger className={styles.clearTrigger()}>
           <X aria-hidden="true" />

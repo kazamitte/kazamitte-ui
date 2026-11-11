@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, type ComponentProps, type ReactNode } from 'react';
+import { useId, type ComponentProps, type ReactNode, type Ref } from 'react';
 import {
   ColorPicker as ArkColorPicker,
   parseColor,
@@ -65,12 +65,14 @@ type ColorPickerProps = Omit<
   label?: ReactNode;
   presets?: string[];
   alpha?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
 };
 
 export const ColorPicker = ({
   label,
   presets,
   alpha = false,
+  inputRef,
   className,
   ...props
 }: ColorPickerProps) => {
@@ -85,6 +87,7 @@ export const ColorPicker = ({
       <ArkColorPicker.Control className={styles.control()}>
         <ArkColorPicker.ChannelInput
           channel="hex"
+          ref={inputRef}
           aria-label="16進数の色"
           className={styles.input()}
         />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type ReactNode, type RefAttributes } from 'react';
+import { useMemo, type ReactNode, type Ref, type RefAttributes } from 'react';
 import {
   Select as ArkSelect,
   createListCollection,
@@ -58,6 +58,7 @@ type SelectProps = Omit<
     label?: ReactNode;
     placeholder?: string;
     portalled?: boolean;
+    triggerRef?: Ref<HTMLButtonElement>;
   };
 
 const Item = ({ item }: { item: SelectItem }) => (
@@ -76,6 +77,7 @@ export const Select = ({
   label,
   placeholder = '選択してください',
   portalled = true,
+  triggerRef,
   className,
   positioning,
   ...props
@@ -104,7 +106,7 @@ export const Select = ({
         <ArkSelect.Label className={styles.label()}>{label}</ArkSelect.Label>
       )}
       <ArkSelect.Control className={styles.control()}>
-        <ArkSelect.Trigger className={styles.trigger()}>
+        <ArkSelect.Trigger ref={triggerRef} className={styles.trigger()}>
           <ArkSelect.ValueText placeholder={placeholder} />
           <ArkSelect.Indicator className={styles.indicator()}>
             <ChevronDown aria-hidden="true" />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type ReactNode, type RefAttributes } from 'react';
+import { useMemo, type ReactNode, type Ref, type RefAttributes } from 'react';
 import { Listbox as ArkListbox, createListCollection } from '@ark-ui/react';
 import { Check } from 'lucide-react';
 import { GroupedItems } from '../../GroupedItems';
@@ -38,6 +38,7 @@ type ListboxProps = Omit<
   RefAttributes<HTMLDivElement> & {
     items: ListboxItem[];
     label?: ReactNode;
+    contentRef?: Ref<HTMLDivElement>;
   };
 
 const Item = ({ item }: { item: ListboxItem }) => (
@@ -54,6 +55,7 @@ const Item = ({ item }: { item: ListboxItem }) => (
 export const Listbox = ({
   items,
   label,
+  contentRef,
   className,
   ...props
 }: ListboxProps) => {
@@ -79,7 +81,7 @@ export const Listbox = ({
       {label !== undefined && (
         <ArkListbox.Label className={styles.label()}>{label}</ArkListbox.Label>
       )}
-      <ArkListbox.Content className={styles.content()}>
+      <ArkListbox.Content ref={contentRef} className={styles.content()}>
         {grouped ? (
           <GroupedItems
             groups={splitGroupedItems(collection.group())}

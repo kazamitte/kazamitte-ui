@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode, Ref } from 'react';
 import { PasswordInput as ArkPasswordInput } from '@ark-ui/react';
 import { Eye, EyeOff } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
@@ -49,11 +49,13 @@ type PasswordInputProps = Omit<
   VariantProps<typeof passwordInputStyles> & {
     label?: ReactNode;
     placeholder?: string;
+    inputRef?: Ref<HTMLInputElement>;
   };
 
 export const PasswordInput = ({
   label,
   placeholder,
+  inputRef,
   size,
   translations,
   className,
@@ -73,6 +75,7 @@ export const PasswordInput = ({
       )}
       <ArkPasswordInput.Control className={styles.control()}>
         <ArkPasswordInput.Input
+          ref={inputRef}
           placeholder={placeholder}
           className={styles.input()}
         />

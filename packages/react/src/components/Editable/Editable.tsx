@@ -1,7 +1,8 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps, ReactNode, Ref } from 'react';
 import { Editable as ArkEditable } from '@ark-ui/react';
+import { setRef } from '../../setRef';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
 import { Button } from '../Button';
@@ -56,6 +57,7 @@ type EditableProps = Omit<
   label?: ReactNode;
   controls?: boolean;
   multiline?: boolean;
+  inputRef?: Ref<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 const styles = editableStyles();
@@ -91,11 +93,15 @@ export const Editable = ({
   label,
   controls = false,
   multiline = false,
+  inputRef,
   translations,
   className,
   ...props
 }: EditableProps) => {
   const slots = editableStyles({ multiline });
+  const setInputRef = (el: HTMLInputElement | null) => {
+    setRef(inputRef, el);
+  };
   return (
     <ArkEditable.Root
       className={slots.root({ className })}
@@ -107,11 +113,15 @@ export const Editable = ({
       )}
       <ArkEditable.Area className={slots.area()}>
         {multiline ? (
-          <ArkEditable.Input className={slots.input()} asChild>
+          <ArkEditable.Input
+            ref={setInputRef}
+            className={slots.input()}
+            asChild
+          >
             <textarea />
           </ArkEditable.Input>
         ) : (
-          <ArkEditable.Input className={slots.input()} />
+          <ArkEditable.Input ref={setInputRef} className={slots.input()} />
         )}
         <ArkEditable.Preview
           className={slots.preview({ className: focusRing() })}

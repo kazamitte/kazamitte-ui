@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode, RefAttributes } from 'react';
+import type { ReactNode, Ref, RefAttributes } from 'react';
 import { TreeView as ArkTreeView, createTreeCollection } from '@ark-ui/react';
 import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react';
 import { tv } from '../../tv';
@@ -58,6 +58,7 @@ type TreeViewProps = Omit<
     nodes: TreeNode[];
     label?: ReactNode;
     indentGuide?: boolean;
+    treeRef?: Ref<HTMLDivElement>;
   };
 
 const Node = ({
@@ -116,6 +117,7 @@ export const TreeView = ({
   nodes,
   label,
   indentGuide = false,
+  treeRef,
   className,
   translations,
   ...props
@@ -138,7 +140,7 @@ export const TreeView = ({
           {label}
         </ArkTreeView.Label>
       )}
-      <ArkTreeView.Tree className={styles.tree()}>
+      <ArkTreeView.Tree ref={treeRef} className={styles.tree()}>
         {nodes.map((node, index) => (
           <Node
             key={node.id}

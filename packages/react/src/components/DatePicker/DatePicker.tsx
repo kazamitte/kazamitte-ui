@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, ReactNode, RefAttributes } from 'react';
+import type { ComponentProps, ReactNode, Ref, RefAttributes } from 'react';
 import { DatePicker as ArkDatePicker } from '@ark-ui/react/date-picker';
 import { Portal } from '@ark-ui/react/portal';
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -87,6 +87,7 @@ type DatePickerProps = Omit<ArkDatePicker.RootProps, 'children'> &
     placeholder?: string;
     clearable?: boolean;
     portalled?: boolean;
+    inputRef?: Ref<HTMLInputElement>;
   };
 
 const ViewControl = () => (
@@ -189,6 +190,7 @@ export const DatePicker = ({
   placeholder = 'yyyy/mm/dd',
   clearable = false,
   portalled = true,
+  inputRef,
   selectionMode,
   translations,
   className,
@@ -210,6 +212,7 @@ export const DatePicker = ({
       )}
       <ArkDatePicker.Control className={styles.control()}>
         <ArkDatePicker.Input
+          ref={inputRef}
           index={0}
           placeholder={placeholder}
           className={styles.input()}
