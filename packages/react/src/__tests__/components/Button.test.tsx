@@ -64,3 +64,85 @@ describe('Button', () => {
     );
   });
 });
+
+describe('Button loading', () => {
+  it('does not call onClick while loading', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Button loading onClick={onClick}>
+        保存
+      </Button>,
+    );
+    await user.click(screen.getByRole('button', { name: '保存' }));
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('does not submit the form while loading', async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn((event: React.SubmitEvent) =>
+      event.preventDefault(),
+    );
+    render(
+      <form onSubmit={onSubmit}>
+        <Button type="submit" loading>
+          送信
+        </Button>
+      </form>,
+    );
+    await user.click(screen.getByRole('button', { name: '送信' }));
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('submits the form again once loading ends', async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn((event: React.SubmitEvent) =>
+      event.preventDefault(),
+    );
+    render(
+      <form onSubmit={onSubmit}>
+        <Button type="submit">送信</Button>
+      </form>,
+    );
+    await user.click(screen.getByRole('button', { name: '送信' }));
+    expect(onSubmit).toHaveBeenCalledOnce();
+  });
+
+  it('keeps focus by using aria-disabled instead of disabled', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<Button>保存</Button>);
+    await user.tab();
+    const button = screen.getByRole('button', { name: '保存' });
+    expect(button).toHaveFocus();
+
+    rerender(<Button loading>保存</Button>);
+
+    expect(button).toHaveFocus();
+    expect(button).toHaveAttribute('aria-disabled', 'true');
+    expect(button).not.toBeDisabled();
+  });
+
+  it('shows a decorative spinner and keeps the label as the name', () => {
+    const { container } = render(<Button loading>保存</Button>);
+    expect(screen.getByRole('button', { name: '保存' })).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(container.querySelector('[aria-hidden="true"]')).toBeInTheDocument();
+  });
+
+  it('replaces the label with loadingText when given', () => {
+    render(
+      <Button loading loadingText="保存中">
+        保存
+      </Button>,
+    );
+    expect(screen.getByRole('button', { name: '保存中' })).toBeInTheDocument();
+    expect(screen.queryByText('保存')).not.toBeInTheDocument();
+  });
+
+  it('shows the plain label when not loading', () => {
+    render(<Button loadingText="保存中">保存</Button>);
+    expect(screen.getByRole('button', { name: '保存' })).not.toHaveAttribute(
+      'aria-disabled',
+    );
+  });
+});

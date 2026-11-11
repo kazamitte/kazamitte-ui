@@ -6,7 +6,7 @@ export default defineConfig({
   format: 'esm',
   platform: 'neutral',
   dts: true,
-  copy: ['src/ark-variants.css', 'src/styles.css'],
+  copy: ['src/ark-variants.css', 'src/utilities.css', 'src/styles.css'],
   publint: true,
   checks: {
     moduleLevelDirective: false,

@@ -1,0 +1,19 @@
+/*
+ * appear-late: invisible until --appear-delay has passed (200ms if unset),
+ * then fades in. --duration-enter collapses to 1ms under reduced motion, so
+ * the fade drops out but the wait stays.
+ */
+@keyframes appear-late {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility appear-late {
+  opacity: 0;
+  animation: appear-late var(--duration-enter) var(--ease-standard)
+    var(--appear-delay, 200ms) forwards;
+}

@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react';
 import { LocaleProvider } from '@ark-ui/react/locale';
+import { AnnouncerProvider } from '../LiveRegion/announce';
 
 export type UIProviderProps = {
   locale: string;
@@ -9,5 +10,7 @@ export type UIProviderProps = {
 };
 
 export const UIProvider = ({ locale, children }: UIProviderProps) => (
-  <LocaleProvider locale={locale}>{children}</LocaleProvider>
+  <LocaleProvider locale={locale}>
+    <AnnouncerProvider>{children}</AnnouncerProvider>
+  </LocaleProvider>
 );

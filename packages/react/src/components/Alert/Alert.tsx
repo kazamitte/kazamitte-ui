@@ -18,6 +18,7 @@ const alertStyles = tv({
     content: 'flex min-w-0 flex-1 flex-col gap-1',
     title: 'font-bold',
     description: '',
+    actions: 'mt-2 flex flex-wrap gap-2',
   },
   variants: {
     status: {
@@ -141,4 +142,11 @@ export const AlertDescription = ({
   ...props
 }: ComponentPropsWithRef<'div'>) => (
   <div className={styles.description({ className })} {...props} />
+);
+
+export const AlertActions = ({
+  className,
+  ...props
+}: ComponentPropsWithRef<'div'>) => (
+  <div className={styles.actions({ className })} {...props} />
 );

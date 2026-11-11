@@ -72,4 +72,24 @@ describe('Alert', () => {
     expect(root).not.toHaveAttribute('role');
     expect(root).not.toHaveAttribute('aria-live');
   });
+
+  it('holds buttons in Actions after the description', () => {
+    render(
+      <Alert.Root>
+        <Alert.Content>
+          <Alert.Description>失敗しました</Alert.Description>
+          <Alert.Actions data-testid="actions">
+            <button type="button">再試行</button>
+          </Alert.Actions>
+        </Alert.Content>
+      </Alert.Root>,
+    );
+    const actions = screen.getByTestId('actions');
+    expect(actions).toContainElement(
+      screen.getByRole('button', { name: '再試行' }),
+    );
+    expect(
+      screen.getByText('失敗しました').compareDocumentPosition(actions),
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
 });
