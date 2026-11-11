@@ -28,3 +28,24 @@
   animation: appear-late var(--duration-enter) var(--ease-standard)
     var(--appear-delay, 200ms) forwards;
 }
+
+/*
+ * current-marker: the look of "the item being edited now". The ARIA state
+ * is the only switch, so the look cannot drift from what assistive
+ * technology hears; the caller sets the aria-current value (true, step,
+ * location...). The bar is a border, not a shadow, so forced-colors mode
+ * keeps it, and only the current item carries it: a transparent border on
+ * the others would show up in forced-colors mode. The start padding is
+ * what the caller would have had (--current-marker-gutter), less the bar,
+ * so the content does not move when the marker comes and goes.
+ */
+@utility current-marker {
+  padding-inline-start: var(--current-marker-gutter, 0.75rem);
+
+  &[aria-current]:not([aria-current='false']) {
+    @apply primary-border-solid primary-bg-subtle;
+    border-inline-start-style: solid;
+    border-inline-start-width: 0.25rem;
+    padding-inline-start: calc(var(--current-marker-gutter, 0.75rem) - 0.25rem);
+  }
+}

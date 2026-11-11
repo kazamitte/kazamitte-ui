@@ -47,4 +47,48 @@ describe('Checkbox', () => {
     render(<Checkbox label="無効" disabled />);
     expect(screen.getByRole('checkbox', { name: '無効' })).toBeDisabled();
   });
+
+  it('names the checkbox by its label and describes it with description', () => {
+    render(<Checkbox label="メール通知" description="週に1回届きます" />);
+    expect(
+      screen.getByRole('checkbox', {
+        name: 'メール通知',
+        description: '週に1回届きます',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('toggles when the description text is clicked', async () => {
+    const user = userEvent.setup();
+    render(<Checkbox label="メール通知" description="週に1回届きます" />);
+    await user.click(screen.getByText('週に1回届きます'));
+    expect(screen.getByRole('checkbox', { name: 'メール通知' })).toBeChecked();
+  });
+
+  it('keeps the name and description in the card variant', async () => {
+    const user = userEvent.setup();
+    const onCheckedChange = vi.fn();
+    render(
+      <Checkbox
+        variant="card"
+        label="メール通知"
+        description="週に1回届きます"
+        onCheckedChange={onCheckedChange}
+      />,
+    );
+    await user.click(
+      screen.getByRole('checkbox', {
+        name: 'メール通知',
+        description: '週に1回届きます',
+      }),
+    );
+    expect(onCheckedChange).toHaveBeenCalledWith({ checked: true });
+  });
+
+  it('disables a card checkbox', () => {
+    render(
+      <Checkbox variant="card" label="無効" description="説明" disabled />,
+    );
+    expect(screen.getByRole('checkbox', { name: '無効' })).toBeDisabled();
+  });
 });

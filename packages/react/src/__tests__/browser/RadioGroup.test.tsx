@@ -68,4 +68,20 @@ describe('RadioGroup', () => {
     expect(call).toBeChecked();
     expect(screen.getByRole('radio', { name: 'メール' })).not.toBeChecked();
   });
+
+  it('draws the focus ring on the card, not on the radio control inside it', async () => {
+    render(
+      <RadioGroup
+        label="連絡方法"
+        variant="card"
+        options={OPTIONS}
+        defaultValue="sms"
+      />,
+    );
+    await userEvent.tab();
+    const card = screen.getByRole('radio', { name: 'SMS' }).closest('label');
+    await expect
+      .poll(() => (card ? getComputedStyle(card).outlineStyle : ''))
+      .toBe('solid');
+  });
 });

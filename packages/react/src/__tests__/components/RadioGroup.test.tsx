@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BookOpen, Timer } from 'lucide-react';
 import { describe, expect, it, vi } from 'vitest';
 import { RadioGroup } from '../../components/RadioGroup';
 
@@ -62,5 +63,83 @@ describe('RadioGroup', () => {
       <RadioGroup options={[{ value: 'fax', label: 'FAX', disabled: true }]} />,
     );
     expect(screen.getByRole('radio', { name: 'FAX' })).toBeDisabled();
+  });
+
+  describe('with description, meta and icon', () => {
+    const CARDS = [
+      {
+        value: 'practice',
+        label: '練習',
+        description: '時間を測らずに解く',
+        meta: '20問',
+        icon: BookOpen,
+      },
+      {
+        value: 'timed',
+        label: '計測',
+        description: '制限時間つきで解く',
+        icon: Timer,
+      },
+    ];
+
+    it('names the radio by its label and describes it with description and meta', () => {
+      render(<RadioGroup label="モード" options={CARDS} variant="card" />);
+      const radio = screen.getByRole('radio', { name: '練習' });
+      expect(radio).toHaveAccessibleDescription('時間を測らずに解く 20問');
+      expect(
+        screen.getByRole('radio', {
+          name: '計測',
+          description: '制限時間つきで解く',
+        }),
+      ).toBeInTheDocument();
+    });
+
+    it('leaves aria-describedby off when there is no description', () => {
+      render(<RadioGroup options={OPTIONS} variant="card" />);
+      const radio = screen.getByRole('radio', { name: 'メール' });
+      expect(radio).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('selects an option when its card text is clicked', async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+      render(
+        <RadioGroup
+          options={CARDS}
+          variant="card"
+          onValueChange={onValueChange}
+        />,
+      );
+      await user.click(screen.getByText('制限時間つきで解く'));
+      expect(onValueChange).toHaveBeenCalledWith({ value: 'timed' });
+      expect(screen.getByRole('radio', { name: '計測' })).toBeChecked();
+    });
+
+    it('moves the selection with the arrow keys', async () => {
+      const user = userEvent.setup();
+      render(
+        <RadioGroup options={CARDS} variant="card" defaultValue="practice" />,
+      );
+      screen.getByRole('radio', { name: '練習' }).focus();
+      await user.keyboard('{ArrowDown}');
+      expect(screen.getByRole('radio', { name: '計測' })).toBeChecked();
+    });
+
+    it('disables the whole group in the card variant', () => {
+      render(<RadioGroup options={CARDS} variant="card" disabled />);
+      expect(screen.getByRole('radio', { name: '練習' })).toBeDisabled();
+      expect(screen.getByRole('radio', { name: '計測' })).toBeDisabled();
+    });
+
+    it('hides the icon from assistive technology', () => {
+      const { container } = render(
+        <RadioGroup options={CARDS} variant="card" />,
+      );
+      const icons = container.querySelectorAll('svg');
+      expect(icons).toHaveLength(2);
+      icons.forEach((icon) =>
+        expect(icon).toHaveAttribute('aria-hidden', 'true'),
+      );
+    });
   });
 });

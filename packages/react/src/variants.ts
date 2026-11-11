@@ -89,3 +89,15 @@ export const closeButtonStyles = tv({
     focusRing(),
   ],
 });
+
+// One look for a selectable card, shared by RadioGroup and Checkbox. The
+// checked state is a thicker ring and a tinted fill on top of the control
+// drawn inside the card, so it never relies on color alone.
+export const choiceCardStyles = tv({
+  base: [
+    'flex w-full cursor-pointer items-start gap-3 rounded-surface border base-border-solid base-bg p-4 transition-colors',
+    'ark-checked:primary-border-solid ark-checked:primary-bg-subtle ark-checked:ring-1 ark-checked:ring-(--r-primary-border-solid)',
+    'ark-disabled:cursor-not-allowed ark-disabled:opacity-50',
+    focusRingWithin(),
+  ],
+});
