@@ -8,7 +8,7 @@ const formLayoutStyles = tv({
     root: 'flex flex-col gap-6',
     row: 'grid gap-4',
     actions:
-      'flex flex-wrap items-center gap-3 border-t base-border-muted pt-6',
+      'flex flex-wrap items-center gap-3 border-t base-border-solid pt-6',
   },
   variants: {
     columns: {

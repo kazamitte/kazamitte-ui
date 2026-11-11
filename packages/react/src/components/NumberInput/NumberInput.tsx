@@ -18,7 +18,7 @@ const numberInputStyles = tv({
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
     ],
     triggerGroup:
-      'absolute inset-y-0 end-0 flex w-8 flex-col border-s base-border-muted pointer-coarse:w-11',
+      'absolute inset-y-0 end-0 flex w-8 flex-col border-s base-border-solid pointer-coarse:w-11',
     trigger: [
       'inline-flex flex-1 items-center justify-center base-fg-muted [&>svg]:size-3.5',
       'hover:base-bg-subtle hover:base-fg-strong',

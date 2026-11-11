@@ -17,7 +17,7 @@ const fileUploadStyles = tv({
     root: 'flex flex-col gap-3',
     label: fieldSlots.label,
     dropzone: [
-      'flex flex-col items-center gap-3 rounded-surface border border-dashed base-border-muted px-6 py-8 text-center transition-colors',
+      'flex flex-col items-center gap-3 rounded-surface border border-dashed base-border-solid px-6 py-8 text-center transition-colors',
       'ark-dragging:primary-border-solid ark-dragging:primary-bg-subtle',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
     ],
@@ -25,7 +25,7 @@ const fileUploadStyles = tv({
       'inline-flex size-12 items-center justify-center rounded-pill base-bg-muted base-fg-muted [&>svg]:size-6',
     dropzoneText: 'text-dense-14 base-fg',
     itemGroup: 'flex flex-col gap-2',
-    item: 'flex items-center gap-3 rounded-surface border base-border-muted p-3',
+    item: 'flex items-center gap-3 rounded-surface border base-border-solid p-3',
     itemPreview:
       'inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-control base-bg-muted base-fg-muted [&>svg]:size-5',
     itemPreviewImage: 'size-full object-cover',

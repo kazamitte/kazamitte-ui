@@ -48,7 +48,7 @@ const colorPickerStyles = tv({
     ],
     presets: 'flex flex-wrap gap-2',
     presetTrigger: [
-      'grid size-8 place-items-center overflow-hidden rounded-control border base-border-muted',
+      'grid size-8 place-items-center overflow-hidden rounded-control border base-border-solid',
       focusRing(),
     ],
     presetIndicator: 'text-white drop-shadow [&>svg]:size-4',

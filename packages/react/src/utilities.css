@@ -1,4 +1,15 @@
 /*
+ * Tailwind v4 preflight drops the pointer cursor on buttons; restore it
+ * for enabled ones. Lives here because apps import this file.
+ */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+}
+
+/*
  * appear-late: invisible until --appear-delay has passed (200ms if unset),
  * then fades in. --duration-enter collapses to 1ms under reduced motion, so
  * the fade drops out but the wait stays.
