@@ -4,6 +4,7 @@ import type { ComponentProps, ReactNode } from 'react';
 import { ToggleGroup as ArkToggleGroup } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
+import { useToolbarItem } from '../Toolbar/context';
 
 const toggleGroupStyles = tv({
   slots: {
@@ -50,14 +51,24 @@ export const ToggleGroup = ({
   variant,
   deselectable = false,
   className,
+  disabled,
+  rovingFocus,
   ...props
 }: ToggleGroupProps) => {
+  // Inside a Toolbar the toolbar owns the arrow keys and the tab stop, so
+  // Ark's own roving focus is turned off and each item joins the toolbar.
+  const toolbarItem = useToolbarItem({
+    disabled,
+    focusableWhenDisabled: false,
+  });
   const styles = toggleGroupStyles({ variant });
   return (
     // Single mode is a radiogroup, and a checked radio doesn't uncheck on
     // click; Ark defaults deselectable to true.
     <ArkToggleGroup.Root
       deselectable={deselectable}
+      disabled={toolbarItem.isDisabled || undefined}
+      rovingFocus={toolbarItem.inToolbar ? false : rovingFocus}
       className={styles.root({ className })}
       {...props}
     >
@@ -67,6 +78,7 @@ export const ToggleGroup = ({
           value={item.value}
           disabled={item.disabled}
           className={styles.item()}
+          {...toolbarItem.attrs}
         >
           {item.label}
         </ArkToggleGroup.Item>

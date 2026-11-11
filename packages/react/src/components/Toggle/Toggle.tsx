@@ -4,6 +4,7 @@ import type { ComponentProps } from 'react';
 import { Toggle as ArkToggle } from '@ark-ui/react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
+import { useToolbarItem } from '../Toolbar/context';
 
 export const toggleStyles = tv({
   extend: focusRing,
@@ -30,9 +31,24 @@ export const toggleStyles = tv({
 type ToggleProps = ComponentProps<typeof ArkToggle.Root> &
   VariantProps<typeof toggleStyles>;
 
-export const Toggle = ({ variant, size, className, ...props }: ToggleProps) => (
-  <ArkToggle.Root
-    className={toggleStyles({ variant, size, className })}
-    {...props}
-  />
-);
+export const Toggle = ({
+  variant,
+  size,
+  className,
+  disabled,
+  ...props
+}: ToggleProps) => {
+  // Inside a Toolbar the toolbar owns the arrow keys and the tab stop.
+  const toolbarItem = useToolbarItem({
+    disabled,
+    focusableWhenDisabled: false,
+  });
+  return (
+    <ArkToggle.Root
+      className={toggleStyles({ variant, size, className })}
+      disabled={toolbarItem.isDisabled || undefined}
+      {...toolbarItem.attrs}
+      {...props}
+    />
+  );
+};

@@ -5,7 +5,7 @@ import { Tabs as ArkTabs } from '@ark-ui/react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
 
-const tabsStyles = tv({
+export const tabsStyles = tv({
   slots: {
     root: 'flex flex-col gap-4 ark-vertical:flex-row',
     list: [
@@ -15,7 +15,7 @@ const tabsStyles = tv({
     trigger: [
       'inline-flex h-10 items-center gap-2 px-3 text-oneline-14 font-medium base-fg-muted transition-colors',
       'hover:base-fg-strong',
-      'ark-selected:primary-fg',
+      'ark-selected:primary-fg ark-current:primary-fg',
       'ark-disabled:pointer-events-none ark-disabled:opacity-50',
       focusRing(),
     ],
