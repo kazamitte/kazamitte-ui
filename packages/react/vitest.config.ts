@@ -28,6 +28,7 @@ export default defineConfig({
             '@ark-ui/react/date-input',
             '@ark-ui/react/date-picker',
             '@ark-ui/react/drawer',
+            '@ark-ui/react/field',
             '@ark-ui/react/navigation-menu',
             '@ark-ui/react/locale',
             '@ark-ui/react/portal',
