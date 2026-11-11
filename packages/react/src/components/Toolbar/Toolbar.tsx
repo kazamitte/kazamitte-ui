@@ -195,6 +195,30 @@ type ToolbarButtonProps = Omit<
   focusableWhenDisabled?: boolean;
 };
 
+// A disabled item keeps focus, so anything wrapped around it (a Menu or
+// Popover trigger) would still see the press. The capture handlers stop it
+// before the trigger's own handlers run. Arrow keys the Root uses to move
+// stay free: only the key that would open a Menu is held back.
+const swallowPress = (orientation: ToolbarOrientation) => ({
+  onPointerDownCapture: (event: React.PointerEvent) => {
+    event.stopPropagation();
+  },
+  onClickCapture: (event: React.MouseEvent) => {
+    event.stopPropagation();
+  },
+  onKeyDownCapture: (event: React.KeyboardEvent) => {
+    const opensMenu =
+      event.key === 'Enter' ||
+      event.key === ' ' ||
+      (orientation === 'horizontal' &&
+        (event.key === 'ArrowDown' || event.key === 'ArrowUp'));
+    if (opensMenu) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  },
+});
+
 export const ToolbarButton = ({
   variant = 'ghost',
   size = 'sm',
@@ -205,6 +229,7 @@ export const ToolbarButton = ({
   ...props
 }: ToolbarButtonProps) => {
   const item = useToolbarItem({ disabled, focusableWhenDisabled });
+  const toolbar = useToolbarContext();
   return (
     <Button
       variant={variant}
@@ -221,6 +246,8 @@ export const ToolbarButton = ({
       }}
       {...item.attrs}
       {...props}
+      {...(item.ariaDisabled === true &&
+        swallowPress(toolbar?.orientation ?? 'horizontal'))}
     />
   );
 };

@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { Button } from '../../components/Button';
 import { Menu } from '../../components/Menu';
+import { Popover } from '../../components/Popover';
 import { Toggle } from '../../components/Toggle';
 import { ToggleGroup } from '../../components/ToggleGroup';
 import { Toolbar } from '../../components/Toolbar';
+import { Tooltip } from '../../components/Tooltip';
 import { stubObservers } from '../setup/observers';
 
 beforeAll(stubObservers);
@@ -375,6 +377,116 @@ describe('Toolbar', () => {
     await screen.findByRole('menuitem', { name: '項目A' });
     await user.keyboard('{ArrowDown}{ArrowRight}');
     expect(screen.getByRole('button', { name: '太字' })).not.toHaveFocus();
+  });
+
+  describe('a disabled Menu trigger', () => {
+    const menu = (
+      <Menu.Portal>
+        <Menu.Positioner>
+          <Menu.Content>
+            <Menu.Item value="a">項目A</Menu.Item>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Menu.Portal>
+    );
+    const triggerWrapsButton = (
+      <Toolbar.Root aria-label="書式">
+        <Toolbar.Button>太字</Toolbar.Button>
+        <Menu.Root>
+          <Menu.Trigger asChild>
+            <Toolbar.Button disabled>その他</Toolbar.Button>
+          </Menu.Trigger>
+          {menu}
+        </Menu.Root>
+      </Toolbar.Root>
+    );
+    const buttonWrapsTrigger = (
+      <Toolbar.Root aria-label="書式">
+        <Toolbar.Button>太字</Toolbar.Button>
+        <Menu.Root>
+          <Toolbar.Button asChild disabled>
+            <Menu.Trigger>その他</Menu.Trigger>
+          </Toolbar.Button>
+          {menu}
+        </Menu.Root>
+      </Toolbar.Root>
+    );
+
+    for (const [name, ui] of [
+      ['the trigger wrapping Toolbar.Button', triggerWrapsButton],
+      ['Toolbar.Button wrapping the trigger', buttonWrapsTrigger],
+    ] as const) {
+      it(`stays focusable but does not open on click, Enter, Space or ArrowDown with ${name}`, async () => {
+        const user = userEvent.setup();
+        render(ui);
+        screen.getByRole('button', { name: '太字' }).focus();
+        await user.keyboard('{ArrowRight}');
+        const trigger = screen.getByRole('button', { name: 'その他' });
+        expect(trigger).toHaveFocus();
+        expect(trigger).toHaveAttribute('aria-disabled', 'true');
+
+        await user.click(trigger);
+        await user.keyboard('{Enter}');
+        await user.keyboard(' ');
+        await user.keyboard('{ArrowDown}');
+        expect(screen.queryByRole('menuitem')).not.toBeInTheDocument();
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
+        expect(trigger).toHaveFocus();
+      });
+    }
+  });
+
+  it('reaches a Popover trigger with the arrows and opens it', async () => {
+    const user = userEvent.setup();
+    render(
+      <Toolbar.Root aria-label="書式">
+        <Toolbar.Button>太字</Toolbar.Button>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <Toolbar.Button>詳細</Toolbar.Button>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Positioner>
+              <Popover.Content>
+                <Popover.Title>詳細設定</Popover.Title>
+              </Popover.Content>
+            </Popover.Positioner>
+          </Popover.Portal>
+        </Popover.Root>
+      </Toolbar.Root>,
+    );
+    screen.getByRole('button', { name: '太字' }).focus();
+    await user.keyboard('{ArrowRight}');
+    const trigger = screen.getByRole('button', { name: '詳細' });
+    expect(trigger).toHaveFocus();
+    await user.keyboard('{Enter}');
+    expect(await screen.findByText('詳細設定')).toBeVisible();
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('reaches a Tooltip trigger with the arrows and shows it on focus', async () => {
+    const user = userEvent.setup();
+    render(
+      <Toolbar.Root aria-label="書式">
+        <Toolbar.Button>太字</Toolbar.Button>
+        <Tooltip.Root openDelay={0}>
+          <Tooltip.Trigger asChild>
+            <Toolbar.Button>斜体</Toolbar.Button>
+          </Tooltip.Trigger>
+          <Tooltip.Portal>
+            <Tooltip.Positioner>
+              <Tooltip.Content>斜体にします</Tooltip.Content>
+            </Tooltip.Positioner>
+          </Tooltip.Portal>
+        </Tooltip.Root>
+      </Toolbar.Root>,
+    );
+    await user.tab();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('button', { name: '斜体' })).toHaveFocus();
+    expect(await screen.findByRole('tooltip')).toHaveTextContent(
+      '斜体にします',
+    );
   });
 
   it('forwards the ref to the toolbar element', () => {

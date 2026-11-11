@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ReactNode, Ref, RefAttributes } from 'react';
 import { DatePicker as ArkDatePicker } from '@ark-ui/react/date-picker';
+import { useFieldContext } from '@ark-ui/react/field';
 import { Portal } from '@ark-ui/react/portal';
 import { CalendarDays, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { tv } from '../../tv';
@@ -197,10 +198,15 @@ export const DatePicker = ({
   ...props
 }: DatePickerProps) => {
   const isRange = selectionMode === 'range';
+  const field = useFieldContext();
   return (
     <ArkDatePicker.Root
       selectionMode={selectionMode}
       startOfWeek={0}
+      invalid={field?.invalid}
+      disabled={field?.disabled}
+      readOnly={field?.readOnly}
+      required={field?.required}
       translations={{ ...defaultTranslations, ...translations }}
       className={styles.root({ className })}
       {...props}
@@ -215,12 +221,14 @@ export const DatePicker = ({
           ref={inputRef}
           index={0}
           placeholder={placeholder}
+          aria-describedby={field?.ariaDescribedby}
           className={styles.input()}
         />
         {isRange && (
           <ArkDatePicker.Input
             index={1}
             placeholder={placeholder}
+            aria-describedby={field?.ariaDescribedby}
             className={styles.input()}
           />
         )}

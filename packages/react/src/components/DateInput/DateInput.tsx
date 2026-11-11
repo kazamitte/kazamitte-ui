@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ReactNode, Ref } from 'react';
 import { DateInput as ArkDateInput } from '@ark-ui/react/date-input';
+import { useFieldContext } from '@ark-ui/react/field';
 import { setRef } from '../../setRef';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';
@@ -51,17 +52,26 @@ const firstSegmentRef =
     };
   };
 
-const Segments = ({ inputRef }: { inputRef?: Ref<HTMLElement> }) => (
-  <ArkDateInput.SegmentContext>
-    {(segment) => (
-      <ArkDateInput.Segment
-        ref={inputRef ? firstSegmentRef(inputRef) : undefined}
-        segment={segment}
-        className={styles.segment()}
-      />
-    )}
-  </ArkDateInput.SegmentContext>
-);
+// Each spinbutton segment is the focus target, so it carries the description
+// itself: a screen reader reads it on focus, whereas a description on the
+// role="group" wrapper is only announced inconsistently when entering it.
+const Segments = ({ inputRef }: { inputRef?: Ref<HTMLElement> }) => {
+  const field = useFieldContext();
+  return (
+    <ArkDateInput.SegmentContext>
+      {(segment) => (
+        <ArkDateInput.Segment
+          ref={inputRef ? firstSegmentRef(inputRef) : undefined}
+          segment={segment}
+          aria-describedby={
+            segment.type === 'literal' ? undefined : field?.ariaDescribedby
+          }
+          className={styles.segment()}
+        />
+      )}
+    </ArkDateInput.SegmentContext>
+  );
+};
 
 export const DateInput = ({
   label,
@@ -73,10 +83,15 @@ export const DateInput = ({
   ...props
 }: DateInputProps) => {
   const isRange = selectionMode === 'range';
+  const field = useFieldContext();
   return (
     <ArkDateInput.Root
       selectionMode={selectionMode}
       shouldForceLeadingZeros={shouldForceLeadingZeros}
+      invalid={field?.invalid}
+      disabled={field?.disabled}
+      readOnly={field?.readOnly}
+      required={field?.required}
       className={styles.root({ className })}
       {...props}
     >

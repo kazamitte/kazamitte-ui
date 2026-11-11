@@ -5,6 +5,7 @@ import {
   ColorPicker as ArkColorPicker,
   parseColor,
 } from '@ark-ui/react/color-picker';
+import { useFieldContext } from '@ark-ui/react/field';
 import { Portal } from '@ark-ui/react/portal';
 import { Check, Pipette } from 'lucide-react';
 import { tv } from '../../tv';
@@ -77,6 +78,7 @@ export const ColorPicker = ({
   ...props
 }: ColorPickerProps) => {
   const triggerLabelId = useId();
+  const field = useFieldContext();
   return (
     <ArkColorPicker.Root className={styles.root({ className })} {...props}>
       {label !== undefined && (
@@ -89,6 +91,8 @@ export const ColorPicker = ({
           channel="hex"
           ref={inputRef}
           aria-label="16進数の色"
+          aria-invalid={field?.invalid ? true : undefined}
+          aria-describedby={field?.ariaDescribedby}
           className={styles.input()}
         />
         <ArkColorPicker.Trigger
