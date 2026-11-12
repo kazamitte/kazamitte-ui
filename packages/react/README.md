@@ -16,7 +16,7 @@ pnpm add @kazamitte/kazamitte-ui @kazamitte/design-token tailwindcss react react
 
 ## CSS
 
-Import Tailwind, then the design token, theme, and stylesheet for this package. The `styles.css` file adds the `ark-*` variants used by the components and specifies the package itself as a `@source`; This allows Tailwind to generate the class even if the component is located within `node_modules`.
+Import Tailwind, then the design token, theme, and stylesheet for this package. The `styles.css` file adds the `ark-*` variants used by the components, the `appear-late` and `current-marker` utilities and a pointer cursor on enabled buttons, and specifies the package itself as a `@source`; This allows Tailwind to generate the class even if the component is located within `node_modules`.
 
 ```css
 @import 'tailwindcss';
@@ -48,7 +48,7 @@ export function Save() {
 | `@kazamitte/kazamitte-ui`                | Every component                                                         |
 | `@kazamitte/kazamitte-ui/twmerge-config` | The tailwind-merge config for the design tokens, to build your own `tv` |
 | `@kazamitte/kazamitte-ui/variants`       | Shared style variants (`focusRing`, `menuListStyles`, …)                |
-| `@kazamitte/kazamitte-ui/styles.css`     | `ark-*` variants and the package `@source`                              |
+| `@kazamitte/kazamitte-ui/styles.css`     | `ark-*` variants, utilities and the package `@source`                   |
 
 ### Work with Tailwind Variants
 
