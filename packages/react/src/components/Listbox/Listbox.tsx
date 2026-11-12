@@ -19,7 +19,7 @@ const listboxStyles = tv({
     root: [fieldSlots.root, 'ark-disabled:opacity-50'],
     label: fieldSlots.label,
     content: [
-      'max-h-72 overflow-y-auto rounded-overlay border base-border-solid base-bg p-1',
+      'max-h-72 overflow-y-auto rounded-overlay border base-border base-bg p-1',
       'ark-horizontal:flex ark-horizontal:max-h-none ark-horizontal:overflow-x-auto',
       focusRing(),
     ],

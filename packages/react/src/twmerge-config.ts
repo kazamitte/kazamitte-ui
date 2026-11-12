@@ -122,6 +122,7 @@ export const configs = {
         'border-subtle',
         'border-muted',
         'border-selected',
+        'border',
         'border-solid',
       ]),
       'outline-color': roleClasses(['focus-ring']),

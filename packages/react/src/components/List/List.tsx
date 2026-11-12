@@ -10,9 +10,9 @@ import { Skeleton } from '../Skeleton';
 // corners instead.
 const listStyles = tv({
   slots: {
-    root: 'rounded-surface border base-border-solid base-bg text-dense-14 base-fg',
+    root: 'rounded-surface border base-border base-bg text-dense-14 base-fg',
     header:
-      'rounded-t-surface border-b base-border-solid base-bg-subtle px-4 py-3 text-body-16 font-semibold base-fg-strong',
+      'rounded-t-surface border-b base-border base-bg-subtle px-4 py-3 text-body-16 font-semibold base-fg-strong',
     items: 'm-0 list-none p-0',
     row: 'border-b base-border-muted px-4 py-3 transition-colors last:rounded-b-surface last:border-b-0 hover:base-bg-muted',
     empty:

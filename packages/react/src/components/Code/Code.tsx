@@ -8,7 +8,7 @@ const codeStyles = tv({
   variants: {
     variant: {
       subtle: 'base-bg-muted',
-      outline: 'border base-border-muted',
+      outline: 'border base-border',
     },
   },
   defaultVariants: { variant: 'subtle' },

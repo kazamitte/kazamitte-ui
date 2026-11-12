@@ -31,13 +31,13 @@ const tableStyles = tv({
     },
     variant: {
       line: {
-        columnHeader: 'border-b base-border-solid',
+        columnHeader: 'border-b base-border',
         cell: 'border-b base-border-muted',
       },
       outline: {
-        root: 'border base-border-solid',
+        root: 'border base-border',
         header: 'base-bg-subtle',
-        columnHeader: 'border-b base-border-solid',
+        columnHeader: 'border-b base-border',
         cell: 'border-b base-border-muted',
       },
     },

@@ -21,7 +21,7 @@ import { Spinner } from '../Spinner';
 const toastStyles = tv({
   slots: {
     root: [
-      'relative flex w-80 max-w-[calc(100vw-2rem)] items-start gap-3 rounded-overlay border base-border-muted base-bg p-4 base-fg shadow-overlay',
+      'relative flex w-80 max-w-[calc(100vw-2rem)] items-start gap-3 rounded-overlay border base-border base-bg p-4 base-fg shadow-overlay',
       // One translate-[x_y] would put both values into each axis variable and
       // leave an invalid translate, stacking every toast in one spot.
       'z-(--z-index) h-(--height) translate-x-(--x) translate-y-(--y) scale-(--scale) opacity-(--opacity)',

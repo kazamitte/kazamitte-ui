@@ -28,7 +28,7 @@ const tourStyles = tv({
       '[--arrow-background:var(--r-base-bg)] [--arrow-size:10px]',
       'ark-open:animate-scale-in ark-closed:animate-scale-out',
     ],
-    arrowTip: 'border-t border-l base-border-muted',
+    arrowTip: 'border-t border-l base-border',
     progress: 'text-dense-14 base-fg-muted',
     title: 'text-body-18 font-semibold base-fg-strong',
     description: 'text-dense-14 base-fg-muted',

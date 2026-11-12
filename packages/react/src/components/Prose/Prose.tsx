@@ -28,13 +28,13 @@ const proseStyles = tv({
     // inline code (Code), not the code inside pre
     '[&_:not(pre)>code]:rounded-tight [&_:not(pre)>code]:base-bg-muted [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-mono-14 [&_:not(pre)>code]:base-fg-strong',
     // code block (CodeBlock)
-    '[&_pre]:overflow-x-auto [&_pre]:rounded-surface [&_pre]:border [&_pre]:base-border-muted [&_pre]:base-bg-muted [&_pre]:px-5 [&_pre]:py-4 [&_pre]:font-mono [&_pre]:text-mono-14 [&_pre]:base-fg-strong',
+    '[&_pre]:overflow-x-auto [&_pre]:rounded-surface [&_pre]:border [&_pre]:base-border [&_pre]:base-bg-muted [&_pre]:px-5 [&_pre]:py-4 [&_pre]:font-mono [&_pre]:text-mono-14 [&_pre]:base-fg-strong',
     '[&_pre:focus-visible]:outline-2 [&_pre:focus-visible]:outline-offset-2 [&_pre:focus-visible]:primary-focus-ring',
     // blockquote (Blockquote)
     '[&_blockquote]:border-s-3 [&_blockquote]:base-border-selected [&_blockquote]:ps-4 [&_blockquote]:text-body-16 [&_blockquote]:base-fg',
     // table (Table)
     '[&_table]:w-full [&_table]:border-collapse [&_table]:text-dense-14 [&_table]:base-fg',
-    '[&_th]:border-b [&_th]:base-border-solid [&_th]:px-3 [&_th]:py-2 [&_th]:text-start [&_th]:font-semibold [&_th]:base-fg-strong',
+    '[&_th]:border-b [&_th]:base-border [&_th]:px-3 [&_th]:py-2 [&_th]:text-start [&_th]:font-semibold [&_th]:base-fg-strong',
     '[&_td]:border-b [&_td]:base-border-muted [&_td]:px-3 [&_td]:py-2 [&_td]:align-top',
     // rule and image
     '[&_hr]:my-8 [&_hr]:border-0 [&_hr]:border-t [&_hr]:base-border-muted',

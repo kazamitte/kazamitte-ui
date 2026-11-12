@@ -24,7 +24,7 @@ export const menuListStyles = tv({
     // inline style, so z-index must live on `content`, not the positioner.
     positioner: '',
     content: [
-      'z-popover max-h-72 min-w-40 overflow-y-auto rounded-overlay border base-border-muted base-bg p-1 shadow-floating',
+      'z-popover max-h-72 min-w-40 overflow-y-auto rounded-overlay border base-border base-bg p-1 shadow-floating',
       'ark-open:animate-fade-in ark-closed:animate-fade-out',
     ],
     item: [

@@ -15,7 +15,7 @@ const chartFrameStyles = tv({
     legendItem: 'inline-flex items-center gap-2',
     swatch: 'inline-block h-3 w-6 shrink-0',
     tooltip:
-      'rounded-surface border base-border-muted base-bg px-3 py-2 text-dense-14 shadow-floating',
+      'rounded-surface border base-border base-bg px-3 py-2 text-dense-14 shadow-floating',
     tooltipLabel: 'mb-1 font-medium base-fg-strong',
     tooltipRow: 'flex items-center gap-2 base-fg',
     tooltipValue: 'ms-auto base-fg-strong tabular-nums',

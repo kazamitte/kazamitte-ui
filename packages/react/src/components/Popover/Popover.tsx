@@ -10,7 +10,7 @@ const popoverStyles = tv({
   slots: {
     positioner: '',
     content: [
-      'relative z-popover w-72 rounded-overlay border base-border-muted base-bg p-4 text-body-16 base-fg shadow-overlay',
+      'relative z-popover w-72 rounded-overlay border base-border base-bg p-4 text-body-16 base-fg shadow-overlay',
       'ark-open:animate-scale-in ark-closed:animate-scale-out',
       focusRing(),
     ],

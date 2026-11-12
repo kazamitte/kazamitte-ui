@@ -8,9 +8,9 @@ import { Clipboard } from '../Clipboard';
 
 const codeBlockStyles = tv({
   slots: {
-    root: 'overflow-hidden rounded-surface border base-border-muted',
+    root: 'overflow-hidden rounded-surface border base-border',
     header:
-      'flex min-h-9 items-center justify-between gap-2 border-b base-border-muted base-bg-subtle py-1 pr-1 pl-3',
+      'flex min-h-9 items-center justify-between gap-2 border-b base-border base-bg-subtle py-1 pr-1 pl-3',
     language: 'font-mono text-mono-14 base-fg',
     trigger: [
       'inline-flex size-7 items-center justify-center rounded-control base-fg transition-colors',

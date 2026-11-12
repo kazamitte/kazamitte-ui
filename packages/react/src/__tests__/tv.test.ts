@@ -16,6 +16,9 @@ describe('tv merges design token classes', () => {
     ['primary-bg-solid', 'base-bg-muted'],
     ['base-fg', 'link-fg'],
     ['base-border-muted', 'error-border-solid'],
+    ['base-border', 'base-border-solid'],
+    ['base-border-solid', 'base-border'],
+    ['base-border-muted', 'base-border'],
     ['primary-focus-ring', 'error-focus-ring'],
   ])('replaces %s with %s', (base, override) => {
     expect(merge(base, override)).toBe(override);

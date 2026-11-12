@@ -5,7 +5,7 @@ import { tv } from '../../tv';
 
 const emptyStateStyles = tv({
   slots: {
-    root: 'flex flex-col items-center gap-4 rounded-surface border border-dashed base-border-muted px-6 py-12 text-center',
+    root: 'flex flex-col items-center gap-4 rounded-surface border border-dashed base-border px-6 py-12 text-center',
     indicator:
       'inline-flex size-12 items-center justify-center rounded-pill base-bg-muted base-fg-muted [&>svg]:size-6',
     content: 'flex max-w-sm flex-col gap-1',
