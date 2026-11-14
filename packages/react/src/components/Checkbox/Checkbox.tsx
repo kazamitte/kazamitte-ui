@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, type ComponentProps, type ReactNode } from 'react';
-import { Checkbox as ArkCheckbox } from '@ark-ui/react';
+import { Checkbox as ArkCheckbox } from '@ark-ui/react/checkbox';
 import { Check, Minus } from 'lucide-react';
 import { tv } from '../../tv';
 import { choiceCardStyles, focusRingWithin } from '../../variants';

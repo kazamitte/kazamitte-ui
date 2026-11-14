@@ -1,7 +1,8 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Menu as ArkMenu, Portal } from '@ark-ui/react';
+import { Menu as ArkMenu } from '@ark-ui/react/menu';
+import { Portal } from '@ark-ui/react/portal';
 import { Check, ChevronRight } from 'lucide-react';
 import { tv } from '../../tv';
 import { menuListStyles } from '../../variants';

@@ -60,6 +60,18 @@ export default defineConfig([
           message: 'No enum. Use an as-const object or a union type.',
         },
       ],
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: '@ark-ui/react',
+              message:
+                'Import the subpath (@ark-ui/react/tabs): the root loads every Ark component.',
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
 

@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Fieldset as ArkFieldset } from '@ark-ui/react';
+import { Fieldset as ArkFieldset } from '@ark-ui/react/fieldset';
 import { tv } from '../../tv';
 
 const fieldsetStyles = tv({

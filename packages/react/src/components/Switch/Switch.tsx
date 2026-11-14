@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode } from 'react';
-import { Switch as ArkSwitch } from '@ark-ui/react';
+import { Switch as ArkSwitch } from '@ark-ui/react/switch';
 import { tv } from '../../tv';
 import { focusRingWithin } from '../../variants';
 

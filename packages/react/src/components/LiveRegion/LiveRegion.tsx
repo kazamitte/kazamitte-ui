@@ -6,7 +6,7 @@ import {
   type ComponentPropsWithRef,
   type ReactNode,
 } from 'react';
-import { ark } from '@ark-ui/react';
+import { ark } from '@ark-ui/react/factory';
 import { tv } from '../../tv';
 
 const liveRegionStyles = tv({ base: 'sr-only' });

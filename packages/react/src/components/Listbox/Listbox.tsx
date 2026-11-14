@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, type ReactNode, type Ref, type RefAttributes } from 'react';
-import { Listbox as ArkListbox, createListCollection } from '@ark-ui/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Listbox as ArkListbox } from '@ark-ui/react/listbox';
 import { Check } from 'lucide-react';
 import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';

@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { ScrollArea as ArkScrollArea } from '@ark-ui/react';
+import { ScrollArea as ArkScrollArea } from '@ark-ui/react/scroll-area';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
 

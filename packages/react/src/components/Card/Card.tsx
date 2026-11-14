@@ -8,7 +8,7 @@ import {
   type Ref,
   type RefAttributes,
 } from 'react';
-import { ark } from '@ark-ui/react';
+import { ark } from '@ark-ui/react/factory';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
 

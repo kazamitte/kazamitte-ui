@@ -5,7 +5,7 @@ import {
   Toaster as ArkToaster,
   createToaster as createArkToaster,
   type CreateToasterReturn,
-} from '@ark-ui/react';
+} from '@ark-ui/react/toast';
 import {
   CircleAlert,
   CircleCheck,

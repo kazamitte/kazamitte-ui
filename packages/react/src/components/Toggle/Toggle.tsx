@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Toggle as ArkToggle } from '@ark-ui/react';
+import { Toggle as ArkToggle } from '@ark-ui/react/toggle';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
 import { useToolbarItem } from '../Toolbar/context';

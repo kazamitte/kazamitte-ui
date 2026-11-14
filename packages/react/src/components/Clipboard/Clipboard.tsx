@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Clipboard as ArkClipboard } from '@ark-ui/react';
+import { Clipboard as ArkClipboard } from '@ark-ui/react/clipboard';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
 

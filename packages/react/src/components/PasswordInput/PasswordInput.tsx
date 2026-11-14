@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode, Ref } from 'react';
-import { PasswordInput as ArkPasswordInput } from '@ark-ui/react';
+import { PasswordInput as ArkPasswordInput } from '@ark-ui/react/password-input';
 import { Eye, EyeOff } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';

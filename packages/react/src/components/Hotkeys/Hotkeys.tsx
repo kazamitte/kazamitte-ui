@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormatHotkey, useHotkey } from '@ark-ui/react';
+import { useFormatHotkey, useHotkey } from '@ark-ui/react/hotkeys';
 import { Kbd } from '../Kbd';
 
 export { useHotkey };

@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Tabs as ArkTabs } from '@ark-ui/react';
+import { Tabs as ArkTabs } from '@ark-ui/react/tabs';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
 

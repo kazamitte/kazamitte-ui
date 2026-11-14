@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode, Ref } from 'react';
-import { Editable as ArkEditable } from '@ark-ui/react';
+import { Editable as ArkEditable } from '@ark-ui/react/editable';
 import { setRef } from '../../setRef';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';

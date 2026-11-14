@@ -7,7 +7,7 @@ import {
   useState,
   type ComponentProps,
 } from 'react';
-import { Toc as ArkToc } from '@ark-ui/react';
+import { Toc as ArkToc } from '@ark-ui/react/toc';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
 

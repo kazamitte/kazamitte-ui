@@ -1,7 +1,8 @@
 'use client';
 
 import type { ComponentProps, ComponentPropsWithRef } from 'react';
-import { Dialog as ArkDialog, Portal } from '@ark-ui/react';
+import { Dialog as ArkDialog } from '@ark-ui/react/dialog';
+import { Portal } from '@ark-ui/react/portal';
 import { tv, type VariantProps } from '../../tv';
 import { closeButtonStyles, scrim } from '../../variants';
 

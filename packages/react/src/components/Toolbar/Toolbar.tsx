@@ -8,7 +8,7 @@ import {
   useRef,
   type ComponentPropsWithRef,
 } from 'react';
-import { ark } from '@ark-ui/react';
+import { ark } from '@ark-ui/react/factory';
 import { tv } from '../../tv';
 import { Button, buttonStyles } from '../Button';
 import { Separator } from '../Separator';

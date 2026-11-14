@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode } from 'react';
-import { ToggleGroup as ArkToggleGroup } from '@ark-ui/react';
+import { ToggleGroup as ArkToggleGroup } from '@ark-ui/react/toggle-group';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';
 import { useToolbarItem } from '../Toolbar/context';

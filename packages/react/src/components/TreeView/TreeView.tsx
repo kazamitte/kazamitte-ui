@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode, Ref, RefAttributes } from 'react';
-import { TreeView as ArkTreeView, createTreeCollection } from '@ark-ui/react';
+import { createTreeCollection } from '@ark-ui/react/collection';
+import { TreeView as ArkTreeView } from '@ark-ui/react/tree-view';
 import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';

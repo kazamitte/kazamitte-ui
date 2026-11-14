@@ -1,8 +1,23 @@
+import { globSync, readFileSync } from 'node:fs';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 const BROWSER_TESTS = 'src/**/__tests__/browser/**/*.test.{ts,tsx}';
 const PREBUNDLE_TESTS = 'src/**/__tests__/prebundle/**/*.test.{ts,tsx}';
+
+const arkSubpaths = [
+  ...new Set(
+    globSync('src/**/*.{ts,tsx}', { exclude: ['src/**/__tests__/**'] }).flatMap(
+      (file) =>
+        Array.from(
+          readFileSync(file, 'utf8').matchAll(
+            /from '(@ark-ui\/react\/[\w-]+)'/g,
+          ),
+          ([, spec]) => spec,
+        ),
+    ),
+  ),
+].sort();
 
 export default defineConfig({
   test: {
@@ -50,18 +65,7 @@ export default defineConfig({
         // Pre-bundled up front: a mid-run re-bundle reloads and fails importing tests.
         optimizeDeps: {
           include: [
-            '@ark-ui/react',
-            '@ark-ui/react/color-picker',
-            '@ark-ui/react/date-input',
-            '@ark-ui/react/date-picker',
-            '@ark-ui/react/drawer',
-            '@ark-ui/react/field',
-            '@ark-ui/react/navigation-menu',
-            '@ark-ui/react/locale',
-            '@ark-ui/react/portal',
-            '@ark-ui/react/rating-group',
-            '@ark-ui/react/timer',
-            '@ark-ui/react/tour',
+            ...arkSubpaths,
             '@tanstack/react-table',
             '@testing-library/jest-dom/vitest',
             '@testing-library/react',

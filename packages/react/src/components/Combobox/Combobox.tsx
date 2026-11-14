@@ -10,13 +10,13 @@ import {
   type RefAttributes,
 } from 'react';
 import { flushSync } from 'react-dom';
+import { useListCollection } from '@ark-ui/react/collection';
 import {
   Combobox as ArkCombobox,
-  Portal,
   useComboboxContext,
-  useFilter,
-  useListCollection,
-} from '@ark-ui/react';
+} from '@ark-ui/react/combobox';
+import { useFilter } from '@ark-ui/react/locale';
+import { Portal } from '@ark-ui/react/portal';
 import { Check, ChevronDown, Plus } from 'lucide-react';
 import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';

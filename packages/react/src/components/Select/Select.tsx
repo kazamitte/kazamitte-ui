@@ -1,11 +1,9 @@
 'use client';
 
 import { useMemo, type ReactNode, type Ref, type RefAttributes } from 'react';
-import {
-  Select as ArkSelect,
-  createListCollection,
-  Portal,
-} from '@ark-ui/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Portal } from '@ark-ui/react/portal';
+import { Select as ArkSelect } from '@ark-ui/react/select';
 import { Check, ChevronDown } from 'lucide-react';
 import { GroupedItems } from '../../GroupedItems';
 import { tv } from '../../tv';

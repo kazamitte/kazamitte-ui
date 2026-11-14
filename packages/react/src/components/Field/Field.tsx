@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Field as ArkField } from '@ark-ui/react';
+import { Field as ArkField } from '@ark-ui/react/field';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';
 import { inputStyles } from '../Input';
