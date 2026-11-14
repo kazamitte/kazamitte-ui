@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, KeyboardEvent, ReactNode } from 'react';
-import { Slider as ArkSlider, useSliderContext } from '@ark-ui/react';
+import { Slider as ArkSlider, useSliderContext } from '@ark-ui/react/slider';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';
 

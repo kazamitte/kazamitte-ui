@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode, Ref } from 'react';
-import { NumberInput as ArkNumberInput } from '@ark-ui/react';
+import { NumberInput as ArkNumberInput } from '@ark-ui/react/number-input';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';

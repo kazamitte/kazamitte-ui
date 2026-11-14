@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Accordion as ArkAccordion } from '@ark-ui/react';
+import { Accordion as ArkAccordion } from '@ark-ui/react/accordion';
 import { ChevronDown } from 'lucide-react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';

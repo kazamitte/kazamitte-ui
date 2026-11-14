@@ -48,6 +48,7 @@ export function Save() {
 | Import                                   | What it is                                                              |
 | ---------------------------------------- | ----------------------------------------------------------------------- |
 | `@kazamitte/kazamitte-ui`                | Every component                                                         |
+| `@kazamitte/kazamitte-ui/<component>`    | One component, in kebab case (`/tabs`, `/date-picker`, `/ui-provider`)  |
 | `@kazamitte/kazamitte-ui/twmerge-config` | The tailwind-merge config for the design tokens, to build your own `tv` |
 | `@kazamitte/kazamitte-ui/variants`       | Shared style variants (`focusRing`, `menuListStyles`, …)                |
 | `@kazamitte/kazamitte-ui/styles.css`     | `ark-*` variants, utilities and the package `@source`                   |
@@ -61,6 +62,12 @@ import { createTV } from 'tailwind-variants';
 import { configs } from '@kazamitte/kazamitte-ui/twmerge-config';
 
 export const tv = createTV({ twMerge: true, twMergeConfig: configs });
+```
+
+A component subpath loads only that component and the Ark UI parts it uses, so test files that import from subpaths start much faster than ones that import the root entry.
+
+```tsx
+import { Tabs } from '@kazamitte/kazamitte-ui/tabs';
 ```
 
 ## Testing with Vitest

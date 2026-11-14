@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode, Ref } from 'react';
-import { TagsInput as ArkTagsInput } from '@ark-ui/react';
+import { TagsInput as ArkTagsInput } from '@ark-ui/react/tags-input';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
 import { fieldSlots, focusRing } from '../../variants';

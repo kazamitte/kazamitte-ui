@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Collapsible as ArkCollapsible } from '@ark-ui/react';
+import { Collapsible as ArkCollapsible } from '@ark-ui/react/collapsible';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';
 

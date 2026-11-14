@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ComponentPropsWithRef, ReactNode } from 'react';
-import { Steps as ArkSteps, useStepsContext } from '@ark-ui/react';
+import { Steps as ArkSteps, useStepsContext } from '@ark-ui/react/steps';
 import { Check } from 'lucide-react';
 import { tv, type VariantProps } from '../../tv';
 import { focusRing } from '../../variants';

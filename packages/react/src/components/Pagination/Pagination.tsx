@@ -1,7 +1,7 @@
 'use client';
 
 import React, { type ComponentProps } from 'react';
-import { Pagination as ArkPagination } from '@ark-ui/react';
+import { Pagination as ArkPagination } from '@ark-ui/react/pagination';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { tv } from '../../tv';
 import { focusRing } from '../../variants';

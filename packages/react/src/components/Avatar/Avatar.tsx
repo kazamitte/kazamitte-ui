@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Avatar as ArkAvatar } from '@ark-ui/react';
+import { Avatar as ArkAvatar } from '@ark-ui/react/avatar';
 import { tv, type VariantProps } from '../../tv';
 
 const avatarStyles = tv({

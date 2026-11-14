@@ -1,7 +1,8 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Popover as ArkPopover, Portal } from '@ark-ui/react';
+import { Popover as ArkPopover } from '@ark-ui/react/popover';
+import { Portal } from '@ark-ui/react/portal';
 import { X } from 'lucide-react';
 import { tv } from '../../tv';
 import { closeButtonStyles, focusRing } from '../../variants';

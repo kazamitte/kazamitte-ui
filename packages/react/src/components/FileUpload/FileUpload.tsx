@@ -5,7 +5,7 @@ import {
   FileUpload as ArkFileUpload,
   type FileUploadFileError,
   type FileUploadFileRejection,
-} from '@ark-ui/react';
+} from '@ark-ui/react/file-upload';
 import { File as FileIcon, Upload, X } from 'lucide-react';
 import { tv } from '../../tv';
 import { fieldSlots } from '../../variants';

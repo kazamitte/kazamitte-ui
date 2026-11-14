@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentPropsWithRef } from 'react';
-import { ark } from '@ark-ui/react';
+import { ark } from '@ark-ui/react/factory';
 import { tv } from '../../tv';
 
 // Tailwind only sees class names written out in full, so the child variants

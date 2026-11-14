@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps, ReactNode } from 'react';
-import { SegmentGroup as ArkSegmentGroup } from '@ark-ui/react';
+import { SegmentGroup as ArkSegmentGroup } from '@ark-ui/react/segment-group';
 import { tv } from '../../tv';
 import { focusRingWithin } from '../../variants';
 

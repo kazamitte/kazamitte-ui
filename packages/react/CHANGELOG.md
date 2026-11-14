@@ -6,6 +6,10 @@
 
 - `@ark-ui/react` is a peer dependency. Install it next to the kit (`pnpm add @ark-ui/react`).
 
+### New entries
+
+- One subpath per component (`@kazamitte/kazamitte-ui/tabs`, `/date-picker`, …). The root entry stays. Components import Ark UI by subpath, so a component subpath no longer loads all of Ark.
+
 ### Fixes
 
 - README: pre-bundling the kit with Vitest needs `react-dom` excluded too; otherwise Tabs panels lose their labels. Covered by a new `prebundle` test project.

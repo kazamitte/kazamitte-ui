@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentProps } from 'react';
-import { Progress as ArkProgress } from '@ark-ui/react';
+import { Progress as ArkProgress } from '@ark-ui/react/progress';
 import { tv, type VariantProps } from '../../tv';
 import { fieldSlots } from '../../variants';
 

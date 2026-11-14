@@ -1,7 +1,12 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/variants.ts', 'src/twmerge-config.ts'],
+  entry: [
+    'src/index.ts',
+    'src/components/*/index.ts',
+    'src/variants.ts',
+    'src/twmerge-config.ts',
+  ],
   unbundle: true,
   format: 'esm',
   platform: 'neutral',

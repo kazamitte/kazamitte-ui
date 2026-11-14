@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type SVGProps,
 } from 'react';
-import { RadioGroup as ArkRadioGroup } from '@ark-ui/react';
+import { RadioGroup as ArkRadioGroup } from '@ark-ui/react/radio-group';
 import { tv } from '../../tv';
 import { choiceCardStyles, fieldSlots, focusRingWithin } from '../../variants';
 import { Icon } from '../Icon';
