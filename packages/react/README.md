@@ -11,8 +11,10 @@ A collection of accessible React components built on [Ark UI](https://ark-ui.com
 ## Install
 
 ```sh
-pnpm add @kazamitte/kazamitte-ui @kazamitte/design-token tailwindcss react react-dom
+pnpm add @kazamitte/kazamitte-ui @kazamitte/design-token @ark-ui/react tailwindcss react react-dom
 ```
+
+`@ark-ui/react` is a peer dependency, so the app and the kit share one copy (and one set of Ark Contexts).
 
 ## CSS
 
@@ -59,6 +61,22 @@ import { createTV } from 'tailwind-variants';
 import { configs } from '@kazamitte/kazamitte-ui/twmerge-config';
 
 export const tv = createTV({ twMerge: true, twMergeConfig: configs });
+```
+
+## Testing with Vitest
+
+If you pre-bundle the kit with Vitest's dependency optimizer, also exclude `react-dom`. Vitest leaves only `react` out of the bundle, so `react-dom` would be bundled in as a second copy: Ark's `flushSync` then reaches a renderer that is not running, and state such as the selected tab never reaches the panels.
+
+```ts
+deps: {
+  optimizer: {
+    client: {
+      enabled: true,
+      include: ['@kazamitte/kazamitte-ui'],
+      exclude: ['react-dom'],
+    },
+  },
+},
 ```
 
 ## Development

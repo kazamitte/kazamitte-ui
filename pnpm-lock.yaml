@@ -24,9 +24,6 @@ importers:
 
   packages/react:
     dependencies:
-      '@ark-ui/react':
-        specifier: ^5.37.2
-        version: 5.40.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@tanstack/react-table':
         specifier: ^9.2.4
         version: 9.2.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -43,6 +40,9 @@ importers:
         specifier: ^3.2.2
         version: 3.3.1(tailwind-merge@3.7.0)(tailwindcss@4.3.3)
     devDependencies:
+      '@ark-ui/react':
+        specifier: ^5.37.2
+        version: 5.40.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.12.0(jiti@2.7.0))

@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Breaking changes
+
+- `@ark-ui/react` is a peer dependency. Install it next to the kit (`pnpm add @ark-ui/react`).
+
+### Fixes
+
+- README: pre-bundling the kit with Vitest needs `react-dom` excluded too; otherwise Tabs panels lose their labels. Covered by a new `prebundle` test project.
+- The build checks that `react`, `react-dom` and `@ark-ui/react` stay peer dependencies and that nothing from `node_modules` is bundled into `dist`.
+
 ## 0.2.0
 
 Requires `@kazamitte/design-token` 0.4.1 or later (the `border` step). Tested with `@ark-ui/react` 5.40; the Ark UI notes below describe its behavior.
