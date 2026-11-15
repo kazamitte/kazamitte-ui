@@ -35,6 +35,7 @@
     "./button": "./src/components/Button/index.ts",
     "./card": "./src/components/Card/index.ts",
     "./chart": "./src/components/Chart/index.ts",
+    "./chat": "./src/components/Chat/index.ts",
     "./checkbox": "./src/components/Checkbox/index.ts",
     "./chip": "./src/components/Chip/index.ts",
     "./clipboard": "./src/components/Clipboard/index.ts",
@@ -93,6 +94,7 @@
     "./tags-input": "./src/components/TagsInput/index.ts",
     "./text": "./src/components/Text/index.ts",
     "./textarea": "./src/components/Textarea/index.ts",
+    "./timeline": "./src/components/Timeline/index.ts",
     "./timer": "./src/components/Timer/index.ts",
     "./toast": "./src/components/Toast/index.ts",
     "./toc": "./src/components/Toc/index.ts",
@@ -156,6 +158,10 @@
       "./chart": {
         "types": "./dist/components/Chart/index.d.ts",
         "default": "./dist/components/Chart/index.js"
+      },
+      "./chat": {
+        "types": "./dist/components/Chat/index.d.ts",
+        "default": "./dist/components/Chat/index.js"
       },
       "./checkbox": {
         "types": "./dist/components/Checkbox/index.d.ts",
@@ -388,6 +394,10 @@
       "./textarea": {
         "types": "./dist/components/Textarea/index.d.ts",
         "default": "./dist/components/Textarea/index.js"
+      },
+      "./timeline": {
+        "types": "./dist/components/Timeline/index.d.ts",
+        "default": "./dist/components/Timeline/index.js"
       },
       "./timer": {
         "types": "./dist/components/Timer/index.d.ts",
