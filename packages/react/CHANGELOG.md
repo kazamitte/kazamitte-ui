@@ -1,10 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 ### Breaking changes
 
-- `@ark-ui/react` is a peer dependency. Install it next to the kit (`pnpm add @ark-ui/react`).
+- `@ark-ui/react` is a peer dependency (5.40 or later). Install it next to the kit (`pnpm add @ark-ui/react`).
+
+### New components
+
+- `Timeline` (Root, Item, Marker, When, Content; the `default`, `active` and `done` states differ in shape, not only in color)
+- `Chat` (Root, Group, Header, Avatar, Sender, Time, Bubble, Footnote; `side="start" | "end"`)
 
 ### New entries
 
